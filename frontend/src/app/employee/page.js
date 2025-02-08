@@ -2,9 +2,10 @@
 import Layout from "../../components/layout/Layout"
 import Link from "next/link"
 import { useState, useEffect } from "react"
-import { getLifeCoins } from "@/src/components/utils/lifeCoinsWeb3"
-import useEmployees from "../../components/hooks/Employee.zustand"
+import useEmployees from "@/src/components/hooks/employee.zustand"
+import useCitizens from "@/src/components/hooks/citizen.zustand"
 
+import axios from "axios"
 export default function Service() {
     const [isActive, setIsActive] = useState({
         status: false,
@@ -24,24 +25,81 @@ export default function Service() {
         }
     }
 
-    const [lifeCoins, setLifeCoins] = useState(0)
+
     const Employee = useEmployees((state) => state.selectedEmployee)
+    //use useEffect to call employee
+    useEffect(() => {
+        //call employee
+        console.log("Employee in page :",Employee);
+    }, []);
+
+
+    const [allCitizen, setAllCitizen] = useState([
+        {
+            name: "Black Marvin",
+            aadhar: "Medical Assistant",
+            image: "assets/images/team/team-1.jpg",
+        },
+        {
+            name: "Eleanor Pena",
+            aadhar: "Doctor",
+            image: "assets/images/team/team-2.jpg",
+        },
+        {
+            name: "Arlene Maccy",
+            aadhar: "Nursing Assistant",
+            image: "assets/images/team/team-3.jpg",
+        },
+        {
+            name: "Jenny Wilson",
+            aadhar: "Senior Doctor",
+            image: "assets/images/team/team-4.jpg",
+        },
+        {
+            name: "Jerome Bell",
+            aadhar: "Cardiologist",
+            image: "assets/images/team/team-9.jpg",
+        },
+        {
+            name: "Guy Hawkins",
+            aadhar: "Pathologist",
+            image: "assets/images/team/team-10.jpg",
+        },
+        {
+            name: "Courtney Henry",
+            aadhar: "Pathologist",
+            image: "assets/images/team/team-11.jpg",
+        },
+        {
+            name: "Ralph Edwards",
+            aadhar: "Ophthalmologist",
+            image: "assets/images/team/team-12.jpg",
+        },
+    ]);
+
+    const addCitizen = useCitizens((state)=>state.setNewCitizen);
+    
 
     useEffect(() => {
-        const fetchLifeCoins = async () => {
-            if (Employee.publicAddress) {
-                try {
-                    console.log("getting life coins of " + Employee.publicAddress);
-                    const coins = await getLifeCoins(Employee.publicAddress)
-                    setLifeCoins(coins)
-                } catch (error) {
-                    alert(`Error fetching LifeCoins: ${error.message}`)
-                }
+        const fetchPatients = async () => {
+            try {
+                const response = await axios.get(`/api/citizen/getAll`);
+                console.log("Fetched citizens:", response.data);
+                setAllCitizen(response.data);
+                
+            } catch (error) {
+                console.error("Error fetching patients:", error);
             }
-        }
+        };
 
-        fetchLifeCoins()
-    }, [Employee.publicAddress])
+        fetchPatients();
+    }, []);
+
+
+    async function setCitizen(member){
+        await addCitizen(member); //setting patient to Zustand state
+        console.log("Patient Added:", member);
+    }
 
     return (
         <>
@@ -58,7 +116,7 @@ export default function Service() {
                                 <div className="col-lg-7 col-md-12 col-sm-12 content-column">
                                     <div className="content-box">
                                         <h2>{Employee.name}</h2>
-                                        <span className="designation">Life Coins: {lifeCoins}</span>
+                                        <span className="designation">POST: {Employee.role} </span>
                                         <p>
                                             Eget lorem dolor sed viverra. Mattis nunc sed blandit libero volutpat sed
                                             cras ornare arcu. consectetur adipiscing elit. Libero turpis blandit
@@ -66,10 +124,10 @@ export default function Service() {
                                             morbi tristique senectus et netus
                                         </p>
                                         <ul className="info-list mb_30 clearfix">
-                                            <li><strong>Date of Birth: </strong>{Employee.DOB}</li>
+                                            <li><strong>Date of Birth: </strong>{Employee.dob}</li>
                                             <li><strong>Email: </strong><Link href={`mailto:${Employee.email}`}>{Employee.email}</Link></li>
-                                            <li><strong>Phone: </strong><Link href={`tel:${Employee.phone}`}>{Employee.phone}</Link></li>
-                                            <li><strong>Employee ID: </strong>{Employee.EmployeeId}</li>
+                                            <li><strong>Aadhar: </strong><Link href={`tel:${Employee}`}>{Employee.aadhar}</Link></li>
+                                            <li><strong>Employee ID: </strong>{Employee.employee_id}</li>
                                             <li><strong>Aadhar: </strong>{Employee.aadhar}</li>
                                         </ul>
                                     </div>
@@ -78,6 +136,99 @@ export default function Service() {
                         </div>
                     </div>
                 </section>
+
+                <h1>Your Gram Citizens</h1> 
+
+                <section className="team-section sec-pad-2 centred">
+                        <div className="auto-container">
+                            <div className="row clearfix">
+                                {allCitizen.map((member, index) => (
+                                    <div
+                                        key={index}
+                                        className="col-lg-3 col-md-6 col-sm-12 team-block"
+                                    >
+                                        <div
+                                            className="team-block-one wow fadeInUp animated"
+                                            data-wow-delay={`${index * 200}ms`}
+                                            data-wow-duration="1500ms"
+                                        >
+                                            <div className="inner-box">
+                                                <div className="image-box">
+                                                    <figure className="image">
+                                                        <img
+                                                            style={{
+                                                                width: "287px",
+                                                                height: "220px",
+                                                                overflow: "hidden", // Ensures no content spills outside
+                                                            }} 
+                                                            src={member.image}
+                                                            alt={member.name}
+                                                        />
+                                                    </figure>
+                                                    {/* <ul className="social-links clearfix">
+                                                        <li>
+                                                            <Link href="/">
+                                                                <i className="icon-4"></i>
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link href="/">
+                                                                <i className="icon-5"></i>
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link href="/">
+                                                                <i className="icon-6"></i>
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link href="/">
+                                                                <i className="icon-7"></i>
+                                                            </Link>
+                                                        </li>
+                                                    </ul> */}
+                                                </div>
+                                                <div className="lower-content">
+                                                    <h3>
+                                                        <Link href="citizen-data" onClick={()=>{
+                                                            setCitizen(member);
+                                                        }}>
+                                                            {member.name}
+                                                        </Link>
+                                                    </h3>
+                                                    <span className="designation">
+                                                        Adhar: {member.aadhar}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="pagination-wrapper mt_20 centred">
+                                <ul className="pagination clearfix">
+                                    <li>
+                                        <Link href="team" className="current">
+                                            1
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="team">2</Link>
+                                    </li>
+                                    <li>
+                                        <Link href="team">3</Link>
+                                    </li>
+                                    <li>
+                                        <Link href="team">
+                                            <i className="icon-36"></i>
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+
 
                 {/* Subscribe Section */}
                 <section className="subscribe-section">
@@ -113,3 +264,4 @@ export default function Service() {
         </>
     )
 }
+

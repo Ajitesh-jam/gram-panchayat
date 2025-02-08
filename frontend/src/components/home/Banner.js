@@ -23,13 +23,13 @@ export default function Banner() {
           </div>
           <div className="col-lg-6 col-md-12 col-sm-12 image-column">
             <div className="image-box"style={{
-                                backgroundImage: "url(assets/images/banner/banner-img-1.png)",//"url(https://ennoblecare.com/wp-content/uploads/2023/09/iStock-1152844782.jpg)",
+                                
                                 width: "655px",
                                 height: "699px",
                                 backgroundSize: "cover",
                                 backgroundPosition: "center",
                             }}>
-              <figure className="image float-bob-y"><img src="assets/images/banner/banner-img-1.jpg" alt="" /></figure>
+              <figure className="image float-bob-y"><img src="https://images.forbesindia.com/blog/wp-content/uploads/2021/08/Raigad-Village.jpg" alt="" /></figure>
             </div>
           </div>
         </div>

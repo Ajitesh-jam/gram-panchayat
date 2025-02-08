@@ -4,7 +4,7 @@
 import Layout from "../../components/layout/Layout";
 import { useState } from 'react';
 import { getAccounts } from "../../components/utils/web3.js";
-import useEmployees from "../../components/hooks/Employee.zustand.js";
+import useEmployees from "../../components/hooks/employee.zustand.js";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import bcrypt from "bcryptjs";

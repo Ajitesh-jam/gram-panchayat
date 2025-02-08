@@ -1,7 +1,7 @@
 "use client"
 import Layout from "../../components/layout/Layout"
 import Link from "next/link"
-import useEmployees from "../../components/hooks/Employee.zustand"
+import useEmployees from "../../components/hooks/employee.zustand"
 import axios from "axios";
 import { useState } from "react";
 
@@ -13,7 +13,7 @@ export default function Home() {
     //const Citizens = useEmployees((state) => state.setNewCitizen);
     const Employees = useEmployees((state) => state.setNewEmployee);
     //const navigate = useNavigate(); // Use navigate instead of router
-    const [aadhar,setAdhar] = useState(); 
+    const [id,setId] = useState(); 
     const [password,setPassword] = useState(); 
 
     //router to navigate
@@ -23,7 +23,7 @@ export default function Home() {
         console.log("Login called");
         try {
             
-            //const response = await axios.get(`http://localhost:8000/getRecord/${aadhar}/${password}`);
+            //const response = await axios.get(`http://localhost:8000/getRecord/${id}/${password}`);
             //if (response.status === 200) {
                 //Citizens(response.data); // Update Citizen data in Zustand
                 console.log("Successfully logged in as Administrator: ");
@@ -52,15 +52,15 @@ export default function Home() {
     async function loginEmployee() {
         console.log("Login called");
         try {
-            
-            const response = await axios.get(`http://localhost:8000/Employee/getRecord/${aadhar}/${password}`);
+
+            const response = await axios.get(`/api/employee/get?employee_id=${id}&password=${password}`);
             
             console.log("Successfully logged in as : ",response.data);
             if (response.status === 200) {
                 Employees(response.data); // Update Citizen data in Zustand
 
-                //naviagte to /patinet
-                router.push("/Employee");
+                //naviagte to /Employee
+                router.push("/employee");
             }
         } catch (error) {
             //Handle specific error cases
@@ -96,7 +96,7 @@ export default function Home() {
                                             <>
                                                 <div className="row clearfix">
                                                     <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="fname" placeholder="Adhar" onChange={(e) => setAdhar(e.target.value)} required />
+                                                        <input type="text" name="fname" placeholder="Adhar" onChange={(e) => setId(e.target.value)} required />
                                                     </div>
                                                     
                                                     <div className="col-lg-6 col-md-6 col-sm-12 form-group">
@@ -109,17 +109,17 @@ export default function Home() {
                                             </>
 
                                             <div className="sec-title mb_50">
-                                            <h2>Login Hospital Employee</h2>
+                                            <h2>Login as an Panchayat Employee</h2>
                                              </div>
 
                                             <>
                                                 <div className="row clearfix">
                                                     <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="fname" placeholder="publicAddress" onChange={(e) => setAdhar(e.target.value)} required />
+                                                        <input type="text" name="fname" placeholder="Employee id " onChange={(e) => setId(e.target.value)} required />
                                                     </div>
                                                     
                                                     <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="summary" placeholder="Password"  onChange={(e) => setPassword(e.target.value)} required />
+                                                        <input type="text" name="summary" placeholder="Password "  onChange={(e) => setPassword(e.target.value)} required />
                                                     </div>
                                                     
                                                 </div>

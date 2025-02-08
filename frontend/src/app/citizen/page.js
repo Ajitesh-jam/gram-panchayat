@@ -2,10 +2,9 @@
 import Layout from "../../components/layout/Layout"
 import Link from "next/link"
 import { useState } from 'react'
-import {  getMedicalRecord } from "../../components/utils/web3.js"; // Added updateRecordByAdministrator
-import useCitizens from "../../components/hooks/Citizen.zustand"
+import useCitizens from "@/src/components/hooks/citizen.zustand";
 import { useEffect } from "react";
-import { retrieveFileWithSignedURL } from '../../components/utils/pinata.js';
+
 
 export default function service() {
     const [isActive, setIsActive] = useState({
@@ -27,105 +26,10 @@ export default function service() {
     }
 
     const Citizen = useCitizens((state)=> state.selectedCitizen);
-
-    //Medical Record
-    const [medicalRecords, setMedicalRecords] = useState([
-        {
-            "NO RECORDS FOUND": "No Records Found"
-        }
-    ]); // State for storing medical records
-    
-    const [fileUrls, setFileUrls] = useState([]); // Array to store URLs for each record
-    const [loading, setLoading] = useState([]);    // Array to track loading states for each record
-    const [currentUrlIndex, setCurrentUrlIndex] = useState(0); // State to track the current URL being displayed
-
-    // Function to get a medical record using the Web3 contract
-    const handleGetMedicalRecord = async (publicAddress) => {
-        console.log("Handle get Medical Record with public Address : ",publicAddress);
-        try {
-           
-            const medicalRecord = await getMedicalRecord(Citizen.publicAddress,Citizen.publicAddress);
-
-            console.log("Records Fetched by handleGetMedical Record : ",medicalRecord);
-            setMedicalRecords(medicalRecord);
-
-            return medicalRecord; // Return the fetched medical record
-        } catch (e) {
-            console.error("Error fetching medical record:", e);
-            console.log("Administrator NOT CONNECTED");
-            return [];
-        }
-    };
-    //Function to Update Links whenever change in medical records
+    //use effect to fectch the citizen from zustand
     useEffect(() => {
-        if(medicalRecords.length > 0){
-            medicalRecords.forEach((record, index) => {
-    
-            if (!fileUrls[index] && !loading[index] ) {
-                if(record!="No records found")
-                handleRetrieve(record, index);
-                else{
-                setFileUrls([...fileUrls, "No records found"]);
-                setLoading([...loading, false]);
-                } 
-            }
-            });
-        }
-    }, [medicalRecords]);
-
-
-    // const fetchData = async (cid) => {////////////////////////////////To change this
-    //     console.log("FETCHING DATA FOR CID:", cid);
-    //     const url = await retrieveFileWithSignedURL(cid);
-    //     const apiResponse = await fetch(`http://localhost:8000/pinataContent?url=${url}`);
-    //     const { data, contentType } = await apiResponse.json();
-    //     console.log("Fetched data:", data, "Content-Type:", contentType);
-    // };
-    
-
-    // //function to get file links from Pinata 
-    const handleRetrieve = async (cid, index) => {
-        if (!cid) return;
-
-        try {
-            setLoading((prev) => {
-            const updatedLoading = [...prev];
-            updatedLoading[index] = true;  // Set loading state for the current record
-            return updatedLoading;
-            });
-            const url = await retrieveFileWithSignedURL(cid);
-            //fetchData(cid);////////////////////////////////To change this
-
-
-            //create a get request of the url and console log out
-            //const response = await fetch(url);//, headers: {   "Accept": "application/json" }
-            // const data = await response.json();
-            // console.log("Data from the URL : ",data);
-            
-            setFileUrls((prev) => {
-            const updatedUrls = [...prev];
-            updatedUrls[index] = url;  // Store retrieved URL in the corresponding index
-            return updatedUrls;
-            });
-
-        } catch (error) {
-            console.error("Error retrieving file:", error);
-        } finally {
-            setLoading((prev) => {
-            const updatedLoading = [...prev];
-            updatedLoading[index] = false;  // Set loading state to false after fetching
-            return updatedLoading;
-            });
-
-        }
-    };
-
-    
-    useEffect(() => {
-        if(medicalRecords.length > 0){
-            handleGetMedicalRecord(Citizen.publicAddress);
-        }
-    },[]);
+        console.log("Citizen in its page : ", Citizen);
+    }, [Citizen])
 
 
 
@@ -151,7 +55,7 @@ export default function service() {
                                             <p> Contact:{Citizen.contact} </p>
                                             <p> Aadhar:{Citizen.aadhar} </p>
                                             <p> Gender:{Citizen.gender} </p>
-                                            <p> DOB:{Citizen.DOB} </p>
+                                            <p> DOB:{Citizen.dob} </p>
                                         </div>
                                     </div>
                                 </div>
@@ -163,27 +67,7 @@ export default function service() {
                                 <div className="widget-content">
                                     <ul className="category-list clearfix">
 
-                                    {medicalRecords.length > 0 ? (
-                                        medicalRecords.map((record, index) => (
-                                            <div key={index}>
-
-                                                {fileUrls[index] ? (
-                                                    <li><a 
-                                                        
-                                                        className={currentUrlIndex === index ? "current" : ""}
-                                                        onClick={() => setCurrentUrlIndex(index)}
-                                                    >
-                                                        Record {index + 1}
-                                                    </a></li>                                           
-                                                ) : (
-                                                <span className="loading-animation">Fetching record...</span>
-                                                )}
-                                            </div>
-                                            ))
-                                        ) : (
-                                        <p>No medical records Found!!</p>
-                                        )
-                                    }
+                                    c ,dcdlemelmvlemv
                                     </ul>
                                 </div>
 
@@ -198,17 +82,7 @@ export default function service() {
                             <div className="content-one mb_60">
                                 <div className="text-box">
                                     <h2>Medical Record Image</h2>
-                                    {fileUrls[currentUrlIndex] ? (
-                                        <>
-                                        {/* <figure className="image-box mb_40"><img src={fileUrls[currentUrlIndex]} alt="Record" /></figure> */}
-                                        
-                                       
-                                        <a href={fileUrls[currentUrlIndex]} target="_blank" rel="noreferrer">Access Record</a>
-
-                                        </>
-                                    ) : (
-                                        <p>Loading image...</p>
-                                    )}
+                                    
                                 </div>
                             </div>
                             <div className="content-two">

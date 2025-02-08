@@ -1,7 +1,7 @@
 "use client"
 import Layout from "../../components/layout/Layout"
 import Link from "next/link"
-import useCitizens from "../../components/hooks/Citizen.zustand"
+import useCitizens from "../../components/hooks/citizen.zustand"
 import axios from "axios";
 import { useState } from "react";
 
@@ -13,36 +13,37 @@ export default function Home() {
     const Citizens = useCitizens((state) => state.setNewCitizen);
     //const navigate = useNavigate(); // Use navigate instead of router
     const [aadhar,setAdhar] = useState(); 
-    const [password,setPassword] = useState(); 
+
 
     //router to navigate
     const router = useRouter();
 
-    async function login() {
-        console.log("Login called");
-        try {
-            
-            const response = await axios.get(`http://localhost:8000/getRecord/${aadhar}/${password}`);
-            if (response.status === 200) {
-                Citizens(response.data); // Update Citizen data in Zustand
-                console.log("Successfully logged in as : ",response.data);
+    const setCitizen = useCitizens((state) => state.setNewCitizen); // Zustand function to update citizen
 
-                //naviagte to /patinet
-                router.push("/Citizen");
+    async function login() {
+        console.log("Login called with Aadhar:", aadhar);
+
+        try {
+            const response = await axios.get(`/api/citizen/get?aadhar=${aadhar}`);
+
+            if (response.status === 200) {
+                setCitizen(response.data); // Update Citizen data in Zustand
+                console.log("Successfully logged in as:", response.data);
+                
+                //console.log("Successfully logged in as:", response.data);
+                // Navigate to /Citizen
+                router.push("/citizen");
             }
         } catch (error) {
-            //Handle specific error cases
             if (error.response) {
-                if (error.response.status === 401) {
-                    alert("Your password is incorrect");
-                } else if (error.response.status === 404) {
+                if (error.response.status === 404) {
                     alert("Citizen record not found");
                 } else {
                     alert("An error occurred while logging in");
                 }
             } else {
                 alert("Network error. Please try again later.");
-                console.log("error: ",error);
+                console.error("Error:", error);
             }
         }
     }
@@ -66,10 +67,6 @@ export default function Home() {
                                                 <div className="row clearfix">
                                                     <div className="col-lg-6 col-md-6 col-sm-12 form-group">
                                                         <input type="text" name="fname" placeholder="Adhar" onChange={(e) => setAdhar(e.target.value)} required />
-                                                    </div>
-                                                    
-                                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="summary" placeholder="Password"  onChange={(e) => setPassword(e.target.value)} required />
                                                     </div>
                                                     
                                                 </div>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect,useState } from "react";
 import axios from "axios";
 
-import useCitizens from "../../components/hooks/Citizen.zustand"
+import useCitizens from "../../components/hooks/citizen.zustand"
 export default function Home() {
     // JSON array of team members
 

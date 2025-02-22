@@ -58,7 +58,7 @@ export const getAllCitizen = async ()=>{
 //employees
 import bcrypt from "bcrypt";
 
-// 🟢 Get employee details (with citizen info) if credentials are correct
+
 export const getEmployee = async (employee_id,password) => {
   console.log("Fetching employee:", employee_id);
 
@@ -82,7 +82,7 @@ export const getEmployee = async (employee_id,password) => {
   return res.rows[0] || null;
 };
 
-// 🟡 Update employee or citizen details if password is correct
+
 export const updateEmployee = async (employee_id, password, updates) => {
   console.log("Updating employee:", employee_id);
 
@@ -112,7 +112,7 @@ export const updateEmployee = async (employee_id, password, updates) => {
   return getEmployee(employee_id, password); // Return updated record
 };
 
-// 🔴 Delete employee record
+
 export const deleteEmployee = async (employee_id, password) => {
   console.log("Deleting employee:", employee_id);
 
@@ -129,7 +129,7 @@ export const deleteEmployee = async (employee_id, password) => {
   return res.rows[0] || null;
 };
 
-// 🟢 Create a new employee
+
 export const createEmployee = async (employee) => {
   const { employee_id, password, citizen_id, role } = employee;
 
@@ -143,4 +143,30 @@ export const createEmployee = async (employee) => {
   const res = await pool.query(query, values);
 
   return res.rows[0];
+};
+
+export const createScheme = async (scheme) => {
+  const {id , name ,criteria, description} = scheme;
+
+  const query = 'INSERT INTO schemes values ($1, $2, $3, $4) RETURNING *;';
+
+  const values = [id,name,criteria,description];
+  const res = await pool.query(query,values);
+  return res.rows[0];
+};
+
+export const getScheme = async (id) => {
+  console.log("Fetching scheme:", id);
+
+  
+  const query = `
+  SELECT *
+  FROM schemes 
+  WHERE id = $1 ;
+  `;
+  
+  const values = [id];
+  const res = await pool.query(query, values);
+
+  return res.rows[0] || null;
 };

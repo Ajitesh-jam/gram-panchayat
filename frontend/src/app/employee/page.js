@@ -198,6 +198,7 @@ export default function Service() {
                                                     </h3>
                                                     <span className="designation">
                                                         Adhar: {member.aadhar}
+                                                        Email: {member.email}
                                                     </span>
                                                 </div>
                                             </div>

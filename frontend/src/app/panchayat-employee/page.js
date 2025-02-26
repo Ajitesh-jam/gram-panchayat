@@ -57,7 +57,7 @@ export default function Home() {
     useEffect(() => {
         const fetchCitizens = async () => {
             try {
-                const response = await axios.get("http://localhost:8000/getAllCitizens");
+                const response = await axios.get("api/citizen/getAll");
                 console.log("Fetched Citizens:", response.data);
                 setAllCitizens(response.data);
                 

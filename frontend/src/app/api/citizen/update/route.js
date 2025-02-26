@@ -1,4 +1,5 @@
 import { updateCitizen } from '@/src/components/sql/mysql';
+import { NextResponse } from 'next/server';
 
 // ✏️ PUT - Update an existing citizen
 export async function PUT(req) {

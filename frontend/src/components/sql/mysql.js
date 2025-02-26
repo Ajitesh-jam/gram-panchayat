@@ -18,25 +18,26 @@ export const createCitizen = async (citizen) => {
   const values = [citizen_id, aadhar, gender, name, email, image, household_id, dob];
   
   const res = await pool.query(query, values);
-  return res.rows[0];
+  return res.rows[0]||null;
 };
 
 export const updateCitizen = async (aadhar, updates) => {
+  console.log("Updating citizen:", aadhar);
+  console.log("updates ",updates);
   const setClause = Object.keys(updates)
-    .map((key, index) => `${key} = $${index + 2}`)
-    .join(', ');
-  
+    .map((key, index) => `${key} = $${index + 2}`).join(', ');
+    console.log("setClause ",setClause);
   const values = [aadhar, ...Object.values(updates)];
   const query = `UPDATE citizen SET ${setClause} WHERE aadhar = $1 RETURNING *;`;
 
   const res = await pool.query(query, values);
-  return res.rows[0];
+  return res.rows[0]||null;
 };
 
 export const deleteCitizen = async (aadhar) => {
   const query = `DELETE FROM citizen WHERE aadhar = $1 RETURNING *;`;
   const res = await pool.query(query, [aadhar]);
-  return res.rows[0];
+  return res.rows[0]||null;
 };
 
 export const getCitizenByAadhar = async (aadhar) => {
@@ -44,14 +45,14 @@ export const getCitizenByAadhar = async (aadhar) => {
   const query = `SELECT * FROM citizen WHERE aadhar = $1;`;
   const res = await pool.query(query, [aadhar]);
   //console.log("res ", res.rows);
-  return res.rows[0];
+  return res.rows[0]||null;
 };
 
 export const getAllCitizen = async ()=>{
   const query = `SELECT * FROM citizen;`;
   const res = await pool.query(query);
   //console.log("res ", res.rows);
-  return res.rows;
+  return res.rows||null;
 }
 
 
@@ -109,7 +110,7 @@ export const updateEmployee = async (employee_id, password, updates) => {
     await pool.query(`UPDATE citizen SET ${setClause} WHERE citizen_id = $1;`, values);
   }
 
-  return getEmployee(employee_id, password); // Return updated record
+  return getEmployee(employee_id, password)||null; // Return updated record
 };
 
 
@@ -142,7 +143,7 @@ export const createEmployee = async (employee) => {
   const values = [employee_id, password, citizen_id, role];
   const res = await pool.query(query, values);
 
-  return res.rows[0];
+  return res.rows[0]||null;
 };
 
 export const createScheme = async (scheme) => {
@@ -152,7 +153,7 @@ export const createScheme = async (scheme) => {
 
   const values = [id,name,criteria,description];
   const res = await pool.query(query,values);
-  return res.rows[0];
+  return res.rows[0]||null;
 };
 
 export const getScheme = async (id) => {
@@ -170,3 +171,37 @@ export const getScheme = async (id) => {
 
   return res.rows[0] || null;
 };
+
+export const updateScheme = async (id, name , criteria , description) => {
+  console.log("Updating scheme:", id);
+
+  const query = `
+    UPDATE schemes 
+    SET name = $1, criteria = $2, description = $3
+    WHERE id = $4
+    RETURNING *;
+  `;
+
+  const values = [name, criteria, description, id];
+  const res = await pool.query(query, values);
+
+  return res.rows[0] || null;
+};
+
+export const deleteScheme = async (id) => {
+  console.log("Deleting scheme:", id);
+
+  const query = `DELETE FROM schemes WHERE id = $1 RETURNING *;`;
+  const res
+   = await pool.query(query, [id]);
+
+  return res.rows[0] || null;
+}
+
+export const getAllSchemes = async ()=>{
+  const query = `SELECT * FROM schemes;`;
+  const res = await pool.query(query);
+  //console.log("res ", res.rows);
+  return res.rows||null;
+}
+

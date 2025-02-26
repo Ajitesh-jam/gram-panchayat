@@ -205,3 +205,37 @@ export const getAllSchemes = async ()=>{
   return res.rows||null;
 }
 
+
+
+export const getVillageSchemes = async (village_id) => {
+  console.log("Fetching scheme of your village :", village_id);
+
+  
+  const query = `
+  SELECT 
+  From village_scheme 
+  WHERE village_id = $1 ;
+  `;
+  
+  const values = [village_id];
+  const res = await pool.query(query, values);
+
+  return res.rows || null;
+};
+
+export const getAScheme_of_a_village = async (scheme_id,village_id) => {
+  console.log("Fetching scheme of your village :", village_id);
+
+  
+  const query = `
+  SELECT *
+  From village_scheme 
+  WHERE village_id = $1 
+  AND scheme_id = $2;
+  `;
+  
+  const values = [village_id,scheme_id];
+  const res = await pool.query(query, values);
+
+  return res.rows || null;
+};

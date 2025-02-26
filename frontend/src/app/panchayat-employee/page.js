@@ -34,7 +34,7 @@ export default function Service() {
     }, []);
 
 
-    const [allCitizen, setAllCitizen] = useState([
+    const [allSchemes, setAllSchemes] = useState([
         {
             name: "Black Marvin",
             aadhar: "Medical Assistant",
@@ -77,24 +77,81 @@ export default function Service() {
         },
     ]);
 
+    const [allCitizen, setAllCitizen] = useState([
+        {
+
+            aadhar: "Medical Assistant",
+            image: "assets/images/team/team-1.jpg",
+        },
+        {
+            name: "Eleanor Pena",
+            aadhar: "Doctor",
+            image: "assets/images/team/team-2.jpg",
+        },
+        {
+            name: "Arlene Maccy",
+            aadhar: "Nursing Assistant",
+            image: "assets/images/team/team-3.jpg",
+        },
+        {
+            name: "Jenny Wilson",
+            aadhar: "Senior Doctor",
+            image: "assets/images/team/team-4.jpg",
+        },
+        {
+            name: "Jerome Bell",
+            aadhar: "Cardiologist",
+            image: "assets/images/team/team-9.jpg",
+        },
+        {
+            name: "Guy Hawkins",
+            aadhar: "Pathologist",
+            image: "assets/images/team/team-10.jpg",
+        },
+        {
+            name: "Courtney Henry",
+            aadhar: "Pathologist",
+            image: "assets/images/team/team-11.jpg",
+        },
+        {
+            name: "Ralph Edwards",
+            aadhar: "Ophthalmologist",
+            image: "assets/images/team/team-12.jpg",
+        },
+    ]);
+
+    
+
     const addCitizen = useCitizens((state)=>state.setNewCitizen);
     
 
     useEffect(() => {
-        const fetchPatients = async () => {
+        const fetchCitizens = async () => {
             try {
                 const response = await axios.get(`/api/citizen/getAll`);
                 console.log("Fetched citizens:", response.data);
                 setAllCitizen(response.data);
-                
             } catch (error) {
-                console.error("Error fetching patients:", error);
+                console.error("Error fetching Citizens:", error);
             }
         };
 
-        fetchPatients();
+        fetchCitizens();
     }, []);
 
+    useEffect(() => {
+        const fetchSchemes = async () => {
+            try {
+                const response = await axios.get(`/api/scheme/getAll`);
+                console.log("Fetched Schemes:", response.data);
+                setAllSchemes(response.data);
+            } catch (error) {
+                console.error("Error fetching Citizens:", error);
+            }
+        };
+
+        fetchSchemes();
+    }, []);
     //fetching all the schemes
     // UseEffect(() => {}, []);
 
@@ -202,7 +259,7 @@ export default function Service() {
                                                     </h3>
                                                     <span className="designation">
                                                         Adhar: {member.aadhar}
-                                                        Email: {member.email}
+                                                        
                                                     </span>
                                                 </div>
                                             </div>
@@ -233,6 +290,73 @@ export default function Service() {
                         </div>
                     </section>
 
+
+
+                 <h1>Your Schemes</h1> 
+
+                <section className="team-section sec-pad-2 centred">
+                        <div className="auto-container">
+                            <div className="row clearfix">
+                                {allSchemes.map((scheme, index) => (
+                                    <div
+                                        key={index}
+                                        className="col-lg-3 col-md-6 col-sm-12 team-block"
+                                    >
+                                        <div
+                                            className="team-block-one wow fadeInUp animated"
+                                            data-wow-delay={`${index * 200}ms`}
+                                            data-wow-duration="1500ms"
+                                        >
+                                            <div className="inner-box">
+                                                <div className="image-box">
+                                                    <figure className="image">
+                                                        
+                                                    </figure>
+                                                   
+                                                </div>
+                                                <div className="lower-content">
+                                                    <h3>
+                                                        <Link href={`scheme-data?scheme_id=${scheme.scheme_id}`} onClick={() => {
+                                                            setCitizen(scheme);
+                                                        }}>
+                                                            
+                                                            {scheme.scheme_name}
+                                                        </Link>
+                                                    </h3>
+                                                    <span className="designation">
+
+                                                        Criteria: {scheme.criteria}
+                                                        SchemeId: {scheme.scheme_id}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="pagination-wrapper mt_20 centred">
+                                <ul className="pagination clearfix">
+                                    <li>
+                                        <Link href="team" className="current">
+                                            1
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="team">2</Link>
+                                    </li>
+                                    <li>
+                                        <Link href="team">3</Link>
+                                    </li>
+                                    <li>
+                                        <Link href="team">
+                                            <i className="icon-36"></i>
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                                        
 
 
                 {/* Subscribe Section */}

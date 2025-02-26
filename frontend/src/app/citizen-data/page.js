@@ -3,6 +3,7 @@ import React from 'react';
 import Layout from "../../components/layout/Layout"
 import Link from "next/link"
 import useCitizens from "../../components/hooks/citizen.zustand"
+import useEmployees from "../../components/hooks/employee.zustand"
 import { useState, useEffect} from 'react';
 const ProgressBar = ({ label, percent }) => (
     <div className="progress-box">
@@ -64,7 +65,8 @@ const medicines = [
  
 export default function Home() {
 
-  const Citizen=useCitizens((state) => state.selectedCitizen);
+  const Citizen = useCitizens((state) => state.selectedCitizen);
+
 
 
     return (
@@ -77,27 +79,7 @@ export default function Home() {
                             <div className="col-lg-5 col-md-12 col-sm-12 image-column">
                                 <figure className="image-box mr_15"><img src={Citizen.image} alt="" /></figure>
                             </div>
-                            <div className="col-lg-7 col-md-12 col-sm-12 content-column">
-                                <div className="content-box">
-                                    <h2> {Citizen.name} </h2>
-                                    <span className="designation">Adhar: {Citizen.aadhar} </span>
-                                    <p>Eget lorem dolor sed viverra. Mattis nunc sed blandit libero volutpat sed cras ornare arcu. consectetur adipiscing elit. Libero turpis blandit blandit mauris aliquam condimentum quam suspendisse Pellentesque habitant morbi tristique senectus et netus</p>
-                                    <ul className="info-list mb_30 clearfix">
-                                        <li><strong>Date of Birth: </strong>{Citizen.dob} </li>
-                                        <li><strong>Email: </strong><Link href="mailto:tanya.hill@example.com">{Citizen.email} </Link></li>
-                                        <li><strong>Phone: </strong><Link href="tel:3035550105">{Citizen.contact} </Link></li>
-                                    </ul>
-                                    {/* <ul className="social-links clearfix">
-                                        <li><Link href="/"><i className="icon-4"></i></Link></li>
-                                        <li><Link href="/"><i className="icon-5"></i></Link></li>
-                                        <li><Link href="/"><i className="icon-6"></i></Link></li>
-                                        <li><Link href="/"><i className="icon-7"></i></Link></li>
-                                    </ul> */}
-
-                                    <button type="submit" className="theme-btn btn-one" ><span>Connect Wallet</span></button>
-                                    
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

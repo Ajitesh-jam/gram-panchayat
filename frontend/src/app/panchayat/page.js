@@ -60,7 +60,7 @@ export default function Home() {
                 Employees(response.data); // Update Citizen data in Zustand
 
                 //naviagte to /Employee
-                router.push("/employee");
+                router.push("/panchayat-employee");
             }
         } catch (error) {
             //Handle specific error cases

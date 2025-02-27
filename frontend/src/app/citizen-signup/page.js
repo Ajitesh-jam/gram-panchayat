@@ -1,8 +1,7 @@
 'use client';
 import Layout from "../../components/layout/Layout";
 import { useState } from 'react';
-import { getAccounts } from "../../components/utils/web3.js";
-import useCitizens from "../../components/hooks/Citizen.zustand.js";
+import useCitizens from "../../components/hooks/citizen.zustand.js";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import bcrypt from "bcryptjs";
@@ -36,17 +35,7 @@ export default function Home() {
         }));
     };
 
-    const connectWallet = async () => {
-        try {
-            const accounts = await getAccounts();
-            setAccount(accounts[0]);
-
-            console.log("Connected account:", accounts[0]);
-        } catch (error) {
-            console.error("Error connecting wallet:", error);
-        }
-    };
-
+   
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -83,11 +72,12 @@ export default function Home() {
         console.log("Submitting form with data:", CitizenData);
 
         // API call or Zustand action
-        axios.post(`http://localhost:8000/createRecord/${account}`, CitizenData);
+        //call api /api/citizen
+
 
 
         Citizens(CitizenData);
-        router.push("/Citizen");
+        router.push("/citizen");
     };
 
     return (
@@ -213,16 +203,7 @@ export default function Home() {
                                                         required
                                                     />
                                                 </div>
-                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                    <p>Please Download MetaMask and connect your wallet</p>
-                                                    <button
-                                                        type="button"
-                                                        className="theme-btn btn-one"
-                                                        onClick={connectWallet}
-                                                    >
-                                                        <span>Connect Wallet</span>
-                                                    </button>
-                                                </div>
+                                                
                                                 <div className="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
                                                     <button type="submit" className="theme-btn btn-one">
                                                         <span>Sign UP</span>

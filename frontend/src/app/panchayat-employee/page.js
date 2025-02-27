@@ -6,6 +6,19 @@ import useEmployees from "@/src/components/hooks/employee.zustand"
 import useCitizens from "@/src/components/hooks/citizen.zustand"
 
 import axios from "axios"
+
+const ProgressBar = ( {label, percent} ) => (
+    <div className="progress-box">
+      <p>{label}</p>
+      <div className="bar">
+        <div className="bar-inner count-bar" style={{ width: `${percent}%` }}></div>
+        <div className="count-text">{`${percent}%`}</div>
+      </div>
+    </div>
+);
+
+
+
 export default function Service() {
     const [isActive, setIsActive] = useState({
         status: false,
@@ -198,7 +211,9 @@ export default function Service() {
                     </div>
                 </section>
 
+
                 <h1>Your Gram Citizens</h1> 
+
 
                 <section className="team-section sec-pad-2 centred">
                         <div className="auto-container">

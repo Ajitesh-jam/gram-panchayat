@@ -3,7 +3,7 @@ import React from 'react';
 import Layout from "../../components/layout/Layout"
 import Link from "next/link"
 import useCitizens from "../../components/hooks/citizen.zustand"
-import useEmployees from "../../components/hooks/employee.zustand"
+
 import { useState, useEffect} from 'react';
 const ProgressBar = ({ label, percent }) => (
     <div className="progress-box">
@@ -60,7 +60,6 @@ const medicines = [
 ];
 
 
-
   
  
 export default function Home() {
@@ -73,19 +72,40 @@ export default function Home() {
         <>
             <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Team Details">
                 <section className="team-details sec-pad-2">
-                <div className="auto-container">
-                    <div className="team-details-content mb_50">
-                        <div className="row clearfix">
-                            <div className="col-lg-5 col-md-12 col-sm-12 image-column">
-                                <figure className="image-box mr_15"><img src={Citizen.image} alt="" /></figure>
+                    <div className="auto-container">
+                        <div className="team-details-content mb_50">
+                            <div className="row clearfix">
+                                <div className="col-lg-5 col-md-12 col-sm-12 image-column">
+                                    <figure className="image-box mr_15">
+                                        <img src={Citizen.image} alt={Citizen.name} />
+                                    </figure>
+                                </div>
+                                <div className="col-lg-7 col-md-12 col-sm-12 content-column">
+                                    <div className="content-box">
+                                        <h2>{Citizen.name}</h2>
+                                
+                                        <p>
+                                            Eget lorem dolor sed viverra. Mattis nunc sed blandit libero volutpat sed
+                                            cras ornare arcu. consectetur adipiscing elit. Libero turpis blandit
+                                            blandit mauris aliquam condimentum quam suspendisse Pellentesque habitant
+                                            morbi tristique senectus et netus
+                                        </p>
+                                        <ul className="info-list mb_30 clearfix">
+                                            <li><strong>Date of Birth: </strong>{Citizen.dob}</li>
+                                            <li><strong>Email: </strong><Link href={`mailto:${Citizen.email}`}>{Citizen.email}</Link></li>
+                                            <li><strong>Aadhar: </strong><Link href={`tel:${Citizen}`}>{Citizen.aadhar}</Link></li>
+
+                                            <ProgressBar label="Income" percent={67}></ProgressBar>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            
                         </div>
                     </div>
-                </div>
-                
-                
                 </section>
+                
+                
+
 
                 
 

@@ -7,6 +7,13 @@ import useCitizens from "@/src/components/hooks/citizen.zustand"
 
 import axios from "axios"
 
+
+import MultiLineGraph from "@/src/components/multi_line_graphs/multi_line_graph"
+import AnimatedPieChart from "@/src/components/pie_chart/pie_chart"
+// import AnimatedHistogram from "@/src/components/histogram/histogram"
+
+
+
 const ProgressBar = ( {label, percent} ) => (
     <div className="progress-box">
       <p>{label}</p>
@@ -16,6 +23,9 @@ const ProgressBar = ( {label, percent} ) => (
       </div>
     </div>
 );
+
+
+
 
 
 
@@ -138,10 +148,11 @@ export default function Service() {
     const addCitizen = useCitizens((state)=>state.setNewCitizen);
     
 
+
     useEffect(() => {
         const fetchCitizens = async () => {
             try {
-                const response = await axios.get(`/api/citizen/getAll`);
+                const response = await axios.get(`api/citizen/get_village_citizens?village_id=${Employee.village_id}`);
                 console.log("Fetched citizens:", response.data);
                 setAllCitizen(response.data);
             } catch (error) {
@@ -155,7 +166,7 @@ export default function Service() {
     useEffect(() => {
         const fetchSchemes = async () => {
             try {
-                const response = await axios.get(`/api/scheme/getAll`);
+                const response = await axios.get(`/api/scheme/get_all`);
                 console.log("Fetched Schemes:", response.data);
                 setAllSchemes(response.data);
             } catch (error) {
@@ -173,6 +184,33 @@ export default function Service() {
         console.log("Patient Added:", member);
     }
 
+
+      // Sample data for pie chart
+  const pieData = [
+    { name: "Group A", value: 400 },
+    { name: "Group B", value: 300 },
+    { name: "Group C", value: 300 },
+    { name: "Group D", value: 200 },
+    { name: "Group E", value: 150 },
+  ]
+
+  // Sample data for multi-line graph
+  const lineData = [
+    { name: "Jan", sales: 4000, revenue: 2400, profit: 1200 },
+    { name: "Feb", sales: 3000, revenue: 1398, profit: 900 },
+    { name: "Mar", sales: 2000, revenue: 9800, profit: 2300 },
+    { name: "Apr", sales: 2780, revenue: 3908, profit: 2000 },
+    { name: "May", sales: 1890, revenue: 4800, profit: 2181 },
+    { name: "Jun", sales: 2390, revenue: 3800, profit: 2500 },
+    { name: "Jul", sales: 3490, revenue: 4300, profit: 2100 },
+  ]
+
+  // Line configurations for multi-line graph
+  const lines = [
+    { dataKey: "sales", name: "Sales", color: "#8884d8" },
+    { dataKey: "revenue", name: "Revenue", color: "#82ca9d" },
+    { dataKey: "profit", name: "Profit", color: "#ffc658" },
+  ]
 
 
     return (
@@ -203,6 +241,7 @@ export default function Service() {
                                             <li><strong>Aadhar: </strong><Link href={`tel:${Employee}`}>{Employee.aadhar}</Link></li>
                                             <li><strong>Employee ID: </strong>{Employee.employee_id}</li>
                                             <li><strong>Aadhar: </strong>{Employee.aadhar}</li>
+                                            <li><strong>Village_id: </strong>{Employee.aadhar}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -212,8 +251,27 @@ export default function Service() {
                 </section>
 
 
-                <h1>Your Gram Citizens</h1> 
 
+
+
+
+    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem" }}>
+      <div style={{ marginBottom: "3rem" }}>
+        <AnimatedPieChart data={pieData} />
+      </div>
+
+      <div>
+        <MultiLineGraph data={lineData} lines={lines} xAxisKey="name" title="Sales, Revenue & Profit" />
+      </div>
+    </div>
+
+
+
+
+
+
+
+                <h1>Your Gram Citizens</h1> 
 
                 <section className="team-section sec-pad-2 centred">
                         <div className="auto-container">

@@ -11,6 +11,7 @@ const initialState = {
         contact: "0000000000",
         gender: "Male",
         aadhar: "XXXXXXXXXXXXXX",
+        village_id:4
     }
 };
 

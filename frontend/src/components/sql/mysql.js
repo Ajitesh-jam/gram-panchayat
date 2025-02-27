@@ -56,6 +56,14 @@ export const getAllCitizen = async ()=>{
 }
 
 
+export const getVillageCitizen = async (village_id)=>{
+    const query = `SELECT * FROM citizen WHERE village_id = $1;`;
+  const res = await pool.query(query, [village_id]);
+  //console.log("res ", res.rows);
+  return res.rows;
+};
+
+
 //employees
 import bcrypt from "bcrypt";
 

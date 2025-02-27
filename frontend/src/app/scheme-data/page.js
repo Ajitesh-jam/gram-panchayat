@@ -35,7 +35,7 @@ export default function Home() {
        console.log("Scheme: " , schemeId);
        const fetchSchemes = async () => {
            try {
-               const response = await axios.get(`/api/scheme/getVillage_scheme?village_id=${employee.village_id}&scheme_id=${schemeId}`);
+               const response = await axios.get(`/api/scheme/get_village_scheme?village_id=${employee.village_id}&scheme_id=${schemeId}`);
                console.log("Fetched Schemes:", response.data);
                setAllCitizen(response.data);
            } catch (error) {

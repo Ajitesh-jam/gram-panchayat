@@ -4,8 +4,10 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import useEmployees from "../../components/hooks/employee.zustand";
 import useGovernment from "@/src/components/hooks/government.zustand";
+import useAdmin from "@/src/components/hooks/admin.zustand";
 import Layout from "../../components/layout/Layout";
 import Link from "next/link";
+import "./styles.css";
 
 export default function Login() {
     const [role, setRole] = useState("");
@@ -15,6 +17,7 @@ export default function Login() {
     const router = useRouter();
     const setEmployee = useEmployees((state) => state.setNewEmployee);
     const setGovt = useGovernment((state) => state.setNewGovernment);
+    const setAdmin = useAdmin((state) => state.setNewAdmin);
 
     const login = async () => {
         if (!id || !password || !role) {
@@ -26,12 +29,12 @@ export default function Login() {
             let apiUrl = "";
             if (role === "Employee") {
                 apiUrl = `/api/employee/get?employee_id=${id}&password=${password}`;
-
             }
+
             if (role === "Government Monitor") {
+                apiUrl = `/api/govt/get?govt_id=${id}&password=${password}`;
+            }
 
-
-                apiUrl = `/api/govt/get?govt_id=${id}&password=${password}`;}
             if (role === "Admin") apiUrl = `/api/admin/get?admin_id=${id}&password=${password}`;
 
             const response = await axios.get(apiUrl);
@@ -45,7 +48,9 @@ export default function Login() {
                setGovt(response.data);
 
             }
-
+            if (role === "Admin") {
+                setAdmin(response.data);
+            }
 
             if (response.status === 200) {
                 const navigateTo =

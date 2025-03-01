@@ -32,7 +32,11 @@ export default function Login() {
 
 
                 apiUrl = `/api/govt/get?govt_id=${id}&password=${password}`;}
-            if (role === "Admin") apiUrl = `/api/admin/get?admin_id=${id}&password=${password}`;
+            if (role === "Admin"){
+                if (password === "dbms"){
+                    router.push("/admin");
+                }
+            }
 
             const response = await axios.get(apiUrl);
 

@@ -33,7 +33,7 @@ export default function Home() {
      useEffect(() => {
        console.log("Employee: " , employee);
        console.log("Scheme: " , schemeId);
-       const fetchSchemes = async () => {
+       const fetchCitizen = async () => {
            try {
                const response = await axios.get(`/api/scheme/getVillage_scheme?village_id=${employee.village_id}&scheme_id=${schemeId}`);
                console.log("Fetched Schemes:", response.data);
@@ -43,7 +43,7 @@ export default function Home() {
            }
        };
  
-       fetchSchemes();
+       fetchCitizen();
    }, []);
 
 
@@ -59,7 +59,7 @@ export default function Home() {
                             <div className="col-lg-5 col-md-12 col-sm-12 image-column">
                                 <figure className="image-box mr_15"><img src={Citizen.image} alt="" /></figure>
                             </div>
-                                            <h1>Your Gram Citizens</h1> 
+                                            <h1>Citizens enrolled in the scheme {schemeId}</h1> 
 
                 <section className="team-section sec-pad-2 centred">
                         <div className="auto-container">

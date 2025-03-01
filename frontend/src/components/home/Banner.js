@@ -14,9 +14,9 @@ export default function Banner() {
         <div className="row align-items-center">
           <div className="col-lg-6 col-md-12 col-sm-12 content-column">
             <div className="content-box">
-              <span className="upper-text">Your Health deserves the Best</span>
-              <h2>Take <span>Care of Your</span> Health Now.</h2>
-              <span className="upper-text">All your Medical needs at your Fingertips. <br/> Your Privacy, Our Priority</span>              <div className="btn-box">
+              {/* <span className="upper-text">Your Health deserves the Best</span> */}
+              <h2>Welcome to <span>E-Gram Panchayat</span></h2>
+              <span className="upper-text">Connection &emsp; Welfare &emsp;  Support <br/> On your fingertips!</span>              <div className="btn-box">
                 <Link href="/citizen-signup" className="theme-btn btn-two"><span>Register</span></Link>
               </div>
             </div>
@@ -29,7 +29,7 @@ export default function Banner() {
                                 backgroundSize: "cover",
                                 backgroundPosition: "center",
                             }}>
-              <figure className="image float-bob-y"><img src="https://images.forbesindia.com/blog/wp-content/uploads/2021/08/Raigad-Village.jpg" alt="" /></figure>
+              <figure className="image float-bob-y"><img src="assets/images/resource/village2.jpg" alt="" /></figure>
             </div>
           </div>
         </div>

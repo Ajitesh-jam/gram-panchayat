@@ -161,6 +161,14 @@ body {
   max-width:1320px;
   padding:0px 15px;
   margin:0 auto;
+  /* margin-bottom: 20px; */
+}
+.auto-containers{
+  position:static;
+  max-width:1320px;
+  padding:0px 15px;
+  margin:0 auto;
+  margin-bottom: 200px;
 }
 
 .small-container{

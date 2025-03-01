@@ -35,12 +35,7 @@ export default function Menu() {
                 </ul> */}
 
                 <li className="dropdown"><Link href="/panchayat">Panchayat</Link>
-                    <ul>
-                        <li><Link href="/panchayat">Panchayat</Link></li>
-                        <li><Link href="/govt-monitor">Government Monitors</Link></li>
-                        <li><Link href="/Admin">Admin</Link></li>
-                      
-                    </ul>
+                   
                 </li>
                 {/* Contact */}
                 <li><Link href="/contact">Contact</Link></li>

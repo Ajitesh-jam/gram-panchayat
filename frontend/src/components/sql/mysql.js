@@ -98,7 +98,6 @@ export const getHousehold = async(household_id) => {
 }
 
 
-
 //employees
 import bcrypt from "bcrypt";
 
@@ -184,6 +183,13 @@ export const createEmployee = async (employee) => {
   const res = await pool.query(query, values);
 
   return res.rows[0]||null;
+};
+
+export const getVillageEmployee = async (village_id)=>{
+    const query = `SELECT * FROM panchayat_employee as e, citizen as c WHERE c.village_id = $1 AND e.citizen_id=c.citizen_id;`;
+  const res = await pool.query(query, [village_id]);
+  //console.log("res ", res.rows);
+  return res.rows;
 };
 
 

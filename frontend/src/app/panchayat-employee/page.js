@@ -12,11 +12,6 @@ import MultiLineGraph from "@/src/components/multi_line_graphs/multi_line_graph"
 import AnimatedPieChart from "@/src/components/pie_chart/pie_chart"
 // import AnimatedHistogram from "@/src/components/histogram/histogram"
 
-
-
-
-
-
 export default function Service() {
     const [isActive, setIsActive] = useState({
         status: false,
@@ -136,10 +131,7 @@ export default function Service() {
 
         // Sample data for pie chart
     const [pieData,setPieData] = useState([
-       
     ]);
-
-
 
     useEffect(() => {
         const fetchCitizens = async () => {
@@ -167,10 +159,7 @@ export default function Service() {
         };
 
         fetchCitizens();
-    }, []);
-
-
-    
+    }, []);    
 
     useEffect(() => {
         const fetchSchemes = async () => {
@@ -186,33 +175,29 @@ export default function Service() {
         fetchSchemes();
     }, []);
     //fetching all the schemes
-    // UseEffect(() => {}, []);
-
     async function setCitizen(member){
         await addCitizen(member); //setting patient to Zustand state
         console.log("Patient Added:", member);
     }
-
-
   
-  // Sample data for multi-line graph
-  const lineData = [
-    { name: "Jan", sales: 4000, revenue: 2400, profit: 1200 },
-    { name: "Feb", sales: 3000, revenue: 1398, profit: 900 },
-    { name: "Mar", sales: 2000, revenue: 9800, profit: 2300 },
-    { name: "Apr", sales: 2780, revenue: 3908, profit: 2000 },
-    { name: "May", sales: 1890, revenue: 4800, profit: 2181 },
-    { name: "Jun", sales: 2390, revenue: 3800, profit: 2500 },
-    { name: "Jul", sales: 3490, revenue: 4300, profit: 2100 },
-    { name: "Jul", sales: 7000, revenue: 4300, profit: 2100 },
-  ]
+    // Sample data for multi-line graph
+    const lineData = [
+        { name: "Jan", sales: 4000, revenue: 2400, profit: 1200 },
+        { name: "Feb", sales: 3000, revenue: 1398, profit: 900 },
+        { name: "Mar", sales: 2000, revenue: 9800, profit: 2300 },
+        { name: "Apr", sales: 2780, revenue: 3908, profit: 2000 },
+        { name: "May", sales: 1890, revenue: 4800, profit: 2181 },
+        { name: "Jun", sales: 2390, revenue: 3800, profit: 2500 },
+        { name: "Jul", sales: 3490, revenue: 4300, profit: 2100 },
+        { name: "Jul", sales: 7000, revenue: 4300, profit: 2100 },
+    ]
 
-  // Line configurations for multi-line graph
-  const lines = [
-    { dataKey: "sales", name: "Sales", color: "#8884d8" },
-    { dataKey: "revenue", name: "Revenue", color: "#82ca9d" },
-    { dataKey: "profit", name: "Profit", color: "#ffc658" },
-  ]
+    // Line configurations for multi-line graph
+    const lines = [
+        { dataKey: "sales", name: "Sales", color: "#8884d8" },
+        { dataKey: "revenue", name: "Revenue", color: "#82ca9d" },
+        { dataKey: "profit", name: "Profit", color: "#ffc658" },
+    ]
 
 
     return (

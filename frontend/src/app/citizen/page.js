@@ -6,7 +6,6 @@ import useCitizens from "@/src/components/hooks/citizen.zustand";
 import { useEffect } from "react";
 import axios from "axios";
 
-import axios from "axios";
 export default function service() {
     const [isActive, setIsActive] = useState({
         status: false,

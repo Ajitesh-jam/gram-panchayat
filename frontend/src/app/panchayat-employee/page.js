@@ -258,28 +258,6 @@ export default function Service() {
                         </div>
                     </div>
                 </section>
-
-
-
-
-
-
-    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem" }}>
-      <div style={{ marginBottom: "3rem" }}>
-        <AnimatedPieChart data={pieData} />
-      </div>
-
-      <div>
-        <MultiLineGraph data={lineData} lines={lines} xAxisKey="name" title="Sales, Revenue & Profit" />
-      </div>
-    </div>
-
-
-
-
-
-
-
                 <h1>Your Gram Citizens</h1> 
 
                 <section className="team-section sec-pad-2 centred">

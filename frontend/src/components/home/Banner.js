@@ -17,7 +17,7 @@ export default function Banner() {
               <span className="upper-text">Your Health deserves the Best</span>
               <h2>Take <span>Care of Your</span> Health Now.</h2>
               <span className="upper-text">All your Medical needs at your Fingertips. <br/> Your Privacy, Our Priority</span>              <div className="btn-box">
-                <Link href="/Citizen-signup" className="theme-btn btn-two"><span>Register</span></Link>
+                <Link href="/citizen-signup" className="theme-btn btn-two"><span>Register</span></Link>
               </div>
             </div>
           </div>

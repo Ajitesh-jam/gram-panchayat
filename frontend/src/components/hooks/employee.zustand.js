@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware';
 // Define the initial Employee data structure
 const initialState = {
     selectedEmployee: {
+        employee_id:-1,
         name: "Dummy Employee",
         DOB: "2-34-2224",
         image: "assets/images/team/team-1.jpg",

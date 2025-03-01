@@ -6,7 +6,7 @@ import useCitizens from "@/src/components/hooks/citizen.zustand";
 import { useEffect } from "react";
 import axios from "axios";
 
-
+import axios from "axios";
 export default function service() {
     const [isActive, setIsActive] = useState({
         status: false,
@@ -26,7 +26,12 @@ export default function service() {
         }
     }
 
-    
+    const Citizen = useCitizens((state)=> state.selectedCitizen);
+    //use effect to fectch the citizen from zustand
+    useEffect(() => {
+        console.log("Citizen in its page : ", Citizen);
+    }, [Citizen])
+
     const [allSchemes, setAllSchemes] = useState([
         {
             name: "Black Marvin",
@@ -37,38 +42,9 @@ export default function service() {
             name: "Eleanor Pena",
             aadhar: "Doctor",
             image: "assets/images/team/team-2.jpg",
-        },
-        {
-            name: "Arlene Maccy",
-            aadhar: "Nursing Assistant",
-            image: "assets/images/team/team-3.jpg",
-        },
-        {
-            name: "Jenny Wilson",
-            aadhar: "Senior Doctor",
-            image: "assets/images/team/team-4.jpg",
-        },
-        {
-            name: "Jerome Bell",
-            aadhar: "Cardiologist",
-            image: "assets/images/team/team-9.jpg",
-        },
-        {
-            name: "Guy Hawkins",
-            aadhar: "Pathologist",
-            image: "assets/images/team/team-10.jpg",
-        },
-        {
-            name: "Courtney Henry",
-            aadhar: "Pathologist",
-            image: "assets/images/team/team-11.jpg",
-        },
-        {
-            name: "Ralph Edwards",
-            aadhar: "Ophthalmologist",
-            image: "assets/images/team/team-12.jpg",
-        },
+        }
     ]);
+
 
     useEffect(() => {
         const fetchSchemes = async () => {
@@ -77,24 +53,13 @@ export default function service() {
                 console.log("Fetched Schemes:", response.data);
                 setAllSchemes(response.data);
             } catch (error) {
-                console.error("Error fetching Schemes:", error);
+                console.error("Error fetching Citizens:", error);
             }
         };
 
         fetchSchemes();
     }, []);
 
-  
-    const Citizen = useCitizens((state)=> state.selectedCitizen);
-    //use effect to fectch the citizen from zustand
-    useEffect(() => {
-        console.log("Citizen in its page : ", Citizen);
-    }, [Citizen])
-
-    useEffect(() => {
-        console.log("Schemes in its page : ", allSchemes[0]);
-    }
-    , [allSchemes]) 
 
 
     return (
@@ -130,9 +95,6 @@ export default function service() {
                                 </div>
                                 <div className="widget-content">
                                     <ul className="category-list clearfix">
-                                        <li className={isActive.key === 1 ? "active" : ""} onClick={() => handleToggle(1)}><Link href="#">My certificates</Link></li>
-                                        <li className={isActive.key === 2 ? "active" : ""} onClick={() => handleToggle(2)}><Link href="#">My schemes</Link></li>
-                                        <li className={isActive.key === 3 ? "active" : ""} onClick={() => handleToggle(3)}><Link href="#">My family</Link></li>
                                     </ul>
                                 </div>
 
@@ -274,34 +236,60 @@ export default function service() {
                       {/* subscibe */}
                       <section className="subscribe-section">
                         <div className="auto-container">
-                            <div className="inner-container">
-                            <div className="row align-items-center">
-                                <div className="col-lg-6 col-md-12 col-sm-12 text-column">
-                                <div className="text-box">
-                                    <h2><span>Subscribe</span> for the exclusive updates!</h2>
-                                </div>
-                                </div>
-                                <div className="col-lg-6 col-md-12 col-sm-12 form-column">
-                                <div className="form-inner">
-                                    <form method="post" action="contact">
-                                    <div className="form-group">
-                                        <input type="email" name="email" placeholder="Enter Your Email Address" required />
-                                        <button type="submit" className="theme-btn btn-one"><span>Subscribe Now</span></button>
-                                    </div>
-                                    <div className="form-group">
-                                        <div className="check-box">
-                                        <input className="check" type="checkbox" id="checkbox1" />
-                                        <label htmlFor="checkbox1">I agree to the <Link href="/">Privacy Policy.</Link></label>
+                            <div className="row clearfix">
+                                {allSchemes.map((scheme, index) => (
+                                    <div
+                                        key={index}
+                                        className="col-lg-3 col-md-6 col-sm-12 team-block"
+                                    >
+                                        <div
+                                            className="team-block-one wow fadeInUp animated"
+                                            data-wow-delay={`${index * 200}ms`}
+                                            data-wow-duration="1500ms"
+                                        >
+                                            <div className="inner-box">
+                                                <div className="image-box">
+                                                    <figure className="image">
+                                                        
+                                                    </figure>
+                                                   
+                                                </div>
+                                                <div className="lower-content">
+                                                    <h3>
+                                                        {scheme.scheme_name}
+                                                    </h3>
+                                                    <span className="designation">
+                                                        Criteria: {scheme.criteria}
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    </form>
-                                </div>
-                                </div>
+                                ))}
                             </div>
+                            <div className="pagination-wrapper mt_20 centred">
+                                <ul className="pagination clearfix">
+                                    <li>
+                                        <Link href="team" className="current">
+                                            1
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="team">2</Link>
+                                    </li>
+                                    <li>
+                                        <Link href="team">3</Link>
+                                    </li>
+                                    <li>
+                                        <Link href="team">
+                                            <i className="icon-36"></i>
+                                        </Link>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        </section>
-                        {/* subscibe end */}
+                    </section>
+              
                 </div>
 
             </Layout>

@@ -59,146 +59,94 @@ export default function Home() {
                             <div className="col-lg-5 col-md-12 col-sm-12 image-column">
                                 <figure className="image-box mr_15"><img src={Citizen.image} alt="" /></figure>
                             </div>
-                                            <h1>Citizens enrolled in the scheme {schemeId}</h1> 
+                                            <h1>Your Gram Citizens enrolled in the scheme {schemeId}</h1> 
 
                 <section className="team-section sec-pad-2 centred">
                         <div className="auto-container">
                             <div className="row clearfix">
-                                {allCitizen.map((member, index) => (
-                                    <div
-                                        key={index}
-                                        className="col-lg-3 col-md-6 col-sm-12 team-block"
-                                    >
-                                        <div
-                                            className="team-block-one wow fadeInUp animated"
-                                            data-wow-delay={`${index * 200}ms`}
-                                            data-wow-duration="1500ms"
-                                        >
-                                            <div className="inner-box">
-                                                <div className="image-box">
-                                                    <figure className="image">
-                                                        <img
-                                                            style={{
-                                                                width: "287px",
-                                                                height: "220px",
-                                                                overflow: "hidden", // Ensures no content spills outside
-                                                            }} 
-                                                            src={member.image}
-                                                            alt={member.name}
-                                                        />
-                                                    </figure>
-                                                    {/* <ul className="social-links clearfix">
-                                                        <li>
-                                                            <Link href="/">
-                                                                <i className="icon-4"></i>
+                                {allCitizen.length === 0 ? (
+                                    <div className="col-md-12">
+                                        None of Citizens in your gram is enrolled for this scheme.
+                                    </div>
+                                ) : (
+                                    allCitizen.map((member, index) => (
+                                        <div key={index} className="col-lg-3 col-md-6 col-sm-12 team-block">
+                                            <div
+                                                className="team-block-one wow fadeInUp animated"
+                                                data-wow-delay={`${index * 200}ms`}
+                                                data-wow-duration="1500ms"
+                                            >
+                                                <div className="inner-box">
+                                                    <div className="image-box">
+                                                        <figure className="image">
+                                                            <img
+                                                                style={{
+                                                                    width: "287px",
+                                                                    height: "220px",
+                                                                    overflow: "hidden", // Ensures no content spills outside
+                                                                }} 
+                                                                src={member.image}
+                                                                alt={member.name}
+                                                            />
+                                                        </figure>
+                                                    </div>
+                                                    <div className="lower-content">
+                                                        <h3>
+                                                            <Link href="citizen-data" onClick={() => {
+                                                                setCitizen(member);
+                                                            }}>
+                                                                {member.name}
                                                             </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link href="/">
-                                                                <i className="icon-5"></i>
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link href="/">
-                                                                <i className="icon-6"></i>
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link href="/">
-                                                                <i className="icon-7"></i>
-                                                            </Link>
-                                                        </li>
-                                                    </ul> */}
-                                                </div>
-                                                <div className="lower-content">
-                                                    <h3>
-                                                        <Link href="citizen-data" onClick={()=>{
-                                                            setCitizen(member);
-                                                        }}>
-                                                            {member.name}
-                                                        </Link>
-                                                    </h3>
-                                                    <span className="designation">
-                                                        Adhar: {member.aadhar}
-
-                                                        
-                                                    </span>
+                                                        </h3>
+                                                        <span className="designation">
+                                                            Adhar: {member.aadhar}
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="pagination-wrapper mt_20 centred">
-                                <ul className="pagination clearfix">
-                                    <li>
-                                        <Link href="team" className="current">
-                                            1
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="team">2</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="team">3</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="team">
-                                            <i className="icon-36"></i>
-                                        </Link>
-                                    </li>
-                                </ul>
+                                    ))
+                                )}
                             </div>
                         </div>
                     </section>
-
-
                         </div>
                     </div>
                 </div>
-                
-                
                 </section>
 
-                
-
-                {/* subscibe */}
+                {/* subscribe */}
                 <section className="subscribe-section">
-                            <div className="auto-container">
-                                <div className="inner-container">
-                                <div className="row align-items-center">
-                                    <div className="col-lg-6 col-md-12 col-sm-12 text-column">
+                    <div className="auto-container">
+                        <div className="inner-container">
+                            <div className="row align-items-center">
+                                <div className="col-lg-6 col-md-12 col-sm-12 text-column">
                                     <div className="text-box">
                                         <h2><span>Subscribe</span> for the exclusive updates!</h2>
                                     </div>
-                                    </div>
-                                    <div className="col-lg-6 col-md-12 col-sm-12 form-column">
+                                </div>
+                                <div className="col-lg-6 col-md-12 col-sm-12 form-column">
                                     <div className="form-inner">
                                         <form method="post" action="contact">
-                                        <div className="form-group">
-                                            <input type="email" name="email" placeholder="Enter Your Email Address" required />
-                                            <button type="submit" className="theme-btn btn-one"><span>Subscribe Now</span></button>
-                                        </div>
-                                        <div className="form-group">
-                                            <div className="check-box">
-                                            <input className="check" type="checkbox" id="checkbox1" />
-                                            <label htmlFor="checkbox1">I agree to the <Link href="/">Privacy Policy.</Link></label>
+                                            <div className="form-group">
+                                                <input type="email" name="email" placeholder="Enter Your Email Address" required />
+                                                <button type="submit" className="theme-btn btn-one"><span>Subscribe Now</span></button>
                                             </div>
-                                        </div>
+                                            <div className="form-group">
+                                                <div className="check-box">
+                                                    <input className="check" type="checkbox" id="checkbox1" />
+                                                    <label htmlFor="checkbox1">I agree to the <Link href="/">Privacy Policy.</Link></label>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
-                                    </div>
-                                </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                 </section>
-                {/* subscibe end */}
-
-                
-
-
+                {/* subscribe end */}
             </Layout>
         </>
-               
     );
 }

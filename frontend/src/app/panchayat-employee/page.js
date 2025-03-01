@@ -14,18 +14,6 @@ import AnimatedPieChart from "@/src/components/pie_chart/pie_chart"
 
 
 
-const ProgressBar = ( {label, percent} ) => (
-    <div className="progress-box">
-      <p>{label}</p>
-      <div className="bar">
-        <div className="bar-inner count-bar" style={{ width: `${percent}%` }}></div>
-        <div className="count-text">{`${percent}%`}</div>
-      </div>
-    </div>
-);
-
-
-
 
 
 
@@ -143,10 +131,14 @@ export default function Service() {
         },
     ]);
 
-    
-
     const addCitizen = useCitizens((state)=>state.setNewCitizen);
     
+
+        // Sample data for pie chart
+    const [pieData,setPieData] = useState([
+       
+    ]);
+
 
 
     useEffect(() => {
@@ -155,6 +147,20 @@ export default function Service() {
                 const response = await axios.get(`api/citizen/get_village_citizens?village_id=${Employee.village_id}`);
                 console.log("Fetched citizens:", response.data);
                 setAllCitizen(response.data);
+
+            const households = {};
+
+            response.data.forEach(citizen => {
+                const householdId = citizen.household_id;
+                if (households[householdId]) {
+                    households[householdId].value += 1;
+                } else {
+                    households[householdId] = { name:"house "+ householdId, value: 1 };
+                }
+            });
+            console.log(Object.values(households));
+            setPieData(Object.values(households));
+
             } catch (error) {
                 console.error("Error fetching Citizens:", error);
             }
@@ -162,6 +168,9 @@ export default function Service() {
 
         fetchCitizens();
     }, []);
+
+
+    
 
     useEffect(() => {
         const fetchSchemes = async () => {
@@ -183,15 +192,7 @@ export default function Service() {
     }
 
 
-      // Sample data for pie chart
-  const pieData = [
-    { name: "Group A", value: 400 },
-    { name: "Group B", value: 300 },
-    { name: "Group C", value: 300 },
-    { name: "Group D", value: 200 },
-    { name: "Group E", value: 150 },
-  ]
-
+  
   // Sample data for multi-line graph
   const lineData = [
     { name: "Jan", sales: 4000, revenue: 2400, profit: 1200 },
@@ -201,6 +202,7 @@ export default function Service() {
     { name: "May", sales: 1890, revenue: 4800, profit: 2181 },
     { name: "Jun", sales: 2390, revenue: 3800, profit: 2500 },
     { name: "Jul", sales: 3490, revenue: 4300, profit: 2100 },
+    { name: "Jul", sales: 7000, revenue: 4300, profit: 2100 },
   ]
 
   // Line configurations for multi-line graph
@@ -213,7 +215,17 @@ export default function Service() {
 
     return (
         <>
-            <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Hospital Angels">
+            <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Employee">
+                <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem" }}>
+                    <div style={{ marginBottom: "3rem" }}>
+                    <AnimatedPieChart data={pieData} />
+                    </div>
+
+                    <div>
+                    <MultiLineGraph data={lineData} lines={lines} xAxisKey="name" title="Sales, Revenue & Profit" />
+                    </div>
+                </div>
+                
                 <section className="team-details sec-pad-2">
                     <div className="auto-container">
                         <div className="team-details-content mb_50">
@@ -238,8 +250,7 @@ export default function Service() {
                                             <li><strong>Email: </strong><Link href={`mailto:${Employee.email}`}>{Employee.email}</Link></li>
                                             <li><strong>Aadhar: </strong><Link href={`tel:${Employee}`}>{Employee.aadhar}</Link></li>
                                             <li><strong>Employee ID: </strong>{Employee.employee_id}</li>
-                                            <li><strong>Aadhar: </strong>{Employee.aadhar}</li>
-                                            <li><strong>Village_id: </strong>{Employee.aadhar}</li>
+                                            <li><strong>Village id: </strong>{Employee.village_id}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -262,6 +273,12 @@ export default function Service() {
         <MultiLineGraph data={lineData} lines={lines} xAxisKey="name" title="Sales, Revenue & Profit" />
       </div>
     </div>
+
+
+
+
+
+
 
                 <h1>Your Gram Citizens</h1> 
 
@@ -354,9 +371,6 @@ export default function Service() {
                             </div>
                         </div>
                     </section>
-
-
-
                  <h1>Your Schemes</h1> 
 
                 <section className="team-section sec-pad-2 centred">
@@ -391,7 +405,7 @@ export default function Service() {
                                                     <span className="designation">
 
                                                         Criteria: {scheme.criteria}
-                                                        SchemeId: {scheme.scheme_id}
+                                                       
                                                     </span>
                                                 </div>
                                             </div>
@@ -424,36 +438,7 @@ export default function Service() {
                                         
 
 
-                {/* Subscribe Section */}
-                <section className="subscribe-section">
-                    <div className="auto-container">
-                        <div className="inner-container">
-                            <div className="row align-items-center">
-                                <div className="col-lg-6 col-md-12 col-sm-12 text-column">
-                                    <div className="text-box">
-                                        <h2><span>Subscribe</span> for the exclusive updates!</h2>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6 col-md-12 col-sm-12 form-column">
-                                    <div className="form-inner">
-                                        <form method="post" action="contact">
-                                            <div className="form-group">
-                                                <input type="email" name="email" placeholder="Enter Your Email Address" required />
-                                                <button type="submit" className="theme-btn btn-one"><span>Subscribe Now</span></button>
-                                            </div>
-                                            <div className="form-group">
-                                                <div className="check-box">
-                                                    <input className="check" type="checkbox" id="checkbox1" />
-                                                    <label htmlFor="checkbox1">I agree to the <Link href="/">Privacy Policy.</Link></label>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                
             </Layout>
         </>
     )

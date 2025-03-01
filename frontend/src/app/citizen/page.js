@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useState } from 'react'
 import useCitizens from "@/src/components/hooks/citizen.zustand";
 import { useEffect } from "react";
+import axios from "axios";
 
 
 export default function service() {
@@ -25,12 +26,75 @@ export default function service() {
         }
     }
 
+    
+    const [allSchemes, setAllSchemes] = useState([
+        {
+            name: "Black Marvin",
+            aadhar: "Medical Assistant",
+            image: "assets/images/team/team-1.jpg",
+        },
+        {
+            name: "Eleanor Pena",
+            aadhar: "Doctor",
+            image: "assets/images/team/team-2.jpg",
+        },
+        {
+            name: "Arlene Maccy",
+            aadhar: "Nursing Assistant",
+            image: "assets/images/team/team-3.jpg",
+        },
+        {
+            name: "Jenny Wilson",
+            aadhar: "Senior Doctor",
+            image: "assets/images/team/team-4.jpg",
+        },
+        {
+            name: "Jerome Bell",
+            aadhar: "Cardiologist",
+            image: "assets/images/team/team-9.jpg",
+        },
+        {
+            name: "Guy Hawkins",
+            aadhar: "Pathologist",
+            image: "assets/images/team/team-10.jpg",
+        },
+        {
+            name: "Courtney Henry",
+            aadhar: "Pathologist",
+            image: "assets/images/team/team-11.jpg",
+        },
+        {
+            name: "Ralph Edwards",
+            aadhar: "Ophthalmologist",
+            image: "assets/images/team/team-12.jpg",
+        },
+    ]);
+
+    useEffect(() => {
+        const fetchSchemes = async () => {
+            try {
+                const response = await axios.get(`/api/scheme/get_all`);
+                console.log("Fetched Schemes:", response.data);
+                setAllSchemes(response.data);
+            } catch (error) {
+                console.error("Error fetching Schemes:", error);
+            }
+        };
+
+        fetchSchemes();
+    }, []);
+
+  
     const Citizen = useCitizens((state)=> state.selectedCitizen);
     //use effect to fectch the citizen from zustand
     useEffect(() => {
         console.log("Citizen in its page : ", Citizen);
     }, [Citizen])
 
+    useEffect(() => {
+        console.log("Schemes in its page : ", allSchemes[0]);
+    }
+    , [allSchemes]) 
 
 
     return (
@@ -62,12 +126,13 @@ export default function service() {
                            
                             <div className="sidebar-widget category-widget">
                                 <div className="widget-title">
-                                    <h3>Medical Records:</h3>
+                                    <h3>Your personal information:</h3>
                                 </div>
                                 <div className="widget-content">
                                     <ul className="category-list clearfix">
-
-                                    c ,dcdlemelmvlemv
+                                        <li className={isActive.key === 1 ? "active" : ""} onClick={() => handleToggle(1)}><Link href="#">My certificates</Link></li>
+                                        <li className={isActive.key === 2 ? "active" : ""} onClick={() => handleToggle(2)}><Link href="#">My schemes</Link></li>
+                                        <li className={isActive.key === 3 ? "active" : ""} onClick={() => handleToggle(3)}><Link href="#">My family</Link></li>
                                     </ul>
                                 </div>
 
@@ -81,11 +146,10 @@ export default function service() {
 
                             <div className="content-one mb_60">
                                 <div className="text-box">
-                                    <h2>Medical Record Image</h2>
-                                    
+                                    <h2 >Public Info</h2>
                                 </div>
                             </div>
-                            <div className="content-two">
+                            {/* <div className="content-two">
                                 <div className="image-inner">
                                     <div className="row clearfix">
                                         <div className="col-lg-4 col-md-6 col-sm-12 news-block">
@@ -145,8 +209,6 @@ export default function service() {
                                         </div>
                                     </div>
                                         </div>
-
-
                                         <div className="col-lg-6 col-md-6 col-sm-12 image-column">
                                             <figure className="image-box mb_30"><img src="assets/images/service/service-8.jpg" alt="" /></figure>
                                         </div>
@@ -159,12 +221,55 @@ export default function service() {
                                     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor mque lauda totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vite sunt explicabo. Nemo ipsam voluptatem quia voluptas sit aspernatur.</p>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam nmco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehender it in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                                 </div>
+                            </div> */}
+                            <h1> Schemes provided by Government</h1>
+                            <section className="team-section sec-pad-2 centred">
+                                <div className="auto-container">
+                                    <div className="row clearfix">
+                                        {allSchemes.map((scheme, index) => (
+                                            <div
+                                                key={index}
+                                                className="col-lg-3 col-md-6 col-sm-12 team-block"
+                                            >
+                                                <div
+                                                    className="team-block-one wow fadeInUp animated"
+                                                    data-wow-delay={`${index * 200}ms`}
+                                                    data-wow-duration="1500ms"
+                                                >
+                                                    <div className="inner-box">
+                                                        <div className="image-box">
+                                                            <figure className="image">
+                                                                
+                                                            </figure>
+                                                        
+                                                        </div>
+                                                        <div className="lower-content">
+                                                            <h3>
+                                                                <Link href={`scheme-data?scheme_id=${scheme.scheme_id}`} onClick={() => {
+                                                                    setCitizen(scheme);
+                                                                }}>
+                                                                    
+                                                                    {scheme.scheme_name}
+                                                                </Link>
+                                                            </h3>
+                                                            <span className="designation">
+
+                                                                Criteria: {scheme.criteria}
+                                                                SchemeId: {scheme.scheme_id}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
                 {/* service-section end */}
                       {/* subscibe */}
                       <section className="subscribe-section">

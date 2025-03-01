@@ -176,12 +176,10 @@ export default function Service() {
 
         fetchSchemes();
     }, []);
-    //fetching all the schemes
-    // UseEffect(() => {}, []);
 
     async function setCitizen(member){
-        await addCitizen(member); //setting patient to Zustand state
-        console.log("Patient Added:", member);
+        await addCitizen(member); //setting citizen to Zustand state
+        console.log("Citizen Added:", member);
     }
 
 
@@ -264,12 +262,6 @@ export default function Service() {
         <MultiLineGraph data={lineData} lines={lines} xAxisKey="name" title="Sales, Revenue & Profit" />
       </div>
     </div>
-
-
-
-
-
-
 
                 <h1>Your Gram Citizens</h1> 
 

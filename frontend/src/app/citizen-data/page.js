@@ -15,51 +15,6 @@ const ProgressBar = ({ label, percent }) => (
       </div>
     </div>
 );
-// Sample medicine data
-const medicines = [
-  {
-    name: "Paracetamol",
-    img: "https://5.imimg.com/data5/SELLER/Default/2022/9/QR/AF/MV/69966959/paracip-paracetamol-650-tablet.jpg",
-    category: "Painkiller",
-  },
-  {
-    name: "Aspirin",
-    img: "https://medias.watsons.com.ph/publishing/WTCPH-10000066-front-zoom.jpg?version=1721934089",
-    category: "Heart",
-  },
-  {
-    name: "Montelukast",
-    img: "https://www.gnova.co.in/wp-content/uploads/2022/01/DESROTAC-M.jpg",
-    category: "Lungs",
-  },
-  {
-    name: "Gabapentin",
-    img: "https://www.xalmeds.com/cdn/shop/files/241EC757-4996-4D2A-82FE-71A38CB58FAF_1445x.png?v=1711200853",
-    category: "Neuro",
-  },
-  {
-    name: "Ibuprofen",
-    img: "https://5.imimg.com/data5/SELLER/Default/2023/9/344827499/TG/YT/FY/192270567/ibuprofen-tablet-400mg.png",
-    category: "Painkiller",
-  },
-  {
-    name: "Atorvastatin",
-    img: "https://cdn01.pharmeasy.in/dam/products/J21424/atorvastatin-10-mg-tablet-10-medlife-pure-generics-combo-3-1626532296.jpg",
-    category: "Heart",
-  },
-  {
-    name: "Amoxicillin",
-    img: "https://5.imimg.com/data5/SELLER/Default/2023/8/332350358/SI/JT/VF/98283251/amoxicillin-drugs3.jpg",
-    category: "Antibiotic",
-  },
-  {
-    name: "Cetirizine",
-    img: "https://smarthealer.pk/wp-content/uploads/2024/09/cetirizine-tablet.webp",
-    category: "Allergy",
-  },
- 
-];
-
 
   
  

@@ -1,161 +1,88 @@
-"use client"
-import Layout from "../../components/layout/Layout"
-import Link from "next/link"
-import "./styles.css";
-
-
-import axios from "axios";
-import { useState,useEffect } from "react";
-
-//import router
+"use client";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-
+import axios from "axios";
 import useEmployees from "../../components/hooks/employee.zustand";
+import Layout from "../../components/layout/Layout";
+import Link from "next/link";
 
-export default function Home() {
-
-    //const Citizens = useEmployees((state) => state.setNewCitizen);
-    const Employees = useEmployees((state) => state.setNewEmployee);
-    const fetchedEmployee = useEmployees((state) => state.selectedEmployee);
-
-    //const navigate = useNavigate(); // Use navigate instead of router
-    const [id,setId] = useState(); 
-    const [password,setPassword] = useState(); 
-
-    //router to navigate
+export default function Login() {
+    const [role, setRole] = useState("");
+    const [id, setId] = useState("");
+    const [password, setPassword] = useState("");
+    
     const router = useRouter();
+    const setEmployee = useEmployees((state) => state.setNewEmployee);
 
-    async function login() {
-        console.log("Login called");
-        try {
-            
-            //const response = await axios.get(`http://localhost:8000/getRecord/${id}/${password}`);
-            //if (response.status === 200) {
-                //Citizens(response.data); // Update Citizen data in Zustand
-                console.log("Successfully logged in as Administrator: ");
-
-                //naviagte to /Administrator
-                router.push("/panchayat-employee");
-
-            //}
-        } catch (error) {
-            //Handle specific error cases
-            if (error.response) {
-                if (error.response.status === 401) {
-                    alert("Your password is incorrect");
-                } else if (error.response.status === 404) {
-                    alert("Citizen record not found");
-                } else {
-                    alert("An error occurred while logging in");
-                }
-            } else {
-                alert("Network error. Please try again later.");
-                console.log("error: ",error);
-            }
+    const login = async () => {
+        if (!id || !password || !role) {
+            alert("Please enter all details");
+            return;
         }
-    }
 
-
-
-    useEffect(() => {
-        const fetchEmployee = async () => {
-            try {
-                console.log("Fetching employee : ",fetchedEmployee );
-                // if(fetchedEmployee.employee_id!==-1){
-                //     router.push("/panchayat-employee");
-                // }
-
-            } catch (error) {
-               
-            }
-        };
-
-        fetchEmployee();
-
-    }, []);
-
-    async function loginEmployee() {
-        console.log("Login called");
         try {
+            let apiUrl = "";
+            if (role === "Employee") apiUrl = `/api/employee/get?employee_id=${id}&password=${password}`;
+            if (role === "Government Monitor") apiUrl = `/api/govt/get?govt_id=${id}&password=${password}`;
+            if (role === "Admin") apiUrl = `/api/admin/get?admin_id=${id}&password=${password}`;
 
-            const response = await axios.get(`/api/employee/get?employee_id=${id}&password=${password}`);
-            
-            console.log("Successfully logged in as : ",response.data);
+            const response = await axios.get(apiUrl);
             if (response.status === 200) {
-                Employees(response.data); // Update Citizen data in Zustand
-
-                router.push("/panchayat-employee");
-                //naviagte to /Employee
+                setEmployee(response.data);
+                const navigateTo =
+                    role === "Employee" ? "/panchayat-employee" :
+                    role === "Government Monitor" ? "/govt-monitor" : "/admin";
+                router.push(navigateTo);
             }
         } catch (error) {
-            //Handle specific error cases
             if (error.response) {
                 if (error.response.status === 401) {
                     alert("Your password is incorrect");
                 } else if (error.response.status === 404) {
-                    alert("Citizen record not found");
+                    alert("Record not found");
                 } else {
                     alert("An error occurred while logging in");
                 }
             } else {
                 alert("Network error. Please try again later.");
-                console.log("error: ",error);
+                console.error("Login error:", error);
             }
         }
-    }
+    };
 
     return (
-        <>
-            <Layout headerStyle={1} footerStyle={1} >
-                <div>
-                    {/* Contact Form Section End */}
-
-                   
-                    {/* Contact Form Section2 */}
-                    <section className="contact-style-three pt_90 pb_120">
-                        <div className="auto-container">
-                            <div className="row clearfix">
-                                <div className="col-lg-8 col-md-12 col-sm-12 form-column">
-                                    <div className="form-inner mr_40">
-                                        
-
-                                            <div className="sec-title mb_50">
-                                            <h2>Login as an Panchayat Employee</h2>
-                                             </div>
-
-                                            <>
-                                                <div className="row clearfix">
-                                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="fname" placeholder="Employee id " onChange={(e) => setId(e.target.value)} required />
-                                                    </div>
-                                                    
-                                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="summary" placeholder="Password "  onChange={(e) => setPassword(e.target.value)} required />
-                                                    </div>
-                                                    
-                                                </div>
-                                                <button type="submit" className="theme-btn btn-one" onClick={loginEmployee}><span>Login </span></button>
-                                                Don't have an account? <Link href="/Employee-sign">Register</Link>
-                                            </>
-
-
+        <Layout headerStyle={1} footerStyle={1}>
+            <section className="contact-style-three pt_90 pb_120">
+                <div className="auto-container">
+                    <div className="row clearfix">
+                        <div className="col-lg-8 col-md-12 col-sm-12 form-column">
+                            <div className="form-inner mr_40">
+                                <div className="sec-title mb_50">
+                                    <h2>Login</h2>
+                                </div>
+                                <div className="row clearfix">
+                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <input type="text" placeholder="ID" onChange={(e) => setId(e.target.value)} required />
+                                    </div>
+                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
+                                    </div>
+                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <select onChange={(e) => setRole(e.target.value)} required>
+                                            <option value="">Select Role</option>
+                                            <option value="Employee">Panchayat Employee</option>
+                                            <option value="Government Monitor">Government Monitor</option>
+                                            <option value="Admin">Administrator</option>
+                                        </select>
                                     </div>
                                 </div>
-
-                                <div className="col-lg-4 col-md-12 col-sm-12 image-column">
-                                    <figure className="image-box"><img src="assets/images/resource/contact-1.jpg" alt="" /></figure>
-                                </div>
-                                
+                                <button type="submit" className="theme-btn btn-one" onClick={login}><span>Login</span></button>
+                                <p>Don't have an account? <Link href="/Employee-sign">Register</Link></p>
                             </div>
                         </div>
-                    </section>
-
-                     {/* subscibe */}
-                
-                  {/* subscibe end */}
+                    </div>
                 </div>
-
-            </Layout>
-        </>
-    )
+            </section>
+        </Layout>
+    );
 }

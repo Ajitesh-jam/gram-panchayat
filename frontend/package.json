@@ -15,6 +15,7 @@
     "bcryptjs": "^2.4.3",
     "bootstrap-touchspin": "^4.7.3",
     "form-data": "^4.0.1",
+    "framer-motion": "^12.4.7",
     "got": "^14.4.5",
     "http-proxy-middleware": "^3.0.3",
     "isotope-layout": "^3.0.6",

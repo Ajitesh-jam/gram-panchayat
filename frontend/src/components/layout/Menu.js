@@ -16,20 +16,31 @@ export default function Menu() {
                 <li className="dropdown"><Link href="/">Home</Link>
                    
                 </li>
-
                 
                 <li className="dropdown"><Link href="/citizen-login">Citizen</Link>
                     
                 </li>
                 {/* Pages */}
+                {/* <ul className="sub-menu">
+
+                    <li className="dropdown"><Link href="/panchayat">Panchayat</Link>
+                    </li>
+                    <li className="dropdown"><Link href="/govt-monitor">Govt Monitor</Link>
+                        
+                    </li>
+                    <li className="dropdown"><Link href="/Admin">Admin</Link>
+                        
+                    </li>
+
+                </ul> */}
+
                 <li className="dropdown"><Link href="/panchayat">Panchayat</Link>
-                    
-                </li>
-                <li className="dropdown"><Link href="/govt-monitor">Govt. Moniter</Link>
-                    
-                </li>
-                <li className="dropdown"><Link href="/Admin">Admin</Link>
-                    
+                    <ul>
+                        <li><Link href="/panchayat">Panchayat</Link></li>
+                        <li><Link href="/govt-monitor">Government Monitors</Link></li>
+                        <li><Link href="/Admin">Admin</Link></li>
+                      
+                    </ul>
                 </li>
                 {/* Contact */}
                 <li><Link href="/contact">Contact</Link></li>

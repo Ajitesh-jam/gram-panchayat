@@ -3,12 +3,9 @@ import Banner from "../components/home/Banner"
 import Funfacts from "../components/home/Funfacts"
 import News from "../components/home/News"
 import WhyChooseUs from "../components/home/WhyChooseUs"
-
 import Feature from "../components/home/Features"
-import Team from "../components/home/Team"
 import Video from "../components/home/Video"
 import Process from "../components/home/Process"
-import Pricing from "../components/home/Pricing"
 import Subscribe from "../components/home/Subscribe"
 
 

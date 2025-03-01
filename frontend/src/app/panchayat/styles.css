@@ -1,0 +1,113 @@
+/* General Page Styling */
+body {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Container for the Form */
+.contact-style-three {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px;
+    background-color: #ffffff;
+}
+
+/* Form Container with More Curvature */
+.form-inner {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 40px; /* Increased curvature */
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Section Title */
+.sec-title h2 {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Input Fields with More Curvature */
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Increased curvature */
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Input Focus Effect */
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+}
+
+/* Submit Button with More Curvature */
+.theme-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 25px; /* More rounded button */
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+/* Hover Effect for Button */
+.theme-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Register Link */
+p {
+    text-align: center;
+    margin-top: 15px;
+}
+
+p a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+/* Image Styling */
+.image-box img {
+    max-width: 100%;
+    border-radius: 15px; /* Increased curvature */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-style-three {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .form-inner {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .image-box {
+        text-align: center;
+        margin-top: 20px;
+    }
+}

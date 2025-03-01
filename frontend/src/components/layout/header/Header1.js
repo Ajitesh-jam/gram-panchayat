@@ -16,7 +16,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
               <div className="outer-box">
                 <div className="logo-box">
                   <figure className="logo">
-                    <Link href="/"><img src="assets/images/logo2.png" alt="" /></Link>
+
                   </figure>
                 </div>
                 <div className="menu-area">
@@ -44,7 +44,7 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu, isSide
           <div className="auto-container">
             <div className="outer-box">
               <div className="logo-box">
-                <figure className="logo"><Link href="/"><img src="assets/images/logo2.png" alt="" /></Link></figure>
+
               </div>
 
               <nav className="main-menu navbar-expand-md navbar-light clearfix">

@@ -1,5 +1,4 @@
 CREATE TABLE govt_monitor (
-
     govt_id INT UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL,
     gender VARCHAR(10) CHECK (gender IN ('male', 'female', 'other')),

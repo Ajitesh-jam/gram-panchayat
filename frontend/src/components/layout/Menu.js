@@ -25,6 +25,12 @@ export default function Menu() {
                 <li className="dropdown"><Link href="/panchayat">Panchayat</Link>
                     
                 </li>
+                <li className="dropdown"><Link href="/govt-moniter">Govt. Moniter</Link>
+                    
+                </li>
+                <li className="dropdown"><Link href="/Admin">Admin</Link>
+                    
+                </li>
                 {/* Contact */}
                 <li><Link href="/contact">Contact</Link></li>
             </ul>

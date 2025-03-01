@@ -64,6 +64,24 @@ export const getVillageCitizen = async (village_id)=>{
 };
 
 
+export const getCitizenByHousehold = async (household_id)=>{
+    const query = `SELECT * FROM citizen WHERE household_id = $1;`;
+  const res = await pool.query(query, [household_id]);
+  //console.log("res ", res.rows);
+  return res.rows;
+};
+
+export const getHousehold = async(household_id) => {
+  const query = `SELECT * FROM household WHERE household_id = $1;`;
+  const res = await pool.query(query, [household_id]);
+  //console.log("res ", res.rows);
+  return res.rows[0]||null;
+}
+
+
+
+
+
 //employees
 import bcrypt from "bcrypt";
 

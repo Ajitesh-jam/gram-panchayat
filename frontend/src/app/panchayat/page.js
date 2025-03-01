@@ -1,19 +1,21 @@
 "use client"
 import Layout from "../../components/layout/Layout"
 import Link from "next/link"
-import useEmployees from "../../components/hooks/employee.zustand"
+
 import axios from "axios";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 //import router
 import { useRouter } from "next/navigation";
 
-
+import useEmployees from "../../components/hooks/employee.zustand";
 
 export default function Home() {
 
     //const Citizens = useEmployees((state) => state.setNewCitizen);
     const Employees = useEmployees((state) => state.setNewEmployee);
+    const fetchedEmployee = useEmployees((state) => state.selectedEmployee);
+
     //const navigate = useNavigate(); // Use navigate instead of router
     const [id,setId] = useState(); 
     const [password,setPassword] = useState(); 
@@ -51,6 +53,25 @@ export default function Home() {
         }
     }
 
+
+
+    useEffect(() => {
+        const fetchEmployee = async () => {
+            try {
+                console.log("Fetching employee : ",fetchedEmployee );
+                // if(fetchedEmployee.employee_id!==-1){
+                //     router.push("/panchayat-employee");
+                // }
+
+            } catch (error) {
+               
+            }
+        };
+
+        fetchEmployee();
+
+    }, []);
+
     async function loginEmployee() {
         console.log("Login called");
         try {
@@ -61,8 +82,8 @@ export default function Home() {
             if (response.status === 200) {
                 Employees(response.data); // Update Citizen data in Zustand
 
-                //naviagte to /Employee
                 router.push("/panchayat-employee");
+                //naviagte to /Employee
             }
         } catch (error) {
             //Handle specific error cases

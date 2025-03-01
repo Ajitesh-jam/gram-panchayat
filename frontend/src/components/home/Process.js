@@ -24,7 +24,7 @@ export default function Process() {
               <div className="lower-content">
                 <h3>Get Onboarded</h3>
                 <p>Sign Up to get a Linked Wallet<br/> &nbsp; </p>
-                <Link href="/Citizen-signup" className="theme-btn btn-two"><span>Register</span></Link>
+                <Link href="/citizen-signup" className="theme-btn btn-two"><span>Register</span></Link>
               </div>
             </div>
           </div>

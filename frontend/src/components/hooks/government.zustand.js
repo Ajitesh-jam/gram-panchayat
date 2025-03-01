@@ -6,6 +6,7 @@ const initialState = {
     selectedGovernment: {
         government_id: -1,
         name: "Dummy Government Official",
+        my_villages:"[1, 2, 4]",
         department: "Unknown",
         image: "assets/images/team/team-2.jpg",
         email: "default@gov.in",

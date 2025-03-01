@@ -72,27 +72,27 @@ export default function Home() {
                                                     
                                                 </div>
                                                 <div className="row clearfix">
-                                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
+                                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group ">
                                                         <input type="text" name="fname" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
                                                     </div>
                                                     
                                                 </div>
                                                 <button type="submit" className="theme-btn btn-one" onClick={login}><span>Login </span></button>
-                                                Don't have an account? <Link href="/citizen-signup">Register</Link>
+                                                <p>Don't have an account? </p><Link href="/citizen-signup">Register</Link>
                                         </>
 
 
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-12 col-sm-12 image-column">
-                                    <figure className="image-box"><img src="assets/images/resource/contact-1.jpg" alt="" /></figure>
+                                    <figure className="image-box"><img src="assets/images/resource/citizen3.jpg" alt="" /></figure>
                                 </div>
                             </div>
                         </div>
                     </section>
 
                      {/* subscibe */}
-                <section className="subscribe-section">
+                {/* <section className="subscribe-section">
                 <div className="auto-container">
                     <div className="inner-container">
                     <div className="row align-items-center">
@@ -120,7 +120,7 @@ export default function Home() {
                     </div>
                     </div>
                 </div>
-                </section>
+                </section> */}
                   {/* subscibe end */}
                 </div>
 

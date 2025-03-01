@@ -1,6 +1,8 @@
 "use client"
 import Layout from "../../components/layout/Layout"
 import Link from "next/link"
+import "./styles.css";
+
 
 import axios from "axios";
 import { useState,useEffect } from "react";

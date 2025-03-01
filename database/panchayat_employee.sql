@@ -2,8 +2,8 @@ create table panchayat_employee (
 	employee_id INT,
 	password VARCHAR(60),
 	citizen_id INT,
-	village_id INT,
-	role VARCHAR(10)
+	role VARCHAR(10),
+
 );
 insert into panchayat_employee (employee_id, password, citizen_id, village_id, role) values (1, '$2a$12$3uo2Vypayd0ZzR87oT5q7ej9QNsrmqnPEuXZKZu3wvfxQMS04vX2.', 10, 4, 'Pradhan');
 insert into panchayat_employee (employee_id, password, citizen_id, village_id, role) values (2, '$2a$12$3uo2Vypayd0ZzR87oT5q7ej9QNsrmqnPEuXZKZu3wvfxQMS04vX2.', 43, 5, 'Sarpanch');

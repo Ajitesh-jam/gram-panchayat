@@ -48,6 +48,25 @@ export const getCitizenByAadhar = async (aadhar) => {
   return res.rows[0]||null;
 };
 
+export const getCitizen = async (aadhar) => {
+  console.log("Fetching citizen:", aadhar);
+  const query = `
+  SELECT * 
+  FROM citizen WHERE aadhar = $1;
+  `;
+  const values = [aadhar];
+
+  try {
+    const res = await pool.query(query, values);
+    console.log("Fetching values:", res.rows[0]);
+    return res.rows[0] || null;
+  } catch (error) {
+    console.error("Error fetching citizen:", error);
+    return null;
+  }
+};
+
+
 export const getAllCitizen = async ()=>{
   const query = `SELECT * FROM citizen;`;
   const res = await pool.query(query);
@@ -77,8 +96,6 @@ export const getHousehold = async(household_id) => {
   //console.log("res ", res.rows);
   return res.rows[0]||null;
 }
-
-
 
 
 

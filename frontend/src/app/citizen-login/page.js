@@ -13,6 +13,7 @@ export default function Home() {
     const Citizens = useCitizens((state) => state.setNewCitizen);
     //const navigate = useNavigate(); // Use navigate instead of router
     const [aadhar,setAdhar] = useState(); 
+    const [password,setPassword] = useState(); 
 
 
     //router to navigate
@@ -24,7 +25,7 @@ export default function Home() {
         console.log("Login called with Aadhar:", aadhar);
 
         try {
-            const response = await axios.get(`/api/citizen/get?aadhar=${aadhar}`);
+            const response = await axios.get(`/api/citizen/get?aadhar=${aadhar}&password=${password}`);
 
             if (response.status === 200) {
                 setCitizen(response.data); // Update Citizen data in Zustand
@@ -42,7 +43,7 @@ export default function Home() {
                     alert("An error occurred while logging in");
                 }
             } else {
-                alert("Network error. Please try again later.");
+                alert("Incorrect Login");
                 console.error("Error:", error);
             }
         }
@@ -67,6 +68,12 @@ export default function Home() {
                                                 <div className="row clearfix">
                                                     <div className="col-lg-6 col-md-6 col-sm-12 form-group">
                                                         <input type="text" name="fname" placeholder="Adhar" onChange={(e) => setAdhar(e.target.value)} required />
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div className="row clearfix">
+                                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
+                                                        <input type="text" name="fname" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
                                                     </div>
                                                     
                                                 </div>

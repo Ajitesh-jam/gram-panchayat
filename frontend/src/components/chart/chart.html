@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./chart.css">
+    <title>Getting Started with chart.js</title>
+</head>
+
+<body>
+
+    <!-- HEADER SECTION -->
+    <header>
+        <!-- NAVBAR SECTION -->
+        <nav>
+            <a href="" class="nav-links read-guide">Read Guide</a>
+            <div class="nav-right">
+                <a href="#bar-chart" class="nav-links">Bar Chart</a>
+                <a href="#line-chart" class="nav-links">Line Chart</a>
+                <a href="#pie-chart" class="nav-links">Pie Chart</a>
+            </div>
+        </nav>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <h1 class="hero-text">Getting Started with Chart.js <br /> (DEMO)</h1>
+        </section>
+    </header>
+
+    <main>
+
+        <!-- BAR CHART SECTION -->
+        <section class="chart-section bar-chart" id="bar-chart">
+            <h2 class="chart-heading">Bar Chart</h2>
+            <div class="chart-wrapper">
+                <!-- chart canva -->
+                <canvas id="js-bar-chart"></canvas>
+            </div>
+        </section>
+
+        <!-- LINE CHART SECTION -->
+        <section class="chart-section line-chart" id="line-chart">
+            <h2 class="chart-heading">Line Chart</h2>
+            <div class="chart-wrapper">
+                <!-- chart canva -->
+                <canvas id="js-line-chart"></canvas>
+            </div>
+        </section>
+
+        <!-- PIE CHART SECTION -->
+        <section class="chart-section pie-chart" id="pie-chart">
+            <h2 class="chart-heading">Pie Chart</h2>
+            <div class="chart-wrapper">
+                <!-- chart canva -->
+                <canvas id="js-pie-chart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <h2>Design with 🧡 by <span>UNCLEBIGBAY</span></h2>
+    </footer>
+
+
+    <!-- Chart.js Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"
+        integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Bar Chart Script -->
+    <script src="./bar-chart.js"></script>
+    <!-- Line Chart Script -->
+    <script src="./line-chart.js"></script>
+    <!-- Pie Chart Script -->
+    <script src="./pie-chart.js"></script>
+</body>
+
+</html>

@@ -30,6 +30,7 @@
     "react-modal-video": "^2.0.1",
     "react-router-dom": "^7.0.2",
     "react-wow": "^1.0.0",
+    "recharts": "^2.15.1",
     "sass": "^1.66.1",
     "swiper": "^10.2.0",
     "tailwind": "^4.0.0",

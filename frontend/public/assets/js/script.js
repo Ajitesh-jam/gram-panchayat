@@ -453,7 +453,7 @@
 	enableMasonry();
 
 
-    // Progress Bar
+    // Administrator
 	if ($('.count-bar').length) {
 		$('.count-bar').appear(function(){
 			var el = $(this);

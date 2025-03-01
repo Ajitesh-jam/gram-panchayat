@@ -8,6 +8,8 @@ import { useState } from "react";
 //import router
 import { useRouter } from "next/navigation";
 
+
+
 export default function Home() {
 
     //const Citizens = useEmployees((state) => state.setNewCitizen);
@@ -84,6 +86,8 @@ export default function Home() {
             <Layout headerStyle={1} footerStyle={1} >
                 <div>
                     {/* Contact Form Section End */}
+
+                   
                     {/* Contact Form Section2 */}
                     <section className="contact-style-three pt_90 pb_120">
                         <div className="auto-container">

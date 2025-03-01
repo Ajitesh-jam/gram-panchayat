@@ -71,7 +71,7 @@ export default function Home() {
                                                     
                                                 </div>
                                                 <button type="submit" className="theme-btn btn-one" onClick={login}><span>Login </span></button>
-                                                Don't have an account? <Link href="/Citizen-signup">Register</Link>
+                                                Don't have an account? <Link href="/citizen-signup">Register</Link>
                                         </>
 
 

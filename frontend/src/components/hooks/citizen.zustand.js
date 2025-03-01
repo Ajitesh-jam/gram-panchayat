@@ -1,51 +1,38 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 // Define the initial Citizen data structure
 const initialState = {
-    selectedCitizen: 
-    {
-        name: "Default Citizen",
+    selectedCitizen: {
+        name: "Dummy Citizen",
         DOB: "2-34-2224",
         image: "assets/images/team/team-1.jpg",
         email: "default@gmail.com",
-        publicAddress: "0x7BEb7983B03e75B4b7F62E2B13256Aec92C223Fa",
         contact: "0000000000",
         gender: "Male",
         aadhar: "XXXXXXXXXXXXXX",
     }
-
 };
 
+// Create the Zustand store for Citizen management with persistence
+const useCitizens = create(
+    persist(
+        (set) => ({
+            ...initialState,
 
-// Create the Zustand store for Citizen management
-const useCitizens = create((set) => ({
-    ...initialState,
-    
-    // Add a new Citizen
-    addCitizen: (Citizen) =>
-        set((state) => ({ selectedCitizen:  Citizen })),
+            // Add a new Citizen
+            addCitizen: (Citizen) => set(() => ({ selectedCitizen: Citizen })),
 
-    // Remove a Citizen by their publicAddress
-    removeCitizen: () =>
-        set((state) => ({
-            selectedCitizen: 
-                {
-                    name: "Default Citizen",
-                    DOB: "2-34-2224",
-                    image: "assets/images/team/team-1.jpg",
-                    email: "default@gmail.com",
-                    publicAddress: "0x7BEb7983B03e75B4b7F62E2B13256Aec92C223Fa",
-                    contact: "0000000000",
-                    gender: "Male",
-                    aadhar: "XXXXXXXXXXXXXX",
-                }
-        })
-    ),
+            // Remove a Citizen (reset to default)
+            removeCitizen: () => set(() => ({ selectedCitizen: initialState.selectedCitizen })),
 
-    // Set a new Citizen in the state (can be used for temporary storage)
-    setNewCitizen: (Citizen) => set(() => ({ selectedCitizen: Citizen })),
-
-   
-}));
+            // Set a new Citizen temporarily
+            setNewCitizen: (Citizen) => set(() => ({ selectedCitizen: Citizen })),
+        }),
+        {
+            name: 'citizen-store', // Key for localStorage
+        }
+    )
+);
 
 export default useCitizens;

@@ -126,7 +126,6 @@ export const getEmployee = async (employee_id,password) => {
   return res.rows[0] || null;
 };
 
-
 export const updateEmployee = async (employee_id, password, updates) => {
   console.log("Updating employee:", employee_id);
 
@@ -156,7 +155,6 @@ export const updateEmployee = async (employee_id, password, updates) => {
   return getEmployee(employee_id, password)||null; // Return updated record
 };
 
-
 export const deleteEmployee = async (employee_id, password) => {
   console.log("Deleting employee:", employee_id);
 
@@ -173,7 +171,6 @@ export const deleteEmployee = async (employee_id, password) => {
   return res.rows[0] || null;
 };
 
-
 export const createEmployee = async (employee) => {
   const { employee_id, password, citizen_id, role } = employee;
 
@@ -188,6 +185,9 @@ export const createEmployee = async (employee) => {
 
   return res.rows[0]||null;
 };
+
+
+//scheme
 
 export const createScheme = async (scheme) => {
   const {id , name ,criteria, description} = scheme;
@@ -248,8 +248,6 @@ export const getAllSchemes = async ()=>{
   return res.rows||null;
 }
 
-
-
 export const getVillageSchemes = async (village_id) => {
   console.log("Fetching scheme of your village :", village_id);
 
@@ -282,3 +280,25 @@ export const getAScheme_of_a_village = async (scheme_id,village_id) => {
 
   return res.rows || null;
 };
+
+
+//government monitor 
+
+export const getGovt = async (govt_id,password) => {
+  const query = `
+  SELECT *
+  FROM govt_monitor  
+  WHERE govt_id = $1 ;
+  `;
+  const values = [govt_id];
+  const res = await pool.query(query, values);
+  //console.log("res ", res.rows);
+  //console.log("password ", res.rows[0]['password']);
+  const isMatch = await bcrypt.compare(password, res.rows[0]['password']);
+
+  if (!isMatch) {
+    return [{ error: "Invalid credentials" }, { status: 401 }];
+  }
+  return res.rows[0] || null;
+};
+

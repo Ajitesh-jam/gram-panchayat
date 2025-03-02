@@ -101,7 +101,6 @@ export default function Login() {
                                     </div>
                                 </div>
                                 <button type="submit" className="theme-btn btn-one" onClick={login}>Login</button>
-                                <p>Don't have an account? <Link href="/Employee-sign">Register</Link></p>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-12 col-sm-12 image-column">

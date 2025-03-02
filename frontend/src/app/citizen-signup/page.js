@@ -84,7 +84,7 @@ export default function Home() {
         <>
             <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Citizen Signup">
                 {/* Appointments-section */}
-                <section className="appointment-section sec-pad-2">
+                <section className="appointment-section">
                     <div className="outer-container p_relative">
                         <div
                             className="bg-layer"
@@ -103,7 +103,7 @@ export default function Home() {
                         <div className="auto-container">
                             <div className="row clearfix">
                                 <div className="col-lg-7 col-md-12 col-sm-12 form-column">
-                                    <div className="form-inner">
+                                    <div className="form-inner-inner">
                                         <form className="default-form" onSubmit={submit}>
                                             <div className="row clearfix">
                                                 <div className="col-lg-12 col-md-12 col-sm-12 form-group">

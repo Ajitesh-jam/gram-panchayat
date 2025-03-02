@@ -8,7 +8,7 @@ export default function Subscribe() {
           <div className="row align-items-center">
             <div className="col-lg-6 col-md-12 col-sm-12 text-column">
               <div className="text-box">
-                <h2><span>Subscribe</span> for the exclusive updates!</h2>
+                <h2><span>Submit</span> your email for updates!</h2>
               </div>
             </div>
             <div className="col-lg-6 col-md-12 col-sm-12 form-column">

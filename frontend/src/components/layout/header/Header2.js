@@ -14,7 +14,7 @@ export default function Header2({ scroll, isMobileMenu, handleMobileMenu, isSide
                     <div className="top-inner">
                         <ul className="info-list clearfix">
                             <li><i className="icon-1"></i>Mon - Fri 8:00 - 18:00 / Sunday 8:00 - 14:00</li>
-                            <li><i className="icon-2"></i>Phone: <Link href="tel:01989526503">0198-9526503</Link></li>
+                            <li><i className="icon-2"></i>Phone: <Link href="tel:01989526503">9876543210</Link></li>
                             <li><img src="assets/images/icons/icon-1.png" alt="" /> IIT Kharagpur</li>
                         </ul>
                         <ul className="social-links clearfix">
@@ -52,12 +52,12 @@ export default function Header2({ scroll, isMobileMenu, handleMobileMenu, isSide
                         {/* Menu Right Content */}
                         <ul className="menu-right-content">
                            
-                            <li className="search-box-outer search-toggler" onClick={handlePopup}>
+                            {/* <li className="search-box-outer search-toggler" onClick={handlePopup}>
                             <i className="icon-27"></i>
-                            </li>
-                            <li className="nav-btn nav-toggler navSidebar-button clearfix" onClick={handleSidebar}>
+                            </li> */}
+                            {/* <li className="nav-btn nav-toggler navSidebar-button clearfix" onClick={handleSidebar}>
                             <i className="icon-28"></i>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                 </div>
@@ -78,12 +78,12 @@ export default function Header2({ scroll, isMobileMenu, handleMobileMenu, isSide
                             </nav>
                             <ul className="menu-right-content">
                            
-                            <li className="search-box-outer search-toggler" onClick={handlePopup}>
+                            {/* <li className="search-box-outer search-toggler" onClick={handlePopup}>
                             <i className="icon-27"></i>
-                            </li>
-                            <li className="nav-btn nav-toggler navSidebar-button clearfix" onClick={handleSidebar}>
+                            </li> */}
+                            {/* <li className="nav-btn nav-toggler navSidebar-button clearfix" onClick={handleSidebar}>
                             <i className="icon-28"></i>
-                            </li>
+                            </li> */}
                             </ul>
                         
                         </div>

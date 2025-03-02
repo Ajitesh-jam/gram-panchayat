@@ -7,13 +7,13 @@ import useGovernment from "@/src/components/hooks/government.zustand";
 import useAdmin from "@/src/components/hooks/admin.zustand";
 import Layout from "../../components/layout/Layout";
 import Link from "next/link";
-import "./styles.css";
+import "./style.css";
 
 export default function Login() {
     const [role, setRole] = useState("");
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
-    
+
     const router = useRouter();
     const setEmployee = useEmployees((state) => state.setNewEmployee);
     const setGovt = useGovernment((state) => state.setNewGovernment);
@@ -35,17 +35,20 @@ export default function Login() {
                 apiUrl = `/api/govt/get?govt_id=${id}&password=${password}`;
             }
 
+
+                apiUrl = `/api/govt/get?govt_id=${id}&password=${password}`;
+            }
             if (role === "Admin") apiUrl = `/api/admin/get?admin_id=${id}&password=${password}`;
 
             const response = await axios.get(apiUrl);
 
 
             if (role === "Employee") {
-                    setEmployee(response.data);
-                }
+                setEmployee(response.data);
+            }
             if (role === "Government Monitor") {
-                    
-               setGovt(response.data);
+
+                setGovt(response.data);
 
             }
             if (role === "Admin") {
@@ -55,7 +58,7 @@ export default function Login() {
             if (response.status === 200) {
                 const navigateTo =
                     role === "Employee" ? "/panchayat-employee" :
-                    role === "Government Monitor" ? "/govt-monitor" : "/admin";
+                        role === "Government Monitor" ? "/govt-monitor" : "/admin";
                 router.push(navigateTo);
             }
         } catch (error) {
@@ -84,11 +87,11 @@ export default function Login() {
                                 <div className="sec-title mb_50">
                                     <h2>Login</h2>
                                 </div>
-                                <div className="row clearfix">
-                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
+                                <div className="row_clearfix">
+                                    <div className="form-group">
                                         <input type="text" placeholder="ID" onChange={(e) => setId(e.target.value)} required />
                                     </div>
-                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
+                                    <div className="form-group">
                                         <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
                                     </div>
                                     <div className="col-lg-12 col-md-12 col-sm-12 form-group">
@@ -100,9 +103,12 @@ export default function Login() {
                                         </select>
                                     </div>
                                 </div>
-                                <button type="submit" className="theme-btn btn-one" onClick={login}><span>Login</span></button>
+                                <button type="submit" className="theme-btn btn-one" onClick={login}>Login</button>
                                 <p>Don't have an account? <Link href="/Employee-sign">Register</Link></p>
                             </div>
+                        </div>
+                        <div className="col-lg-4 col-md-12 col-sm-12 image-column">
+                            <figure className="image-box"><img src="assets/images/resource/citizen4.jpg" alt="" /></figure>
                         </div>
                     </div>
                 </div>

@@ -170,7 +170,7 @@ export default function Service() {
             } catch (error) {
                 console.error("Error fetching Citizens:", error);
             }
-        };
+        };  
 
         fetchSchemes();
     }, []);
@@ -226,12 +226,7 @@ export default function Service() {
                                     <div className="content-box">
                                         <h2>{Employee.name}</h2>
                                         <span className="designation">POST: {Employee.role} </span>
-                                        <p>
-                                            Eget lorem dolor sed viverra. Mattis nunc sed blandit libero volutpat sed
-                                            cras ornare arcu. consectetur adipiscing elit. Libero turpis blandit
-                                            blandit mauris aliquam condimentum quam suspendisse Pellentesque habitant
-                                            morbi tristique senectus et netus
-                                        </p>
+                                        
                                         <ul className="info-list mb_30 clearfix">
                                             <li><strong>Date of Birth: </strong>{Employee.dob}</li>
                                             <li><strong>Email: </strong><Link href={`mailto:${Employee.email}`}>{Employee.email}</Link></li>
@@ -315,26 +310,7 @@ export default function Service() {
                                     </div>
                                 ))}
                             </div>
-                            <div className="pagination-wrapper mt_20 centred">
-                                <ul className="pagination clearfix">
-                                    <li>
-                                        <Link href="team" className="current">
-                                            1
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="team">2</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="team">3</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="team">
-                                            <i className="icon-36"></i>
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
+                           
                         </div>
                     </section>
                  <h1>Your Schemes</h1> 
@@ -379,26 +355,7 @@ export default function Service() {
                                     </div>
                                 ))}
                             </div>
-                            <div className="pagination-wrapper mt_20 centred">
-                                <ul className="pagination clearfix">
-                                    <li>
-                                        <Link href="team" className="current">
-                                            1
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="team">2</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="team">3</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="team">
-                                            <i className="icon-36"></i>
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
+                            
                         </div>
                     </section>
                                         

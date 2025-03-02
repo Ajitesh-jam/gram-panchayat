@@ -73,7 +73,7 @@ export default function Home() {
 
         const fetchSchemes = async () => {
             try {
-                const response = await axios.get(`/api/scheme/get_citizen_schemes?citizen_id=${Citizen.citizen_id}`);
+                const response = await axios.get(`/api/citizen/get_citizen_schemes?citizen_id=${Citizen.citizen_id}`);
                 setSchemes(response.data);
             } catch (error) {
                 console.error("Error fetching schemes:", error);

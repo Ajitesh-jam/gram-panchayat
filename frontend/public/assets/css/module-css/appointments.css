@@ -59,6 +59,12 @@
 .appointment-section .form-inner{
   position: relative;
   padding: 60px;
+  background-color: white;
+  border-color: #060606;
+  border-radius: 10px;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+  transition: all 500ms ease;
+  opacity:100%;
 }
 
 .appointment-section .bg-layer{

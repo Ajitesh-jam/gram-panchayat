@@ -31,6 +31,7 @@ export default function Home() {
     };
 
     const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
 
     const submit = async (e) => {
         e.preventDefault();
@@ -43,19 +44,20 @@ export default function Home() {
             const hashedPassword = await bcrypt.hash(formData.password, 10);
             formData.password = hashedPassword;
 
-            console.log("Submitting form with data:", formData);
-
-            employee(formData);
+            //console.log("Submitting form with data:", formData);
             const response = await axios.post("/api/employee/create", formData);
-
-            if (response.status === 200) {
-                router.push("/citizen");
+            console.log("Response:", response);
+            if (response.status === 201) {
+                setErrorMessage("");
+                setSuccessMessage("Employee created successfully");
+                console.log("Employee created successfully");
             } else {
+                setSuccessMessage("");
                 setErrorMessage("Failed to create employee");
             }
         } catch (error) {
+            setSuccessMessage("");
             console.error("Error creating employee:", error);
-
             // Show different messages based on the error type
             if (error.response) {
                 setErrorMessage(error.response.data.message || "Server error. Try again later.");
@@ -166,6 +168,7 @@ export default function Home() {
                                                         />
                                                     </div>
                                                     {errorMessage && <p style={{color:"red"}}>{errorMessage}</p>}
+                                                    {successMessage && <p style={{color:"green"}}>{successMessage}</p>}
                                                     <div className="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
                                                         <button type="submit" className="theme-btn btn-one">
                                                             <span>Sign UP Employee</span>

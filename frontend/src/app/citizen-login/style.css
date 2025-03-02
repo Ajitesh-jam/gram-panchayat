@@ -144,6 +144,16 @@ p a:hover {
     min-width: 320px;
 }
 
+/* Change input text color when user types */
+.form-group input:not(:placeholder-shown) {
+    color: #333; /* Dark color when text is typed */
+}
+
+.form-group input:focus {
+    color: #333; /* Dark color when input is focused */
+}
+
+
 /* Responsive Design */
 @media (max-width: 992px) {
     .row.clearfix {

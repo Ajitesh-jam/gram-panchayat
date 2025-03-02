@@ -1,6 +1,6 @@
 create table citizen (
-	village_id INT ,
-	citizen_id INT Primary key,
+	village_id INT,
+	citizen_id INT,
 	password_hash VARCHAR(255) not null,
 	aadhar VARCHAR(50) PRIMARY KEY,
 	gender VARCHAR(50),

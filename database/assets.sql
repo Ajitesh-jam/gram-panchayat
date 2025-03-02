@@ -1,5 +1,5 @@
 create table assets (
-	batch INT Primary key,
+	batch INT,
 	asset_name VARCHAR(16),
 	quantity INT,
 	budget INT,

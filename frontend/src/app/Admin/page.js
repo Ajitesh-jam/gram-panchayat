@@ -82,22 +82,29 @@ export default function Home() {
 
     // JSON array of team members
     return (
-        <>
-            <Layout headerStyle={1} footerStyle={1} >
-                <div>
-                    {/* Contact Form Section End */}
+            <>
+                <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Administrator">
+                    {/* Appointments-section */}
+                    <section className="appointment-section sec-pad-2">
+                        <div className="outer-container p_relative">
+                            <div
+                                className="bg-layer"
+                                style={{
+                                    backgroundImage: "url(https://images.forbesindia.com/blog/wp-content/uploads/2021/08/Raigad-Village.jpg)",
 
-                   
-                    {/* Contact Form Section2 */}
-                    <section className="contact-style-three pt_90 pb_120">
-                        <div className="auto-container">
-                            <div className="row clearfix">
-                                <div className="col-lg-8 col-md-12 col-sm-12 form-column">
-                                    <div className="form-inner mr_40">
-                                        <div className="sec-title mb_50">
-                                            <h2>Login as a Administrator</h2>
-                                        </div>
-                                            <>
+                                    // width: "1608px",
+                                    // height: "937px",
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                }}
+                                
+                            >
+                            </div>                        
+                            <div className="auto-container">
+                                <div className="row clearfix">
+                                    <div className="col-lg-7 col-md-12 col-sm-12 form-column">
+                                        <div className="form-inner">
+                                            <form className="default-form" onSubmit={submit}>
                                                 <div className="row clearfix">
                                                     <div className="col-lg-12 col-md-12 col-sm-12 form-group">
                                                         <input
@@ -119,60 +126,63 @@ export default function Home() {
                                                             required
                                                         />
                                                     </div>
-                                                    
+                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <input
+                                                            type="password"
+                                                            name="confirmPassword"
+                                                            placeholder="Confirm Password"
+                                                            value = {formData.confirmPassword}
+                                                            onChange={handleInputChange}
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div className = "col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <input
+                                                            type="text"
+                                                            name="citizen_id"
+                                                            placeholder="Citizen ID"
+                                                            value={formData.citizen_id}
+                                                            onChange={handleInputChange}
+                                                            required    
+                                                        />
+                                                    </div>
+
+                                                    <div className = "col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <input
+                                                            type="text"
+                                                            name="village_id"
+                                                            placeholder="Village ID"
+                                                            value={formData.village_id}
+                                                            onChange={handleInputChange}
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div className = "col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <input
+                                                            type="text"
+                                                            name="role"
+                                                            placeholder="Role"
+                                                            value={formData.role}
+                                                            onChange={handleInputChange}
+                                                            required
+                                                        />
+                                                    </div>
+                                                    {errorMessage && <p style={{color:"red"}}>{errorMessage}</p>}
+                                                    {successMessage && <p style={{color:"green"}}>{successMessage}</p>}
+                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
+                                                        <button type="submit" className="theme-btn btn-one">
+                                                            <span>Sign UP Employee</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <button type="submit" className="theme-btn btn-one" onClick={login}><span>Login </span></button>
-
-                                            </>
-
-                                            
-
-
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div className="col-lg-4 col-md-12 col-sm-12 image-column">
-                                    <figure className="image-box"><img src="assets/images/resource/contact-1.jpg" alt="" /></figure>
-                                </div>
-                                
-                            </div>
+                                </div> 
+                             </div> 
                         </div>
                     </section>
-
-                     {/* subscibe */}
-                <section className="subscribe-section">
-                <div className="auto-container">
-                    <div className="inner-container">
-                    <div className="row align-items-center">
-                        <div className="col-lg-6 col-md-12 col-sm-12 text-column">
-                        <div className="text-box">
-                            <h2><span>Subscribe</span> for the exclusive updates!</h2>
-                        </div>
-                        </div>
-                        <div className="col-lg-6 col-md-12 col-sm-12 form-column">
-                        <div className="form-inner">
-                            <form method="post" action="contact">
-                            <div className="form-group">
-                                <input type="email" name="email" placeholder="Enter Your Email Address" required />
-                                <button type="submit" className="theme-btn btn-one"><span>Subscribe Now</span></button>
-                            </div>
-                            <div className="form-group">
-                                <div className="check-box">
-                                <input className="check" type="checkbox" id="checkbox1" />
-                                <label htmlFor="checkbox1">I agree to the <Link href="/">Privacy Policy.</Link></label>
-                                </div>
-                            </div>
-                            </form>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </section>
-                  {/* subscibe end */}
-                </div>
-
-            </Layout>
-        </>
-    )
+                </Layout>
+            </>
+    );
 }

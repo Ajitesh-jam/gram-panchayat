@@ -1,7 +1,7 @@
 create table scheme_beneficiaries (
 	scheme_id INT,
 	citizen_id INT,
-	primary key(scheme_id,citizen_id)
+	constraint scheme_beneficiaries_pk primary key (scheme_id, citizen_id)
 );
 insert into scheme_beneficiaries (scheme_id, citizen_id) values (27, 21);
 insert into scheme_beneficiaries (scheme_id, citizen_id) values (9, 52);

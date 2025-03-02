@@ -68,8 +68,12 @@ export default function Home() {
 
         fetchEmployees();
     }, []);
+
+    const [pieData,setPieData] = useState([
+    ]);
+
+
     
-    const [allAssetsDisplay, setAllAssetsDisplay] = useState([]);
 
     // Sample data for multi-line graph
     const lineData = [
@@ -88,133 +92,22 @@ export default function Home() {
         { dataKey: "sales", name: "Sales", color: "#8884d8" },
         { dataKey: "revenue", name: "Revenue", color: "#82ca9d" },
         { dataKey: "profit", name: "Profit", color: "#ffc658" },
-        ]
-
-    const [allAssets, setAllAssets] = useState([]);
-    const [villagePieData, setVillagePieData] = useState({}); // Store pie data per village
-
-    useEffect(() => {
-        const fetchAssets = async () => {
-            try {
-                let fetchedAssets = {};
-
-                for (let i = 1; i < villages.length; i += 3) {
-                    const villageId = villages[i];
-
-                    const response = await axios.get(`api/asset/get_village_assets?village_id=${villageId}`);
-                    console.log(`Fetched Assets for Village ${villageId}:`, response.data);
-
-                     setAllAssetsDisplay((prev) => [...prev, ...response.data]);
-
-                    fetchedAssets[villageId] = response.data;
-                }
-
-                setAllAssets(fetchedAssets);
-            } catch (error) {
-                console.error("Error fetching Assets:", error);
-            }
-        };
-
-        fetchAssets();
-    }, []);
-
-    useEffect(() => {
-        if (Object.keys(allAssets).length > 0) {
-            let pieDataByVillage = {};
-
-            Object.keys(allAssets).forEach(villageId => {
-                pieDataByVillage[villageId] = allAssets[villageId].map(asset => ({
-                    name: asset.asset_name,
-                    value: asset.quantity,
-                }));
-            });
-
-            setVillagePieData(pieDataByVillage);
-        }
-    }, [allAssets]);
-
-    console.log("Village Pie Data:", villagePieData);
-
-    const [lineDataByVillage, setLineDataByVillage] = useState({});
-    const [linesByVillage, setLinesByVillage] = useState({});
-
-    useEffect(() => {
-        const fetchAssets = async () => {
-            try {
-                let fetchedAssets = {};
-
-                for (let i = 1; i < villages.length; i += 3) {
-                    const villageId = villages[i];
-
-                    const response = await axios.get(
-                        `api/asset/get_village_assets?village_id=${villageId}`
-                    );
-                    console.log(`Fetched Assets for Village ${villageId}:`, response.data);
-
-                    fetchedAssets[villageId] = response.data;
-                }
-            } catch (error) {
-                console.error("Error fetching Assets:", error);
-            }
-        };
-
-        fetchAssets();
-    }, []);
-
-    useEffect(() => {
-        if (Object.keys(allAssets).length > 0) {
-            let newLineDataByVillage = {};
-            let newLinesByVillage = {};
-
-            Object.keys(allAssets).forEach((villageId) => {
-                newLineDataByVillage[villageId] = allAssets[villageId].map((asset) => ({
-                    name: asset.asset_name,
-                    [`${villageId}_quantity`]: asset.quantity,
-                }));
-
-                newLinesByVillage[villageId] = allAssets[villageId].map((asset, index) => ({
-                    dataKey: `${villageId}_quantity`,
-                    name: `Village ${villageId}`,
-                    color: `hsl(${index * 40}, 70%, 50%)`, // Dynamic color generation
-                }));
-            });
-
-            setLineDataByVillage(newLineDataByVillage);
-            setLinesByVillage(newLinesByVillage);
-        }
-    }, [allAssets]);
-
-    console.log("Line Data by Village:", lineDataByVillage);
-    console.log("Lines by Village:", linesByVillage);
-
-
-
+    ]
 
     return (
         <>
-            <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="government Monitor">
+            <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Administrator">
 
-            <div style={{ maxWidth: "1500px", margin: "0 auto", padding: "2rem" }}>
-                {Object.keys(villagePieData).map((villageId) => (
-                    <div key={villageId} style={{ marginBottom: "3rem" }}>
-                        <h2>Village ID: {villageId}</h2>
-
-                        {/* Pie Chart for the Village */}
-                        <AnimatedPieChart data={villagePieData[villageId]} />
-
-                        {/* Line Graph for the Village */}
-                        {lineDataByVillage[villageId] && linesByVillage[villageId] && (
-                            <MultiLineGraph
-                                data={lineDataByVillage[villageId]}
-                                lines={linesByVillage[villageId]}
-                                xAxisKey="name"
-                                title={`Asset Quantities for Village ${villageId}`}
-                            />
-                        )}
+                <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem" }}>
+                    <div style={{ marginBottom: "3rem" }}>
+                    <AnimatedPieChart data={pieData} />
                     </div>
-                ))}
-            </div>
+                    <div>
+                    <MultiLineGraph data={lineData} lines={lines} xAxisKey="name" title="Sales, Revenue & Profit" />
+                    </div>
+                </div>
 
+               
                 
                 <section className="team-details sec-pad-2">
                     <div className="auto-container">
@@ -228,7 +121,7 @@ export default function Home() {
                                 <div className="col-lg-7 col-md-12 col-sm-12 content-column">
                                     <div className="content-box">
                                         <h2>{monitor.name}</h2>
-                                        <span className="designation">POST: Government Monitor </span>
+                                        <span className="designation">POST: {monitor.role} </span>
                                         <p>
                                             Eget lorem dolor sed viverra. Mattis nunc sed blandit libero volutpat sed
                                             cras ornare arcu. consectetur adipiscing elit. Libero turpis blandit
@@ -248,8 +141,9 @@ export default function Home() {
                     </div>
                 </section>
 
-                <div>
                 <h1> Your Employees </h1>
+
+                <div>
                     <section className="team-section sec-pad-2 centred">
                         <div className="auto-container">
                             <div className="row clearfix">
@@ -345,49 +239,7 @@ export default function Home() {
                             
                         </div>
                     </section>
-
-                    <h1>Village Assets</h1>
-
-                    <section className="team-section sec-pad-2 centred">
-                        <div className="auto-container">
-                            <div className="row clearfix">
-                                {allAssetsDisplay.map((member, index) => (
-                                    <div
-                                        key={index}
-                                        className="col-lg-3 col-md-6 col-sm-12 team-block"
-                                    >
-                                        <div
-                                            className="team-block-one wow fadeInUp animated"
-                                            data-wow-delay={`${index * 200}ms`}
-                                            data-wow-duration="1500ms"
-                                        >
-                                            <div className="inner-box">
-                                                <div className="image-box">
-                                                    
-                                                </div>
-                                                <div className="lower-content">
-                                                    <h3>
-                                                        
-                                                            {member.asset_name}
-                                                        
-                                                    </h3>
-                                                    <span className="designation">
-                                                        Quantity: {member.quantity}
-                                                        <br></br>
-                                                        Batch: {member.batch}
-                                                        <br></br>
-                                                        Village id: {member.village_id}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                            
-                        </div>
-                    </section>
-                </div>                
+                </div>
             </Layout>
         </>
     );

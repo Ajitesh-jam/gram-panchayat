@@ -1,8 +1,7 @@
 create table panchayat_employee (
-	employee_id INT PRIMARY KEY,
+	employee_id INT Primary key,
 	password VARCHAR(60),
-	village_id INT references village(village_id),
-	citizen_id INT,
+	citizen_id INT References citizen(citizen_id),
 	role VARCHAR(10),
 );
 insert into panchayat_employee (employee_id, password, citizen_id, village_id, role) values (1, '$2a$12$3uo2Vypayd0ZzR87oT5q7ej9QNsrmqnPEuXZKZu3wvfxQMS04vX2.', 10, 4, 'Pradhan');

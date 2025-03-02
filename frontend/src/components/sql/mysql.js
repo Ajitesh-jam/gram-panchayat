@@ -97,6 +97,17 @@ export const getHousehold = async(household_id) => {
   return res.rows[0]||null;
 }
 
+export const getSchemesByCitizen = async (citizen_id) => {
+  const query = `
+      SELECT s.scheme_id, s.scheme_name, s.criteria, s.description 
+      FROM schemes s
+      JOIN scheme_beneficiaries sb ON s.scheme_id = sb.scheme_id
+      WHERE sb.citizen_id = $1;
+  `;
+  const res = await pool.query(query, [citizen_id]);
+  return res.rows;
+};
+
 
 //employees
 import bcrypt from "bcrypt";

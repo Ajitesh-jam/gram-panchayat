@@ -5,7 +5,7 @@ export default function Funfacts() {
     return (
         <>        
             <section className="funfact-section centred">
-                <div className="auto-container">
+                <div className="auto-containers">
                     <div className="inner-container">
                     <div className="row clearfix">
                         <div className="col-lg-3 col-md-6 col-sm-12 funfact-block">
@@ -15,7 +15,7 @@ export default function Funfacts() {
                                 <div className="count-outer count-box">
                                     <CounterUp end={75} /><span>+</span>
                                 </div>
-                                <span className="text">Expert Administrators</span>
+                                <span className="text">Citizens Enrolled</span>
                                 </div>
                             </div>
                         </div>
@@ -26,7 +26,7 @@ export default function Funfacts() {
                                 <div className="count-outer count-box">
                                     <CounterUp end={7} /><span>k</span>
                                 </div>
-                                <span className="text">Happy Citizens</span>
+                                <span className="text">Panchayat Members</span>
                                 </div>
                             </div>
                         </div>
@@ -37,7 +37,7 @@ export default function Funfacts() {
                                 <div className="count-outer count-box">
                                     <CounterUp end={850} />
                                 </div>
-                                <span className="text">Modern Rooms</span>
+                                <span className="text">Citizens Welfared</span>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@ export default function Funfacts() {
                                 <div className="count-outer count-box">
                                     <CounterUp end={15} />
                                 </div>
-                                <span className="text">Awards Win</span>
+                                <span className="text">New Assets</span>
                                 </div>
                             </div>
                         </div>

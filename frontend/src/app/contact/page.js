@@ -5,7 +5,7 @@ export default function Home() {
 
     return (
         <>
-            <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Contuct Us">
+            <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Contact Us">
                 <div >
                     {/* Contact Form Section */}
                     <section className="contact-info-section pt_120">
@@ -16,7 +16,7 @@ export default function Home() {
                                         <h3>Quick Contact</h3>
                                         <div className="inner-box">
                                             <div className="icon-box"><i className="icon-2"></i></div>
-                                            <p>Main Office: <br /><Link href="tel:23345678901">(+233)456-789-01</Link>, <Link href="tel:+1045678901">+10456-789-01</Link></p>
+                                            <p>Main Office: <br /><Link href="tel:9876543210">9876543210</Link></p>
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@ export default function Home() {
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-12 col-sm-12 image-column">
-                                    <figure className="image-box"><img src="https://photos.peopleimages.com/picture/202205/2452867-unknown-female-mixed-race-doctor-sitting-in-her-office-and-showing-a-heart-shape-gesture-with-her-hand-in-a-hospital.-hispanic-woman-make-a-hand-gesture-at-work-fit_400_400.jpg" alt="" /></figure>
+                                    <figure className="image-box"><img src="assets/images/resource/village4.jpg" alt="" /></figure>
                                 </div>
                             </div>
                         </div>
@@ -94,37 +94,7 @@ export default function Home() {
                         </div>
                     </section>
                     {/* Google Map Section End */}
-                     {/* subscibe */}
-                <section className="subscribe-section">
-                <div className="auto-container">
-                    <div className="inner-container">
-                    <div className="row align-items-center">
-                        <div className="col-lg-6 col-md-12 col-sm-12 text-column">
-                        <div className="text-box">
-                            <h2><span>Subscribe</span> for the exclusive updates!</h2>
-                        </div>
-                        </div>
-                        <div className="col-lg-6 col-md-12 col-sm-12 form-column">
-                        <div className="form-inner">
-                            <form method="post" action="contact">
-                            <div className="form-group">
-                                <input type="email" name="email" placeholder="Enter Your Email Address" required />
-                                <button type="submit" className="theme-btn btn-one"><span>Subscribe Now</span></button>
-                            </div>
-                            <div className="form-group">
-                                <div className="check-box">
-                                <input className="check" type="checkbox" id="checkbox1" />
-                                <label htmlFor="checkbox1">I agree to the <Link href="/">Privacy Policy.</Link></label>
-                                </div>
-                            </div>
-                            </form>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </section>
-                  {/* subscibe end */}
+                     
                 </div>
 
             </Layout>

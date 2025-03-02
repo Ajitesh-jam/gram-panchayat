@@ -4,7 +4,7 @@ import Link from "next/link"
 import useCitizens from "../../components/hooks/citizen.zustand"
 import axios from "axios";
 import { useState } from "react";
-
+import "./style.css"
 //import router
 import { useRouter } from "next/navigation";
 
@@ -12,8 +12,8 @@ export default function Home() {
 
     const Citizens = useCitizens((state) => state.setNewCitizen);
     //const navigate = useNavigate(); // Use navigate instead of router
-    const [aadhar,setAdhar] = useState(); 
-    const [password,setPassword] = useState(); 
+    const [aadhar, setAdhar] = useState();
+    const [password, setPassword] = useState();
 
 
     //router to navigate
@@ -30,7 +30,7 @@ export default function Home() {
             if (response.status === 200) {
                 setCitizen(response.data); // Update Citizen data in Zustand
                 console.log("Successfully logged in as:", response.data);
-                
+
                 //console.log("Successfully logged in as:", response.data);
                 // Navigate to /Citizen
                 router.push("/citizen");
@@ -57,42 +57,42 @@ export default function Home() {
                     {/* Contact Form Section2 */}
                     <section className="contact-style-three pt_90 pb_120">
                         <div className="auto-container">
-                            <div className="row clearfix">
-                                <div className="col-lg-8 col-md-12 col-sm-12 form-column">
-                                    <div className="form-inner mr_40">
-                                        <div className="sec-title mb_50">
-                                            <h2>Login as a Citizen</h2>
-                                        </div>
+                            <div className="row-clearfix">
 
-                                        <>
-                                                <div className="row clearfix">
-                                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="fname" placeholder="Adhar" onChange={(e) => setAdhar(e.target.value)} required />
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div className="row clearfix">
-                                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="fname" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
-                                                    </div>
-                                                    
-                                                </div>
-                                                <button type="submit" className="theme-btn btn-one" onClick={login}><span>Login </span></button>
-                                                Don't have an account? <Link href="/citizen-signup">Register</Link>
-                                        </>
-
-
+                                <div className="form-inner">
+                                    <div className="sec-title mb_50">
+                                        <h2>Login as a Citizen</h2>
                                     </div>
+
+                                    <>
+                                        <div className="row clearfix">
+                                            <div className="form-group">
+                                                <input type="text" name="fname" placeholder="Adhar" onChange={(e) => setAdhar(e.target.value)} required />
+                                            </div>
+
+                                        </div>
+                                        <div className="row clearfix">
+                                            <div className="form-group">
+                                                <input type="text" name="fname" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
+                                            </div>
+
+                                        </div>
+                                        <button type="submit" className="theme-btn btn-one" onClick={login}>Login</button>
+                                        <p>Don't have an account? <Link href="/citizen-signup">Register</Link></p>
+                                    </>
+
+
                                 </div>
+
                                 <div className="col-lg-4 col-md-12 col-sm-12 image-column">
-                                    <figure className="image-box"><img src="assets/images/resource/contact-1.jpg" alt="" /></figure>
+                                    <figure className="image-box"><img src="assets/images/resource/citizen3.jpg" alt="" /></figure>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                     {/* subscibe */}
-                <section className="subscribe-section">
+                    {/* subscibe */}
+                    {/* <section className="subscribe-section">
                 <div className="auto-container">
                     <div className="inner-container">
                     <div className="row align-items-center">
@@ -120,8 +120,8 @@ export default function Home() {
                     </div>
                     </div>
                 </div>
-                </section>
-                  {/* subscibe end */}
+                </section> */}
+                    {/* subscibe end */}
                 </div>
 
             </Layout>

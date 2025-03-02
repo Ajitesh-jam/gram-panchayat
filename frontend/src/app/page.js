@@ -18,10 +18,10 @@ export default function Home() {
                 <Feature />
                 <WhyChooseUs/>
                 <Funfacts />
-                <Process />
-                <Video />
-                <News />
-                <Subscribe />
+                {/* <Process /> */}
+                {/* <Video /> */}
+                {/* <News /> */}
+                {/* <Subscribe /> */}
             </Layout>
         </>
     )

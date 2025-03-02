@@ -20,7 +20,7 @@
     "http-proxy-middleware": "^3.0.3",
     "isotope-layout": "^3.0.6",
     "lightgallery": "^2.7.2",
-    "next": "^15.1.2",
+    "next": "^15.2.0",
     "next-route": "^2.0.0",
     "pg": "^8.13.1",
     "pinata": "^1.8.1",

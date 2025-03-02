@@ -24,7 +24,6 @@ export default function service() {
             })
         }
     }
-
     const Citizen = useCitizens((state)=> state.selectedCitizen);
     //use effect to fectch the citizen from zustand
     useEffect(() => {
@@ -46,18 +45,22 @@ export default function service() {
 
 
     useEffect(() => {
+        if (!Citizen || !Citizen.citizen_id) {
+            console.warn("Citizen ID is missing.");
+            return;
+        }
+
         const fetchSchemes = async () => {
             try {
-                const response = await axios.get(`/api/scheme/get_all`);
-                console.log("Fetched Schemes:", response.data);
+                const response = await axios.get(`/api/citizen/get_citizen_schemes?citizen_id=${Citizen.citizen_id}`);
                 setAllSchemes(response.data);
             } catch (error) {
-                console.error("Error fetching Citizens:", error);
+                console.error("Error fetching schemes:", error);
             }
         };
 
         fetchSchemes();
-    }, []);
+    }, [Citizen]);
 
 
 
@@ -229,26 +232,7 @@ export default function service() {
                                     </div>
                                 ))}
                             </div>
-                            <div className="pagination-wrapper mt_20 centred">
-                                <ul className="pagination clearfix">
-                                    <li>
-                                        <Link href="team" className="current">
-                                            1
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="team">2</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="team">3</Link>
-                                    </li>
-                                    <li>
-                                        <Link href="team">
-                                            <i className="icon-36"></i>
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
+                            
                         </div>
                     </section>
               

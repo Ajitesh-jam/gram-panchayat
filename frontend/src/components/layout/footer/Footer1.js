@@ -15,8 +15,8 @@ export default function Footer1() {
           <div className="row clearfix">
             <div className="col-lg-3 col-md-6 col-sm-12 footer-column">
             <div className="footer-widget logo-widget">
-                                <figure className="footer-logo"><Link href="/"><img src="assets/images/footer-logo.png" alt="" /></Link></figure>
-                                <p>Lorem ipsum dolor sit amet constetur adipiscing elit. Etiam eu turpis mostie dictum est a, mattis tellus.</p>
+                                {/* <figure className="footer-logo"><Link href="/"><img src="assets/images/footer-logo.png" alt="" /></Link></figure> */}
+                                <p>Join us in building a better tomorrow – Sign up to access government services and bring progress to your village!</p>
                                 <ul className="social-links clearfix">
                                     <li><Link href="/"><i className="icon-4"></i></Link></li>
                                     <li><Link href="/"><i className="icon-5"></i></Link></li>
@@ -66,8 +66,8 @@ export default function Footer1() {
                                 <div className="widget-content">
                                     <ul className="info-list">
                                         <li><img src="assets/images/icons/icon-1.png" alt="" />IIT Kharagpur</li>
-                                        <li><i className="icon-2"></i><Link href="tel:01989526503">0198-9526503</Link></li>
-                                        <li><i className="icon-26"></i><Link href="mailto:example@info.com">example@info.com</Link></li>
+                                        <li><i className="icon-2"></i><Link href="tel:01989526503">0123456789</Link></li>
+                                        <li><i className="icon-26"></i><Link href="mailto:example@info.com">ajitesh@iitkgp.com</Link></li>
                                     </ul>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@ export default function Footer1() {
           </div>
         </div>
       </div>
-      <div className="footer-bottom">
+      {/* <div className="footer-bottom">
         <div className="auto-container">
           <div className="bottom-inner">
             <ul className="footer-nav clearfix">
@@ -90,7 +90,7 @@ export default function Footer1() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </footer>
 
         </>

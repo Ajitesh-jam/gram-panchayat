@@ -4,7 +4,7 @@ create table citizen (
 	password_hash VARCHAR(255) not null,
 	aadhar VARCHAR(50) PRIMARY KEY,
 	gender VARCHAR(50),
-	name VARCHAR(6),
+	name VARCHAR(60),
 	email VARCHAR(50),
 	image VARCHAR(157),
 	household_id INT REFERENCES household(household_id),

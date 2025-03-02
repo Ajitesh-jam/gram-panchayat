@@ -30,7 +30,6 @@ export const updateCitizen = async (aadhar, updates) => {
     console.log("setClause ",setClause);
   const values = [aadhar, ...Object.values(updates)];
   const query = `UPDATE citizen SET ${setClause} WHERE aadhar = $1 RETURNING *;`;
-
   const res = await pool.query(query, values);
   return res.rows[0]||null;
 };

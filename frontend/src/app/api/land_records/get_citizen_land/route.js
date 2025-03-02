@@ -7,10 +7,6 @@ export async function GET(req) {
     const citizen_id = searchParams.get("citizen_id");
     const LandRecords = await getLandRecordsOfCitizen(citizen_id);
 
-    if (!LandRecords) {
-      return NextResponse.json({ error: "LandRecord not found" }, { status: 404 });
-    }
-
     return NextResponse.json(LandRecords, { status: 200 });
   } catch (error) {
     console.error("Database error:", error);

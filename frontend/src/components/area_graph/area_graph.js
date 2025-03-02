@@ -57,7 +57,7 @@ const AreaGraph= ({
 
   // Generate path
   const generatePath = () => {
-    let path = `M ${padding.left + xScale(typeof data[0].x === "number" ? (data[0].x ) : 0)} ${padding.top + yScale(data[0].y)}`
+    let path = `M ${padding.left + xScale(typeof data[0].x? (data[0].x ) : 0)} ${padding.top + yScale(data[0].y)}`
 
     for (let i = 1; i < data.length; i++) {
       const x = typeof data[i].x === "number" ? (data[i].x ) : i

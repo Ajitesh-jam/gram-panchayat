@@ -8,54 +8,6 @@ import { useEffect } from "react";
 import axios from "axios";
 import AreaGraph from "@/src/components/area_graph/area_graph";
 
-export function Demo() {
-  // Sample data
-  const monthlyData = [
-    { x: "Jan", y: 30, label: "Jan" },
-    { x: "Feb", y: 45, label: "Feb" },
-    { x: "Mar", y: 25, label: "Mar" },
-    { x: "Apr", y: 60, label: "Apr" },
-    { x: "May", y: 40, label: "May" },
-    { x: "Jun", y: 80, label: "Jun" },
-    { x: "Jul", y: 70, label: "Jul" },
-    { x: "Aug", y: 90, label: "Aug" },
-    { x: "Sep", y: 65, label: "Sep" },
-    { x: "Oct", y: 75, label: "Oct" },
-    { x: "Nov", y: 85, label: "Nov" },
-    { x: "Dec", y: 100, label: "Dec" },
-  ]
-
-  return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Animated Area Graph Demo</h1>
-
-      <div className="p-6 bg-white rounded-lg shadow-md">
-        <AreaGraph
-          data={monthlyData}
-          height={400}
-          title="Monthly Performance"
-          color="#3b82f6"
-          gradientFrom="rgba(59, 196, 246, 0.6)"
-          gradientTo="rgba(59, 130, 246, 0.05)"
-          animationDuration={4}
-        />
-      </div>
-
-      {/* Alternative color scheme example */}
-      <div className="p-6 bg-white rounded-lg shadow-md mt-8">
-        <AreaGraph
-          data={monthlyData.map((d) => ({ ...d, y: d.y * 0.8 + Math.random() * 20 }))}
-          height={300}
-          title="Alternative Style"
-          color="#10b981"
-          gradientFrom="rgba(16, 185, 129, 0.6)"
-          gradientTo="rgba(16, 185, 129, 0.05)"
-          animationDuration={4}
-        />
-      </div>
-    </div>
-  )
-}
 
 
 export default function service() {
@@ -135,8 +87,8 @@ export default function service() {
                     const date = new Date(record.year);
                     const month = date.toLocaleString("default", { month: "short" }); // Converts "1999-01-07" → "Jan"
                     return {
-                        x: month,
-                        y: parseFloat(record.production), // Convert production to number
+                        x: month?month : "Jan (rice)",
+                        y: parseFloat(record.production)? parseFloat(record.production):100, // Convert production to number
                         label: `${month} (${record.crop})`
                     };
                 });
@@ -149,12 +101,6 @@ export default function service() {
 
         fetchSchemes();
     }, [Citizen]);
-
-    function enrolInScheme(scheme_id){
-
-    }
-
-
 
 
 
@@ -190,7 +136,7 @@ export default function service() {
                                         <div className="lower-content">
                                             <h3> {Citizen.name} </h3>
                                             <p> Email:{Citizen.email} </p>
-                                            <p> Contact:{Citizen.contact} </p>
+                                            <p> Contact:{Citizen.phone} </p>
                                             <p> Aadhar:{Citizen.aadhar} </p>
                                             <p> Gender:{Citizen.gender} </p>
                                             <p> DOB:{Citizen.dob} </p>

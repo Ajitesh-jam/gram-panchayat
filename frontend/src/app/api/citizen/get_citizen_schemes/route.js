@@ -12,10 +12,7 @@ export async function GET(req) {
 
     const schemes = await getSchemesByCitizen(citizen_id);
 
-    if (!schemes || schemes.length === 0) {
-      return NextResponse.json({ error: "No schemes found for this citizen" }, { status: 404 });
-    }
-
+   
     return NextResponse.json(schemes, { status: 200 });
   } catch (error) {
     console.error("Database error:", error);

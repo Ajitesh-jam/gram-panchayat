@@ -1,10 +1,10 @@
 import { Pool } from 'pg';
 
 const pool = new Pool({
-  user: '22CS10004',
-  host: '10.5.18.69',
-  database: '22CS10004',
-  password: '22CS10004',
+  user: 'postgres',
+  host: 'localhost',
+  database: 'postgres',
+  password: '@RNCX6FF',
   port: 5432, // Default PostgreSQL port
 });
 
@@ -125,6 +125,12 @@ export const getEmployee = async (employee_id,password) => {
   return res.rows[0] || null;
 };
 
+export const getAllEmployees = async () => {
+  const query = `SELECT * from panchayat_employee;`;
+  const res = await pool.query(query);
+  return res.rows||null;
+};
+
 export const updateEmployee = async (employee_id, password, updates) => {
   console.log("Updating employee:", employee_id);
 
@@ -171,17 +177,10 @@ export const deleteEmployee = async (employee_id, password) => {
 };
 
 export const createEmployee = async (employee) => {
-  const { employee_id, password, citizen_id, role } = employee;
-
-  const query = `
-    INSERT INTO panchayat_employee (employee_id, password, citizen_id, role) 
-    VALUES ($1, $2, $3, $4) 
-    RETURNING *;
-  `;
-
-  const values = [employee_id, password, citizen_id, role];
-  const res = await pool.query(query, values);
-
+  const { employee_id, password, citizen_id, village_id,role } = employee;
+  const query = `INSERT INTO panchayat_employee (employee_id, password, citizen_id, village_id, role) VALUES ($1, $2, $3, $4, $5) RETURNING *;`;
+  const values = [employee_id, password, citizen_id,village_id, role];
+  const res = await pool.query(query,values);
   return res.rows[0]||null;
 };
 

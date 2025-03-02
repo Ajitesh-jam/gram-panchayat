@@ -52,7 +52,7 @@ export default function service() {
                 console.log("Fetched Schemes:", response.data);
                 setAllSchemes(response.data);
             } catch (error) {
-                console.error("Error fetching Citizens:", error);
+                console.error("Error fetching schemes:", error);
             }
         };
 

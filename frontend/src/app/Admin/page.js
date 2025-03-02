@@ -1,186 +1,185 @@
-"use client"
-import Layout from "../../components/layout/Layout"
-import Link from "next/link"
-
-import axios from "axios";
-import { useState,useEffect } from "react";
-
-//import router
+'use client';
+import Layout from "../../components/layout/Layout";
+import { useState } from 'react';
+import useEmployees from "@/src/components/hooks/employee.zustand";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import bcrypt from "bcryptjs";
 
-import useEmployees from "../../components/hooks/employee.zustand";
+import tryimg from "../../../public/assets/images/NewLogo.png";
 
 export default function Home() {
+    const [formData, setFormData] = useState({
+        employee_id: "",
+        password: "",
+        confirmPassword: "",
+        citizen_id: "",
+        village_id: "",
+        role: ""
+    });
 
-    //const Citizens = useEmployees((state) => state.setNewCitizen);
-    const Employees = useEmployees((state) => state.setNewEmployee);
-    const fetchedEmployee = useEmployees((state) => state.selectedEmployee);
-
-    //const navigate = useNavigate(); // Use navigate instead of router
-    const [id,setId] = useState(); 
-    const [password,setPassword] = useState(); 
-
-    //router to navigate
+    const employee = useEmployees((state) => state.setNewEmployee);
     const router = useRouter();
 
-    async function login() {
-        console.log("Login called");
-        try {
-            
-            //const response = await axios.get(`http://localhost:8000/getRecord/${id}/${password}`);
-            //if (response.status === 200) {
-                //Citizens(response.data); // Update Citizen data in Zustand
-                console.log("Successfully logged in as Administrator: ");
+   
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
 
-                //naviagte to /Administrator
-                router.push("/panchayat-employee");
+    const [errorMessage, setErrorMessage] = useState("");
 
-            //}
-        } catch (error) {
-            //Handle specific error cases
-            if (error.response) {
-                if (error.response.status === 401) {
-                    alert("Your password is incorrect");
-                } else if (error.response.status === 404) {
-                    alert("Citizen record not found");
-                } else {
-                    alert("An error occurred while logging in");
-                }
-            } else {
-                alert("Network error. Please try again later.");
-                console.log("error: ",error);
-            }
+    const submit = async (e) => {
+        e.preventDefault();
+        if (formData.password !== formData.confirmPassword) {
+            setErrorMessage("Passwords do not match");
+            return;
         }
-    }
 
-
-
-    useEffect(() => {
-        const fetchEmployee = async () => {
-            try {
-                console.log("Fetching employee : ",fetchedEmployee );
-                // if(fetchedEmployee.employee_id!==-1){
-                //     router.push("/panchayat-employee");
-                // }
-
-            } catch (error) {
-               
-            }
-        };
-
-        fetchEmployee();
-
-    }, []);
-
-    async function loginEmployee() {
-        console.log("Login called");
         try {
+            const hashedPassword = await bcrypt.hash(formData.password, 10);
+            formData.password = hashedPassword;
 
-            const response = await axios.get(`/api/employee/get?employee_id=${id}&password=${password}`);
-            
-            console.log("Successfully logged in as : ",response.data);
+            console.log("Submitting form with data:", formData);
+
+            employee(formData);
+            const response = await axios.post("/api/employee/create", formData);
+
             if (response.status === 200) {
-                Employees(response.data); // Update Citizen data in Zustand
-
-                router.push("/panchayat-employee");
-                //naviagte to /Employee
+                router.push("/citizen");
+            } else {
+                setErrorMessage("Failed to create employee");
             }
         } catch (error) {
-            //Handle specific error cases
+            console.error("Error creating employee:", error);
+
+            // Show different messages based on the error type
             if (error.response) {
-                if (error.response.status === 401) {
-                    alert("Your password is incorrect");
-                } else if (error.response.status === 404) {
-                    alert("Citizen record not found");
-                } else {
-                    alert("An error occurred while logging in");
-                }
+                setErrorMessage(error.response.data.message || "Server error. Try again later.");
+            } else if (error.request) {
+                setErrorMessage("No response from server. Please check your connection.");
             } else {
-                alert("Network error. Please try again later.");
-                console.log("error: ",error);
+                setErrorMessage("An unexpected error occurred. Please try again.");
             }
         }
-    }
 
+        // Reset form data
+        setFormData({
+            employee_id: "",
+            password: "",
+            confirmPassword: "",
+            citizen_id: "",
+            village_id: "",
+            role: ""
+        });
+    };
+
+
+    // JSON array of team members
     return (
-        <>
-            <Layout headerStyle={1} footerStyle={1} >
-                <div>
-                    {/* Contact Form Section End */}
+            <>
+                <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Administrator">
+                    {/* Appointments-section */}
+                    <section className="appointment-section sec-pad-2">
+                        <div className="outer-container p_relative">
+                            <div
+                                className="bg-layer"
+                                style={{
+                                    backgroundImage: "url(https://images.forbesindia.com/blog/wp-content/uploads/2021/08/Raigad-Village.jpg)",
 
-                   
-                    {/* Contact Form Section2 */}
-                    <section className="contact-style-three pt_90 pb_120">
-                        <div className="auto-container">
-                            <div className="row clearfix">
-                                <div className="col-lg-8 col-md-12 col-sm-12 form-column">
-                                    <div className="form-inner mr_40">
-                                        <div className="sec-title mb_50">
-                                            <h2>Login as a Administrator</h2>
-                                        </div>
-                                            <>
-                                                <div className="row clearfix">
-                                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="fname" placeholder="Adhar" onChange={(e) => setId(e.target.value)} required />
-                                                    </div>
-                                                    
-                                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="summary" placeholder="Password"  onChange={(e) => setPassword(e.target.value)} required />
-                                                    </div>
-                                                    
-                                                </div>
-                                                <button type="submit" className="theme-btn btn-one" onClick={login}><span>Login </span></button>
-
-                                            </>
-
-                                            
-
-
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-4 col-md-12 col-sm-12 image-column">
-                                    <figure className="image-box"><img src="assets/images/resource/contact-1.jpg" alt="" /></figure>
-                                </div>
+                                    // width: "1608px",
+                                    // height: "937px",
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                }}
                                 
-                            </div>
+                            >
+                            </div>                        
+                            <div className="auto-container">
+                                <div className="row clearfix">
+                                    <div className="col-lg-7 col-md-12 col-sm-12 form-column">
+                                        <div className="form-inner">
+                                            <form className="default-form" onSubmit={submit}>
+                                                <div className="row clearfix">
+                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <input
+                                                            type="text"
+                                                            name="employee_id"
+                                                            placeholder="Employee ID"
+                                                            value={formData.employee_id}
+                                                            onChange={handleInputChange}
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <input
+                                                            type="password"
+                                                            name="password"
+                                                            placeholder="Password"
+                                                            value={formData.password}
+                                                            onChange={handleInputChange}
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <input
+                                                            type="password"
+                                                            name="confirmPassword"
+                                                            placeholder="Confirm Password"
+                                                            value = {formData.confirmPassword}
+                                                            onChange={handleInputChange}
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div className = "col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <input
+                                                            type="text"
+                                                            name="citizen_id"
+                                                            placeholder="Citizen ID"
+                                                            value={formData.citizen_id}
+                                                            onChange={handleInputChange}
+                                                            required    
+                                                        />
+                                                    </div>
+
+                                                    <div className = "col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <input
+                                                            type="text"
+                                                            name="village_id"
+                                                            placeholder="Village ID"
+                                                            value={formData.village_id}
+                                                            onChange={handleInputChange}
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div className = "col-lg-12 col-md-12 col-sm-12 form-group">
+                                                        <input
+                                                            type="text"
+                                                            name="role"
+                                                            placeholder="Role"
+                                                            value={formData.role}
+                                                            onChange={handleInputChange}
+                                                            required
+                                                        />
+                                                    </div>
+                                                    {errorMessage && <p style={{color:"red"}}>{errorMessage}</p>}
+                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
+                                                        <button type="submit" className="theme-btn btn-one">
+                                                            <span>Sign UP Employee</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> 
+                             </div> 
                         </div>
                     </section>
-
-                     {/* subscibe */}
-                <section className="subscribe-section">
-                <div className="auto-container">
-                    <div className="inner-container">
-                    <div className="row align-items-center">
-                        <div className="col-lg-6 col-md-12 col-sm-12 text-column">
-                        <div className="text-box">
-                            <h2><span>Subscribe</span> for the exclusive updates!</h2>
-                        </div>
-                        </div>
-                        <div className="col-lg-6 col-md-12 col-sm-12 form-column">
-                        <div className="form-inner">
-                            <form method="post" action="contact">
-                            <div className="form-group">
-                                <input type="email" name="email" placeholder="Enter Your Email Address" required />
-                                <button type="submit" className="theme-btn btn-one"><span>Subscribe Now</span></button>
-                            </div>
-                            <div className="form-group">
-                                <div className="check-box">
-                                <input className="check" type="checkbox" id="checkbox1" />
-                                <label htmlFor="checkbox1">I agree to the <Link href="/">Privacy Policy.</Link></label>
-                                </div>
-                            </div>
-                            </form>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </section>
-                  {/* subscibe end */}
-                </div>
-
-            </Layout>
-        </>
-    )
+                </Layout>
+            </>
+    );
 }

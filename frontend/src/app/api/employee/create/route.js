@@ -5,10 +5,9 @@ export async function POST(req) {
   try {
     const employee = await req.json();
 
-    if (!employee.employee_id || !employee.password || !employee.citizen_id || !employee.role) {
+    if (!employee.employee_id || !employee.password || !employee.citizen_id || !employee.role|| !employee.village_id) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
-
     const newEmployee = await createEmployee(employee);
     return NextResponse.json(newEmployee, { status: 201 });
   } catch (error) {

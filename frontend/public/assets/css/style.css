@@ -2427,6 +2427,7 @@ button.ltr {
 
 .default-form .form-group input[type='text'],
 .default-form .form-group input[type='email'],
+.default-form .form-group input[type='password'],
 .default-form .form-group textarea{
   position: relative;
   display: block;

@@ -108,7 +108,6 @@ export default function Home() {
                 <div>
                     {/* Contact Form Section End */}
 
-                   
                     {/* Contact Form Section2 */}
                     <section className="contact-style-three pt_90 pb_120">
                         <div className="auto-container">
@@ -118,6 +117,15 @@ export default function Home() {
                                         <div className="sec-title mb_50">
                                             <h2>Login as a Administrator</h2>
                                         </div>
+
+
+
+                                        <h1>yaha sign up bana dena Pallav</h1>
+
+
+
+
+
                                             <>
                                                 <div className="row clearfix">
                                                     <div className="col-lg-6 col-md-6 col-sm-12 form-group">
@@ -146,6 +154,8 @@ export default function Home() {
                             </div>
                         </div>
                     </section>
+
+                    
 
                      {/* subscibe */}
                 <section className="subscribe-section">

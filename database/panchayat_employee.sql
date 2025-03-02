@@ -1,7 +1,7 @@
 create table panchayat_employee (
-	employee_id INT,
+	employee_id INT Primary key,
 	password VARCHAR(60),
-	citizen_id INT,
+	citizen_id INT References citizen(citizen_id),
 	role VARCHAR(10),
 
 );

@@ -115,7 +115,6 @@ import bcrypt from "bcrypt";
 
 export const getEmployee = async (employee_id,password) => {
   console.log("Fetching employee:", employee_id);
-
   
   const query = `
   SELECT e.*, c.* 
@@ -128,11 +127,7 @@ export const getEmployee = async (employee_id,password) => {
   const res = await pool.query(query, values);
   //console.log("res ", res.rows);
   //console.log("password ", res.rows[0]['password']);
-  const isMatch = await bcrypt.compare(password, res.rows[0]['password']);
 
-  if (!isMatch) {
-    return [{ error: "Invalid credentials" }, { status: 401 }];
-  }
   return res.rows[0] || null;
 };
 
@@ -216,6 +211,14 @@ export const createScheme = async (scheme) => {
   return res.rows[0]||null;
 };
 
+export const enrollCitizenInScheme = async (citizen_id,scheme_id) => {
+  const query = 'INSERT INTO scheme_beneficiaries values ($1, $2) RETURNING *;';
+
+  const values = [citizen_id,scheme_id];
+  const res = await pool.query(query,values);
+  return res.rows;
+
+};
 export const getScheme = async (id) => {
   console.log("Fetching scheme:", id);
 
@@ -287,7 +290,7 @@ export const getAScheme_of_a_village = async (scheme_id,village_id) => {
   
   const query = `
   SELECT *
-  From village_scheme 
+  From schemes natural join scheme_beneficiaries 
   WHERE village_id = $1 
   AND scheme_id = $2;
   `;
@@ -297,6 +300,8 @@ export const getAScheme_of_a_village = async (scheme_id,village_id) => {
 
   return res.rows || null;
 };
+
+
 
 
 //government monitor 
@@ -325,6 +330,30 @@ export const getGovt = async (govt_id,password) => {
 
 export const getVillageAssets = async (village_id)=>{
     const query = `SELECT * FROM assets WHERE village_id = $1;`;
+  const res = await pool.query(query, [village_id]);
+  //console.log("res ", res.rows);
+  return res.rows;
+};
+
+
+
+
+//land records 
+
+export const getLandRecordsOfCitizen = async (citizen_id)=>{
+  const query = `SELECT * FROM land_records WHERE citizen_id = $1;`;
+  const res = await pool.query(query, [citizen_id]);
+  //console.log("res ", res.rows);
+  return res.rows;
+};
+
+
+
+
+
+//village
+export const getVillage = async (village_id)=>{
+  const query = `SELECT * FROM village v natural join census_data c WHERE village_id = $1;`;
   const res = await pool.query(query, [village_id]);
   //console.log("res ", res.rows);
   return res.rows;

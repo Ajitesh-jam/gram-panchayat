@@ -5,7 +5,6 @@ import useCitizens from "../../components/hooks/citizen.zustand.js";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import bcrypt from "bcryptjs";
-
 import tryimg from "../../../public/assets/images/NewLogo.png";
 
 export default function Home() {
@@ -18,12 +17,13 @@ export default function Home() {
         DOB: "",
         aadhar: "",
         gender: "",
-        password: "",
-        confirmPassword: "",
+        password_hash: "",
+        confirmPassword_hash: "",
         image: "",
     });
-    const [account, setAccount] = useState(null);
 
+    const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
 
     const Citizens = useCitizens((state) => state.setNewCitizen);
     const router = useRouter();
@@ -35,7 +35,6 @@ export default function Home() {
         }));
     };
 
-   
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -44,40 +43,50 @@ export default function Home() {
         }));
     };
 
-    // const handleFileChange = (e) => {
-    //     setFormData((prev) => ({
-    //         ...prev,
-    //         image: e.target.files[0],
-    //     }));
-    // };
-
     const submit = async (e) => {
         e.preventDefault();
 
-        if (!account) {
-            alert("Please connect your wallet first.");
+        // Reset messages
+        setErrorMessage("");
+        setSuccessMessage("");
+
+        // Validate password_hashs
+        if (formData.password_hash !== formData.confirmPassword_hash) {
+            setErrorMessage("Password_hashs do not match");
             return;
         }
-        //encrypt the password
-        if (formData.password !== formData.confirmPassword) {
-            alert("Passwords do not match");
-            return;
+
+        try {
+            const hashedPassword_hash = await bcrypt.hash(formData.password_hash, 10);
+            formData.password_hash = hashedPassword_hash;
+            console.log("Submitting form with data:", formData);
+            Citizens(formData);
+
+            // API call
+            const response = await axios.post("/api/citizen/create", formData);
+            if (response.status === 201) {
+                setSuccessMessage("Citizen created successfully");
+                setFormData((prev)=>({
+                    ...prev,
+                    password_hash: "",
+                    confirmPassword_hash: ""
+                })
+                );
+                router.push("/citizen");
+            } else {
+                setErrorMessage("Failed to create citizen");
+            }
+        } catch (error) {
+            console.error("Error creating citizen:", error);
+            // Show different messages based on the error type
+            if (error.response) {
+                setErrorMessage(error.response.data.message || "Server error. Try again later.");
+            } else if (error.request) {
+                setErrorMessage("No response from server. Please check your connection.");
+            } else {
+                setErrorMessage("An unexpected error occurred. Please try again.");
+            }
         }
-        const hashedPassword = await bcrypt.hash(formData.password, 10);
-        formData.password = hashedPassword;
-        const CitizenData = {
-            ...formData,
-            publicAddress: account
-        };
-        console.log("Submitting form with data:", CitizenData);
-
-        // API call or Zustand action
-        //call api /api/citizen
-
-
-
-        Citizens(CitizenData);
-        router.push("/citizen");
     };
 
     return (
@@ -185,25 +194,26 @@ export default function Home() {
                                                 </div>
                                                 <div className="col-lg-12 col-md-12 col-sm-12 form-group">
                                                     <input
-                                                        type="text"
-                                                        name="password"
+                                                        type="password"
+                                                        name="password_hash"
                                                         placeholder="Password"
-                                                        value={formData.password}
+                                                        value={formData.password_hash}
                                                         onChange={handleInputChange}
                                                         required
                                                     />
                                                 </div>
                                                 <div className="col-lg-12 col-md-12 col-sm-12 form-group">
                                                     <input
-                                                        type="text"
-                                                        name="confirmPassword"
+                                                        type="password"
+                                                        name="confirmPassword_hash"
                                                         placeholder="Confirm Password"
-                                                        value={formData.confirmPassword}
+                                                        value={formData.confirmPassword_hash}
                                                         onChange={handleInputChange}
                                                         required
                                                     />
                                                 </div>
-                                                
+                                                {errorMessage && <p style={{color:"red"}}>{errorMessage}</p>}
+                                                {successMessage && <p style={{color:"green"}}>{successMessage}</p>}
                                                 <div className="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
                                                     <button type="submit" className="theme-btn btn-one">
                                                         <span>Sign UP</span>

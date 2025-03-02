@@ -9,15 +9,16 @@ const pool = new Pool({
 });
 
 export const createCitizen = async (citizen) => {
-  const { citizen_id, aadhar, gender, name, email, image, household_id, dob } = citizen;
+  const { citizen_id, aadhar, gender, name, email, image, household_id, dob ,password_hash} = citizen;
   const query = `
-    INSERT INTO citizen (citizen_id, aadhar, gender, name, email, image, household_id, dob) 
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    INSERT INTO citizen (citizen_id, aadhar, gender, name, email, image, household_id, dob,password_hash) 
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8,$9)
     RETURNING *;
   `;
-  const values = [citizen_id, aadhar, gender, name, email, image, household_id, dob];
+  const values = [citizen_id, aadhar, gender, name, email, image, household_id, dob,password_hash];
   
   const res = await pool.query(query, values);
+  console.log("res ", res);
   return res.rows[0]||null;
 };
 

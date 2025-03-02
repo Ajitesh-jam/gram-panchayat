@@ -1,4 +1,5 @@
 import { createCitizen } from '@/src/components/sql/mysql';
+import { NextResponse } from 'next/server';
 export async function POST(req) {
   try {
     const citizen = await req.json();

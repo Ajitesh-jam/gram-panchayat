@@ -1,0 +1,12 @@
+.Edit{
+    background-color: blue;
+    border-radius: 100px;
+    color: white;
+    padding: 5px 22px;
+    text-align: center;
+    text-decoration-color: azure;
+    display: inline-block;
+    font-size: 16px;
+    margin: 8px 2px;
+    cursor: pointer;
+}

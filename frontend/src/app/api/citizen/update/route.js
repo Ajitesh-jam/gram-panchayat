@@ -1,7 +1,6 @@
 import { updateCitizen } from '@/src/components/sql/mysql';
 import { NextResponse } from 'next/server';
 
-// ✏️ PUT - Update an existing citizen
 export async function PUT(req) {
   try {
     const { searchParams } = new URL(req.url);
@@ -12,6 +11,11 @@ export async function PUT(req) {
     }
 
     const updates = await req.json();
+
+    // Remove aadhar and citizen_id from updates object
+    delete updates.aadhar;
+    delete updates.citizen_id;
+
     const updatedCitizen = await updateCitizen(aadhar, updates);
 
     if (!updatedCitizen) {

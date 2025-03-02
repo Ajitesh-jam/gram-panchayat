@@ -5,25 +5,10 @@ import { useState } from 'react'
 import useCitizens from "@/src/components/hooks/citizen.zustand";
 import { useEffect } from "react";
 import axios from "axios";
+import "./style.css"
 
 export default function service() {
-    const [isActive, setIsActive] = useState({
-        status: false,
-        key: 1,
-    })
-
-    const handleToggle = (key) => {
-        if (isActive.key === key) {
-            setIsActive({
-                status: false,
-            })
-        } else {
-            setIsActive({
-                status: true,
-                key,
-            })
-        }
-    }
+    
     const Citizen = useCitizens((state)=> state.selectedCitizen);
     //use effect to fectch the citizen from zustand
     useEffect(() => {
@@ -32,14 +17,17 @@ export default function service() {
 
     const [allSchemes, setAllSchemes] = useState([
         {
-            name: "Black Marvin",
-            aadhar: "Medical Assistant",
-            image: "assets/images/team/team-1.jpg",
+            //scheme samples
+            scheme_id: 1,
+            scheme_name: "Dummy Scheme 1",
+            criteria: "Criteria 1",
+
         },
         {
-            name: "Eleanor Pena",
-            aadhar: "Doctor",
-            image: "assets/images/team/team-2.jpg",
+            scheme_id: 2,
+            scheme_name: "Dummy Scheme 2",
+            criteria: "Criteria 2",
+
         }
     ]);
 
@@ -62,11 +50,57 @@ export default function service() {
         fetchSchemes();
     }, [Citizen]);
 
+    const [isEditing, setIsEditing] = useState(false);
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        contact: '',
+        aadhar: '',
+        gender: '',
+        dob: ''
+    });
 
+    const handleEditToggle = () => {
+        setIsEditing(!isEditing);
+        if (!isEditing) {
+            setFormData({
+                name: Citizen.name,
+                email: Citizen.email,
+                contact: Citizen.contact,
+                aadhar: Citizen.aadhar,
+                gender: Citizen.gender,
+                dob: Citizen.dob
+            });
+        }
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.put('/api/citizen/update', {
+                citizen_id: Citizen.citizen_id,
+                ...formData
+            });
+            console.log("Update response:", response.data);
+            // Update the local state with the new data
+            setCitizen(response.data);
+            setIsEditing(false);
+        } catch (error) {
+            console.error("Error updating citizen details:", error);
+        }
+    };
 
     return (
         <>
-            <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Citizen Login">
+            <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Citizen">
                 <div>
                 {/* service-section */}
                 <section className = "service-details pt_120 pb_110">
@@ -81,12 +115,31 @@ export default function service() {
                                             <div className="icon-box"><i className="icon-30"></i></div>
                                         </div>
                                         <div className="lower-content">
-                                            <h3> {Citizen.name} </h3>
-                                            <p> Email:{Citizen.email} </p>
-                                            <p> Contact:{Citizen.contact} </p>
-                                            <p> Aadhar:{Citizen.aadhar} </p>
-                                            <p> Gender:{Citizen.gender} </p>
-                                            <p> DOB:{Citizen.dob} </p>
+                                            {isEditing ? (
+                                                <form onSubmit={handleSubmit}>
+                                                    <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" />
+                                                    <input name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
+                                                    <input name="contact" value={formData.contact} onChange={handleChange} placeholder="Contact" />
+                                                    <input name="aadhar" value={formData.aadhar} onChange={handleChange} placeholder="Aadhar" />
+                                                    <input name="gender" value={formData.gender} onChange={handleChange} placeholder="Gender" />
+                                                    <input name="dob" value={formData.dob} onChange={handleChange} placeholder="DOB" />
+                                                    
+                                                        <button className="Edit" type="submit">Save</button>
+                                                        <button className="Edit" type="button" onClick={handleEditToggle}>Cancel</button>
+                                                </form>
+                                            ) : (
+                                                <>
+                                                    <h3>{Citizen.name}</h3>
+                                                    <p>Email: {Citizen.email}</p>
+                                                    <p>Contact: {Citizen.contact}</p>
+                                                    <p>Aadhar: {Citizen.aadhar}</p>
+                                                    <p>Gender: {Citizen.gender}</p>
+                                                    <p>DOB: {Citizen.dob}</p>
+                                                    <p>Household_id: {Citizen.household_id}</p>
+                                                    <p> Village_id: {Citizen.village_id}</p>
+                                                    <button className = "Edit" onClick={handleEditToggle}>Edit</button>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

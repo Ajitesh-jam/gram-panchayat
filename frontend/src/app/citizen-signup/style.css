@@ -16,6 +16,16 @@ body {
     background-color: #ffffff;
 }
 
+.auto-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 0;
+    background-color: #ffffff;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+}
+
 /* Form Column with Border Shadow */
 .form-column {
     background: #ffffff;
@@ -26,6 +36,15 @@ body {
     margin: auto;
     border: 1px solid #ddd;
 }
+
+.row.clearfix {
+    border: 1px solid #ccc; /* Light gray border */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+    padding: 15px; /* Add some spacing inside */
+    border-radius: 8px; /* Rounded corners for a smooth look */
+    background: #fff; /* Ensure background is white */
+}
+
 
 /* Form Container */
 .form-inner {

@@ -10,6 +10,7 @@ import "./style.css"
 export default function service() {
     
     const Citizen = useCitizens((state)=> state.selectedCitizen);
+    const setCitizen = useCitizens((state) => state.setNewCitizen);
     //use effect to fectch the citizen from zustand
     useEffect(() => {
         console.log("Citizen in its page : ", Citizen);
@@ -54,23 +55,28 @@ export default function service() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        contact: '',
+        phone: '',
         aadhar: '',
         gender: '',
-        dob: ''
+        dob: '',
+        household_id: '',
+        village_id: ''
     });
 
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
         if (!isEditing) {
             setFormData({
-                name: Citizen.name,
-                email: Citizen.email,
-                contact: Citizen.contact,
-                aadhar: Citizen.aadhar,
-                gender: Citizen.gender,
-                dob: Citizen.dob
+                name: Citizen?.name || '',
+                email: Citizen?.email || '',
+                phone: Citizen?.phone || '',
+                aadhar: Citizen?.aadhar || '',
+                gender: Citizen?.gender || '',
+                dob: Citizen?.dob || '',
+                household_id: Citizen?.household_id || '',
+                village_id: Citizen?.village_id || ''
             });
+            
         }
     };
 
@@ -85,13 +91,17 @@ export default function service() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put('/api/citizen/update', {
-                citizen_id: Citizen.citizen_id,
-                ...formData
-            });
-            console.log("Update response:", response.data);
-            // Update the local state with the new data
-            setCitizen(response.data);
+            const {aadhar} = formData;
+            if (!aadhar) {
+                console.error("Aadhar is missing.");
+                return;
+            }
+            console.log("chutiye");
+            const response = await axios.put(`/api/citizen/update?aadhar=${aadhar}`, formData);
+            console.log("vhutiye");
+            console.log("Updated citizen details:", response.data);
+            // Update the citizen in zustand
+            setCitizen(response.data);            
             setIsEditing(false);
         } catch (error) {
             console.error("Error updating citizen details:", error);
@@ -103,69 +113,90 @@ export default function service() {
             <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Citizen">
                 <div>
                 {/* service-section */}
-                <section className = "service-details pt_120 pb_110">
-                <div className="auto-container">
-                    <div className="row clearfix">
-                        <div className="col-lg-4 col-md-12 col-sm-12 sidebar-side">
-                            <div className="default-sidebar service-sidebar mr_15">
-                                <div className="service-block-one">
-                                    <div className="inner-box">
-                                        <div className="image-box">
-                                            <figure className="image"><img src={Citizen.image} alt="" /></figure>
-                                            <div className="icon-box"><i className="icon-30"></i></div>
+                                <section className = "service-details pt_120 pb_110">
+                                <div className="auto-container">
+                                    <div className="row clearfix">
+                                        <div className="col-lg-4 col-md-12 col-sm-12 sidebar-side">
+                                            <div className="default-sidebar service-sidebar mr_15">
+                                                <div className="service-block-one">
+                                                    <div className="inner-box">
+                                                        <div className="image-box">
+                                                            <figure className="image"><img src={Citizen.image} alt="" /></figure>
+                                                            <div className="icon-box"><i className="icon-30"></i></div>
+                                                        </div>
+                                                        <div className="lower-content">
+                                                            {isEditing ? (
+                                                                <form onSubmit={handleSubmit}>
+                                                                    <div className = "singleline">
+                                                                    Name:
+                                                                    <input className = "typinginput" name="name" value={formData.name} onChange={handleChange} placeholder="Name" />
+                                                                    </div>
+                                                                    <div className = "singleline">
+                                                                    Email:
+                                                                    <input className = "typinginput" name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
+                                                                    </div>
+                                                                    <div className = "singleline">
+                                                                    phone:
+                                                                    <input className = "typinginput" name="phone" value={formData.phone} onChange={handleChange} placeholder="phone" />
+                                                                    </div>
+                                                                    <div className = "singleline">
+                                                                    Gender:
+                                                                    <input className = "typinginput" name="gender" value={formData.gender} onChange={handleChange} placeholder="Gender" />
+                                                                    </div>
+                                                                    <div className = "singleline">
+                                                                    DOB:
+                                                                    <input className = "typinginput" name="dob" value={formData.dob} onChange={handleChange} placeholder="DOB" />
+                                                                    </div>
+                                                                    <div className = "singleline">
+                                                                    Household ID:
+                                                                    <input className = "typinginput" name="household_id" value={formData.household_id} onChange={handleChange} placeholder="Household ID" />
+                                                                    </div>
+                                                                    <div className = "singleline">
+                                                                    Village ID:
+                                                                    <input className = "typinginput" name="village_id" value={formData.village_id} onChange={handleChange} placeholder="Village ID" />
+                                                                    </div>
+                                                                        <button className="Edit" type="submit">Save</button>
+                                                                        <button className="Edit" type="button" onClick={handleEditToggle}>Cancel</button>
+                                                                </form>
+                                                            ) : (
+                                                                <>
+                                                                    <h3>{Citizen.name}</h3>
+                                                                    <p>Email: {Citizen.email}</p>
+                                                                    <p>phone: {Citizen.phone}</p>
+                                                                    <p>Aadhar: {Citizen.aadhar}</p>
+                                                                    <p>Gender: {Citizen.gender}</p>
+                                                                    <p>DOB: {Citizen.dob}</p>
+                                                                    <p>Household_id: {Citizen.household_id}</p>
+                                                                    <p> Village_id: {Citizen.village_id}</p>
+                                                                    <button className = "Edit" onClick={handleEditToggle}>Edit</button>
+                                                                </>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                           
+                                            <div className="sidebar-widget category-widget">
+                                                <div className="widget-title">
+                                                    <h3>Your personal information:</h3>
+                                                </div>
+                                                <div className="widget-content">
+                                                    <ul className="category-list clearfix">
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                            
+                                            </div>
                                         </div>
-                                        <div className="lower-content">
-                                            {isEditing ? (
-                                                <form onSubmit={handleSubmit}>
-                                                    <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" />
-                                                    <input name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
-                                                    <input name="contact" value={formData.contact} onChange={handleChange} placeholder="Contact" />
-                                                    <input name="aadhar" value={formData.aadhar} onChange={handleChange} placeholder="Aadhar" />
-                                                    <input name="gender" value={formData.gender} onChange={handleChange} placeholder="Gender" />
-                                                    <input name="dob" value={formData.dob} onChange={handleChange} placeholder="DOB" />
-                                                    
-                                                        <button className="Edit" type="submit">Save</button>
-                                                        <button className="Edit" type="button" onClick={handleEditToggle}>Cancel</button>
-                                                </form>
-                                            ) : (
-                                                <>
-                                                    <h3>{Citizen.name}</h3>
-                                                    <p>Email: {Citizen.email}</p>
-                                                    <p>Contact: {Citizen.contact}</p>
-                                                    <p>Aadhar: {Citizen.aadhar}</p>
-                                                    <p>Gender: {Citizen.gender}</p>
-                                                    <p>DOB: {Citizen.dob}</p>
-                                                    <p>Household_id: {Citizen.household_id}</p>
-                                                    <p> Village_id: {Citizen.village_id}</p>
-                                                    <button className = "Edit" onClick={handleEditToggle}>Edit</button>
-                                                </>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                           
-                            <div className="sidebar-widget category-widget">
-                                <div className="widget-title">
-                                    <h3>Your personal information:</h3>
-                                </div>
-                                <div className="widget-content">
-                                    <ul className="category-list clearfix">
-                                    </ul>
-                                </div>
 
-                            </div>
-                            
-                            </div>
-                        </div>
+                                    <div className="col-lg-8 col-md-12 col-sm-12 content-side">
+                                        <div className="service-details-content">
 
-                    <div className="col-lg-8 col-md-12 col-sm-12 content-side">
-                        <div className="service-details-content">
-
-                            <div className="content-one mb_60">
-                                <div className="text-box">
-                                    <h2 >Public Info</h2>
-                                </div>
-                            </div>
+                                            <div className="content-one mb_60">
+                                                <div className="text-box">
+                                                    <h2 >Public Info</h2>
+                                                </div>
+                                            </div>
                             {/* <div className="content-two">
                                 <div className="image-inner">
                                     <div className="row clearfix">

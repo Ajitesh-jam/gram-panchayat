@@ -23,8 +23,6 @@ export const createCitizen = async (citizen) => {
 };
 
 export const updateCitizen = async (aadhar, updates) => {
-  console.log("Updating citizen:", aadhar);
-  console.log("updates ",updates);
   const setClause = Object.keys(updates)
     .map((key, index) => `${key} = $${index + 2}`).join(', ');
     console.log("setClause ",setClause);

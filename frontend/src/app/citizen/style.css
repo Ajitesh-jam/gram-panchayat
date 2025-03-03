@@ -10,3 +10,16 @@
     margin: 8px 2px;
     cursor: pointer;
 }
+.singleline{
+    display: inline-block;
+    font-size: 16px;
+    margin: 8px 2px;
+}
+.typinginput{
+    color:grey;
+    font-size: 16px;
+    border-radius: 100px;   
+    border: 1px solid grey;
+    padding: 0px 0px 0px 10px;
+    margin:0px 0px 0px 6px;
+}

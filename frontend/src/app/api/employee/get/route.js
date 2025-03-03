@@ -15,6 +15,8 @@ export async function GET(req) {
     // Fetch employee from DB (includes the hashed password)
     const employee = await getEmployee(employee_id,password);
 
+    console.log("employee :", employee);
+
     if (!employee) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }

@@ -40,7 +40,6 @@ const ProgressBar = ({ label, percent }) => (
 export default function Home() {
     const [household, setHousehold] = useState({});
     const [family, setFamily] = useState([]);
-    const [schemes, setSchemes] = useState([]);
 
     const Citizen = useCitizens((state) => state.selectedCitizen);
 
@@ -65,6 +64,20 @@ export default function Home() {
         fetchHousehold();
     }, [Citizen]);
 
+    const [allEnrolledSchemes, setallEnrolledSchemes] = useState([
+        {
+            name: "Black Marvin",
+            aadhar: "Medical Assistant",
+            image: "assets/images/team/team-1.jpg",
+        },
+        {
+            name: "Eleanor Pena",
+            aadhar: "Doctor",
+            image: "assets/images/team/team-2.jpg",
+        }
+    ]);
+    const [allCanenrolSchemes, setallCanenrolSchemes] = useState([]);
+
     useEffect(() => {
         if (!Citizen || !Citizen.citizen_id) {
             console.warn("Citizen ID is missing.");
@@ -74,7 +87,15 @@ export default function Home() {
         const fetchSchemes = async () => {
             try {
                 const response = await axios.get(`/api/citizen/get_citizen_schemes?citizen_id=${Citizen.citizen_id}`);
-                setSchemes(response.data);
+                setallEnrolledSchemes(response.data);
+
+                const allschemes = await axios.get(`/api/scheme/get_all`);
+                allschemes.data.forEach((scheme) => {
+                    const isEnrolled = response.data.find((scheme1) => scheme1.scheme_id === scheme.scheme_id);
+                    if (!isEnrolled) {
+                        setallCanenrolSchemes((prev) => [...prev, scheme]);
+                    }
+                });
             } catch (error) {
                 console.error("Error fetching schemes:", error);
             }
@@ -87,6 +108,19 @@ export default function Home() {
     async function setCitizen(member) {
         await addCitizen(member);
         console.log("Citizen Updated:", member);
+    }
+
+    function enrolInScheme(scheme_id){
+        axios.post(`/api/citizen/enrol_in_scheme`, {
+            citizen_id: Citizen.citizen_id,
+            scheme_id: scheme_id
+            })
+            .then((response) => {
+                //referesh the page
+                window.location.reload();
+                //console.log("console.log response ", response);
+            })
+
     }
 
     return (
@@ -107,6 +141,7 @@ export default function Home() {
                                         <li><strong>Date of Birth: </strong>{Citizen.dob}</li>
                                         <li><strong>Email: </strong><Link href={`mailto:${Citizen.email}`}>{Citizen.email}</Link></li>
                                         <li><strong>Aadhar: </strong>{Citizen.aadhar}</li>
+                                        <li><strong>Aadhar: </strong>{Citizen.citizen_id}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -118,10 +153,10 @@ export default function Home() {
             {/* Schemes Section */}
             <section className="team-section sec-pad-2 centred">
                 <div className="auto-container">
-                    <h2>Available Schemes for {Citizen.name}</h2>
+                    <h2>All Enrolled Schemes for {Citizen.name}</h2>
                     <div className="row clearfix">
-                        {schemes.length > 0 ? (
-                            schemes.map((scheme, index) => (
+                        {allEnrolledSchemes.length > 0 ? (
+                            allEnrolledSchemes.map((scheme, index) => (
                                 <div key={index} className="col-lg-3 col-md-6 col-sm-12 team-block">
                                     <div className="team-block-one wow fadeInUp animated"
                                         data-wow-delay={`${index * 200}ms`}
@@ -202,6 +237,40 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+
+             {/* Can enrol scheme*/}   
+                <h1>You can enroll Citizen in Below Schemes</h1>                      
+                <section className="team-section sec-pad-2 centred">
+                    <div className="auto-container">
+                        <div className="row clearfix">
+                            {allCanenrolSchemes.map((scheme, index) => (
+                                <div key={index} className="col-lg-3 col-md-6 col-sm-12 team-block">
+                                    <div className="team-block-one wow fadeInUp animated" data-wow-delay={`${index * 200}ms`} data-wow-duration="1500ms">
+                                        <div className="inner-box">
+                                            <div className="image-box">
+                                                <figure className="image">
+                                                </figure>
+                                                
+                                            </div>
+                                            <div className="lower-content">
+                                                <h3>
+                                                    {scheme.scheme_name}
+                                                </h3>
+                                                <span className="designation">
+                                                    <li> Criteria: {scheme.criteria}</li>
+                                                    <li> Scheme Id: {scheme.scheme_id}</li>
+                                                </span>
+                                                <button onClick={()=>{enrolInScheme(scheme.scheme_id)}} className="theme-btn btn-two"><span>Enroll</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        
+                    </div>
+            </section>        
+
         </Layout>
     );
 }

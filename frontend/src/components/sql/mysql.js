@@ -316,3 +316,11 @@ export const getGovt = async (govt_id,password) => {
   return res.rows[0] || null;
 };
 
+
+export const createGovt = async (govt) => {
+  const keys = Object.keys(govt);
+  const values = Object.values(govt);
+  const query = `INSERT INTO govt_monitor (${keys.join(", ")}) VALUES (${keys.map((_, i) => `$${i + 1}`).join(", ")}) RETURNING *;`;
+  const res = await pool.query(query, values);
+  return res.rows[0]||null;
+};

@@ -22,11 +22,11 @@ export default function Home() {
     const router = useRouter();
 
     const [govtMonitorFormData, setGovtMonitorFormData] = useState({
-        monitor_id: "",
+        govt_id: "",
         password: "",
         confirmPassword: "",
         name: "",
-        department: ""
+        email: ""
     });
 
     const handleInputChange = (e) => {
@@ -104,10 +104,12 @@ export default function Home() {
         }
 
         try {
+            console.log("Submitting form with data:", govtMonitorFormData);
             const hashedPassword = await bcrypt.hash(govtMonitorFormData.password, 10);
+            //make an object without the confirmPassword field
             govtMonitorFormData.password = hashedPassword;
-
-            const response = await axios.post("/api/employee/create", govtMonitorFormData);
+            delete govtMonitorFormData.confirmPassword;
+            const response = await axios.post("/api/govt/create", govtMonitorFormData);
             console.log("Response:", response);
             if (response.status === 201) {
                 setGovtMonitorErrorMessage("");
@@ -130,11 +132,11 @@ export default function Home() {
         }
 
         setGovtMonitorFormData({
-            monitor_id: "",
+            govt_id: "",
             password: "",
             confirmPassword: "",
             name: "",
-            department: ""
+            email: ""
         });
     };
 
@@ -271,7 +273,7 @@ export default function Home() {
                                                             type="text"
                                                             name="govt_id"
                                                             placeholder="Monitor ID"
-                                                            value={govtMonitorFormData.monitor_id}
+                                                            value={govtMonitorFormData.govt_id}
                                                             onChange={handleGovtMonitorInputChange}
                                                             required
                                                         />

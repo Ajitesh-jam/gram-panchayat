@@ -17,11 +17,6 @@ export default function Home() {
                 <Banner />
                 <Feature />
                 <WhyChooseUs/>
-                <Funfacts />
-                {/* <Process /> */}
-                {/* <Video /> */}
-                {/* <News /> */}
-                {/* <Subscribe /> */}
             </Layout>
         </>
     )

@@ -30,7 +30,7 @@ export default function Home() {
                     console.log("Village : ",villages[i]);
                     const response = await axios.get(`api/citizen/get_village_citizens?village_id=${villages[i]}`);
                     //add it to allcitizens 
-                    setAllCitizens((prev) => [...prev, ...response.data]);
+                    setAllCitizens((prev) => [prev, ...response.data]);
 
                 }
                 
@@ -92,7 +92,109 @@ export default function Home() {
         { dataKey: "sales", name: "Sales", color: "#8884d8" },
         { dataKey: "revenue", name: "Revenue", color: "#82ca9d" },
         { dataKey: "profit", name: "Profit", color: "#ffc658" },
-    ]
+        ]
+
+    const [allAssets, setAllAssets] = useState([]);
+    const [villagePieData, setVillagePieData] = useState({}); // Store pie data per village
+
+    useEffect(() => {
+        const fetchAssets = async () => {
+            try {
+                let fetchedAssets = {};
+
+                for (let i = 1; i < villages.length; i += 3) {
+                    const villageId = villages[i];
+
+                    const response = await axios.get(`api/asset/get_village_assets?village_id=${villageId}`);
+                    console.log(`Fetched Assets for Village ${villageId}:`, response.data);
+
+                     setAllAssetsDisplay((prev) => [...prev, ...response.data]);
+
+                    fetchedAssets[villageId] = response.data;
+                }
+
+                setAllAssets(fetchedAssets);
+            } catch (error) {
+                console.error("Error fetching Assets:", error);
+            }
+        };
+
+        fetchAssets();
+    }, []);
+
+    useEffect(() => {
+        if (Object.keys(allAssets).length > 0) {
+            let pieDataByVillage = {};
+
+            Object.keys(allAssets).forEach(villageId => {
+                pieDataByVillage[villageId] = allAssets[villageId].map(asset => ({
+                    name: asset.asset_name,
+                    value: asset.quantity,
+                }));
+            });
+
+            setVillagePieData(pieDataByVillage);
+        }
+    }, [allAssets]);
+
+    console.log("Village Pie Data:", villagePieData);
+
+    const [lineDataByVillage, setLineDataByVillage] = useState({});
+    const [linesByVillage, setLinesByVillage] = useState({});
+
+    useEffect(() => {
+        const fetchAssets = async () => {
+            try {
+                let fetchedAssets = {};
+
+                for (let i = 1; i < villages.length; i += 3) {
+                    const villageId = villages[i];
+
+                    const response = await axios.get(
+                        `api/asset/get_village_assets?village_id=${villageId}`
+                    );
+                    console.log(`Fetched Assets for Village ${villageId}:`, response.data);
+
+                    fetchedAssets[villageId] = response.data;
+                }
+            } catch (error) {
+                console.error("Error fetching Assets:", error);
+            }
+        };
+
+        fetchAssets();
+    }, []);
+
+    useEffect(() => {
+        if (Object.keys(allAssets).length > 0) {
+            let newLineDataByVillage = {};
+            let newLinesByVillage = {};
+
+            Object.keys(allAssets).forEach((villageId) => {
+                newLineDataByVillage[villageId] = allAssets[villageId].map((asset) => ({
+                    name: asset.asset_name,
+                    [`${villageId}_quantity`]: asset.quantity,
+                }));
+
+                console.log("Assets ", allAssets);
+
+                newLinesByVillage[villageId] = allAssets[villageId].map((asset, index) => ({
+                    dataKey: `${villageId}_quantity`,
+                    name: `Asset ${asset.asset_name}`,
+                    color: `hsl(${index * 40}, 70%, 50%)`, // Dynamic color generation
+                }));
+            });
+
+            setLineDataByVillage(newLineDataByVillage);
+            setLinesByVillage(newLinesByVillage);
+        }
+    }, [allAssets]);
+
+    console.log("Line Data by Village:", lineDataByVillage);
+    console.log("Lines by Village:", linesByVillage);
+
+
+
 
     return (
         <>
@@ -228,7 +330,8 @@ export default function Home() {
                                                         </Link>
                                                     </h3>
                                                     <span className="designation">
-                                                        Adhar: {member.aadhar}
+                                                       <li>Adhar: {member.aadhar}</li> 
+                                                       <li>Citizen Id : {member.citizen_id}</li> 
                                                     </span>
                                                 </div>
                                             </div>

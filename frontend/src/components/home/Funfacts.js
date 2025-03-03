@@ -2,6 +2,7 @@ import CounterUp from "../elements/CounterUp"
 
 
 export default function Funfacts() {
+    
     return (
         <>        
             <section className="funfact-section centred">

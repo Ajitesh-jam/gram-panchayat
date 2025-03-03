@@ -142,189 +142,192 @@ export default function Home() {
 
     // JSON array of team members
     return (
-            <>
-                <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Administrator">
-                    {/* Appointments-section */}
-                    <section className="appointment-section sec-pad-2">
-                        <div className="outer-container p_relative sec-pad-1">
-                        <h1>Signup Panchayat Employee</h1>
-                        </div>
-                        <div className="outer-container p_relative">
-                            <div
-                                className="bg-layer"
-                                style={{
-                                    backgroundImage: "url(https://images.forbesindia.com/blog/wp-content/uploads/2021/08/Raigad-Village.jpg)",
-
-                                    // width: "1608px",
-                                    // height: "937px",
-                                    backgroundSize: "cover",
-                                    backgroundPosition: "center",
-                                }}
-                                
-                            >
-                            </div>                        
-                            <div className="auto-container">
-                                <div className="row clearfix">
-                                    <div className="col-lg-7 col-md-12 col-sm-12 form-column">
-                                        <div className="form-inner">
-                                            <form className="default-form" onSubmit={submit}>
-                                                <div className="row clearfix">
-                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                        <input
-                                                            type="text"
-                                                            name="employee_id"
-                                                            placeholder="Employee ID"
-                                                            value={formData.employee_id}
-                                                            onChange={handleInputChange}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                        <input
-                                                            type="password"
-                                                            name="password"
-                                                            placeholder="Password"
-                                                            value={formData.password}
-                                                            onChange={handleInputChange}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                        <input
-                                                            type="password"
-                                                            name="confirmPassword"
-                                                            placeholder="Confirm Password"
-                                                            value = {formData.confirmPassword}
-                                                            onChange={handleInputChange}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    <div className = "col-lg-12 col-md-12 col-sm-12 form-group">
-                                                        <input
-                                                            type="text"
-                                                            name="citizen_id"
-                                                            placeholder="Citizen ID"
-                                                            value={formData.citizen_id}
-                                                            onChange={handleInputChange}
-                                                            required    
-                                                        />
-                                                    </div>
-
-                                                    <div className = "col-lg-12 col-md-12 col-sm-12 form-group">
-                                                        <input
-                                                            type="text"
-                                                            name="village_id"
-                                                            placeholder="Village ID"
-                                                            value={formData.village_id}
-                                                            onChange={handleInputChange}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    <div className = "col-lg-12 col-md-12 col-sm-12 form-group">
-                                                        <input
-                                                            type="text"
-                                                            name="role"
-                                                            placeholder="Role"
-                                                            value={formData.role}
-                                                            onChange={handleInputChange}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    {errorMessage && <p style={{color:"red"}}>{errorMessage}</p>}
-                                                    {successMessage && <p style={{color:"green"}}>{successMessage}</p>}
-                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
-                                                        <button type="submit" className="theme-btn btn-one">
-                                                            <span>Sign UP Employee</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div> 
-                             </div> 
-                        </div>
-                    </section>
-
-                    {/* Government Monitor Signup-section */}
-                    <section className="appointment-section sec-pad-2">
+        <>
+            <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Administrator">
+                {/* Appointments-section */}
+                <section className="appointment-section sec-pad-2">
                     <div className="outer-container p_relative sec-pad-1">
-                    <h1>Signup government monitor</h1>
+                        <h1>Signup Panchayat Employee</h1>
                     </div>
-                        <div className="outer-container p_relative">
-                            <div
-                                className="bg-layer"
-                                style={{
-                                    backgroundImage: "url(https://images.forbesindia.com/blog/wp-content/uploads/2021/08/Raigad-Village.jpg)",
-                                    backgroundSize: "cover",
-                                    backgroundPosition: "center",
-                                }}
-                            >
-                               
-                            </div>                        
-                            <div className="auto-container">
-                                <div className="row clearfix">
-                                    <div className="col-lg-7 col-md-12 col-sm-12 form-column">
-                                        <div className="form-inner">
-                                            <form className="default-form" onSubmit={submitGovtMonitor}>
-                                                <div className="row clearfix">
-                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                        <input
-                                                            type="text"
-                                                            name="govt_id"
-                                                            placeholder="Monitor ID"
-                                                            value={govtMonitorFormData.govt_id}
-                                                            onChange={handleGovtMonitorInputChange}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                        <input
-                                                            type="password"
-                                                            name="password"
-                                                            placeholder="Password"
-                                                            value={govtMonitorFormData.password}
-                                                            onChange={handleGovtMonitorInputChange}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                        <input
-                                                            type="password"
-                                                            name="confirmPassword"
-                                                            placeholder="Confirm Password"
-                                                            value={govtMonitorFormData.confirmPassword}
-                                                            onChange={handleGovtMonitorInputChange}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                        <input
-                                                            type="text"
-                                                            name="name"
-                                                            placeholder="Name"
-                                                            value={govtMonitorFormData.name}
-                                                            onChange={handleGovtMonitorInputChange}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    
-                                                    {govtMonitorErrorMessage && <p style={{color:"red"}}>{govtMonitorErrorMessage}</p>}
-                                                    {govtMonitorSuccessMessage && <p style={{color:"green"}}>{govtMonitorSuccessMessage}</p>}
-                                                    <div className="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
-                                                        <button type="submit" className="theme-btn btn-one">
-                                                            <span>Sign UP Government Monitor</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div> 
-                            </div> 
+                    <div className="outer-container p_relative">
+                        <div
+                            className="bg-layer"
+                            style={{
+                                backgroundImage: "url(https://images.forbesindia.com/blog/wp-content/uploads/2021/08/Raigad-Village.jpg)",
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                            }}
+                        >
                         </div>
-                    </section>
-                </Layout>
-            </>
+                        <div className="auto-container">
+                            <div className="row clearfix">
+                                <div className="col-lg-7 col-md-12 col-sm-12 form-column">
+                                    <div className="form-inner">
+                                        <form className="default-form" onSubmit={submit}>
+                                            <div className="row clearfix">
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                    <input
+                                                        type="text"
+                                                        name="employee_id"
+                                                        placeholder="Employee ID"
+                                                        value={formData.employee_id}
+                                                        onChange={handleInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                    <input
+                                                        type="password"
+                                                        name="password"
+                                                        placeholder="Password"
+                                                        value={formData.password}
+                                                        onChange={handleInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                    <input
+                                                        type="password"
+                                                        name="confirmPassword"
+                                                        placeholder="Confirm Password"
+                                                        value={formData.confirmPassword}
+                                                        onChange={handleInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                    <input
+                                                        type="text"
+                                                        name="citizen_id"
+                                                        placeholder="Citizen ID"
+                                                        value={formData.citizen_id}
+                                                        onChange={handleInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                    <input
+                                                        type="text"
+                                                        name="village_id"
+                                                        placeholder="Village ID"
+                                                        value={formData.village_id}
+                                                        onChange={handleInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                    <input
+                                                        type="text"
+                                                        name="role"
+                                                        placeholder="Role"
+                                                        value={formData.role}
+                                                        onChange={handleInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+                                                {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
+                                                    <button type="submit" className="theme-btn btn-one">
+                                                        <span>Sign UP Employee</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Government Monitor Signup-section */}
+                <section className="appointment-section sec-pad-2">
+                    <div className="outer-container p_relative sec-pad-1">
+                        <h1>Signup Government Monitor</h1>
+                    </div>
+                    <div className="outer-container p_relative">
+                        <div
+                            className="bg-layer"
+                            style={{
+                                backgroundImage: "url(https://images.forbesindia.com/blog/wp-content/uploads/2021/08/Raigad-Village.jpg)",
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                            }}
+                        >
+                        </div>
+                        <div className="auto-container">
+                            <div className="row clearfix">
+                                <div className="col-lg-7 col-md-12 col-sm-12 form-column">
+                                    <div className="form-inner">
+                                        <form className="default-form" onSubmit={submitGovtMonitor}>
+                                            <div className="row clearfix">
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                    <input
+                                                        type="text"
+                                                        name="govt_id"
+                                                        placeholder="Monitor ID"
+                                                        value={govtMonitorFormData.govt_id}
+                                                        onChange={handleGovtMonitorInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                    <input
+                                                        type="password"
+                                                        name="password"
+                                                        placeholder="Password"
+                                                        value={govtMonitorFormData.password}
+                                                        onChange={handleGovtMonitorInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                    <input
+                                                        type="password"
+                                                        name="confirmPassword"
+                                                        placeholder="Confirm Password"
+                                                        value={govtMonitorFormData.confirmPassword}
+                                                        onChange={handleGovtMonitorInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                    <input
+                                                        type="text"
+                                                        name="name"
+                                                        placeholder="Name"
+                                                        value={govtMonitorFormData.name}
+                                                        onChange={handleGovtMonitorInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                    <input
+                                                        type="text"
+                                                        name="email"
+                                                        placeholder="Email"
+                                                        value={govtMonitorFormData.email}
+                                                        onChange={handleGovtMonitorInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                {govtMonitorErrorMessage && <p style={{ color: "red" }}>{govtMonitorErrorMessage}</p>}
+                                                {govtMonitorSuccessMessage && <p style={{ color: "green" }}>{govtMonitorSuccessMessage}</p>}
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
+                                                    <button type="submit" className="theme-btn btn-one">
+                                                        <span>Sign UP Government Monitor</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </Layout>
+        </>
     );
 }

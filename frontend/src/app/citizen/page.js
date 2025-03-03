@@ -163,7 +163,7 @@ export default function service() {
             </div>
             <div>
                 {/* service-section */}
-                                <section className = "service-details pt_120 pb_110">
+                <section className = "service-details pt_120 pb_110">
                                 <div className="auto-container">
                                     <div className="row clearfix">
                                         <div className="col-lg-4 col-md-12 col-sm-12 sidebar-side">
@@ -225,63 +225,66 @@ export default function service() {
                                                     </div>
                                                 </div>
                                            
-                                            <div className="sidebar-widget category-widget">
-                                                <div className="widget-title">
-                                                    <h3>Your personal information:</h3>
-                                                </div>
-                                                <div className="widget-content">
-                                                    <ul className="category-list clearfix">
-                                                    </ul>
-                                                </div>
+                                                <div className="sidebar-widget category-widget">
+                                                    <div className="widget-title">
+                                                        <h3>Your personal information:</h3>
+                                                    </div>
+                                                    <div className="widget-content">
+                                                        <ul className="category-list clearfix">
+                                                        </ul>
+                                                    </div>
 
-                                            </div>
+                                                </div>
                                             
                                             </div>
                                         </div>
 
-                                    <div className="col-lg-8 col-md-12 col-sm-12 content-side">
-                                        <div className="service-details-content">
-
-                                            <div className="content-one mb_60">
-                                                <div className="text-box">
-                                                    <h2 >Public Info</h2>
-                                                </div>
-                                            </div>
-                             <div className="content-two">
-                                <div className="image-inner">
-                                    <div className="row clearfix">
-                                    {landRecords.map((landRecord,index) => (
-                                        <div key={index }className="col-lg-4 col-md-6 col-sm-12 news-block">
-                                            <div className="news-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
-                                                <div className="inner-box">
-                                                    <figure className="image-box">
-                                                        <Link href="blog-details">
-                                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8LzmesVmNsCPwrABVIvdeXmvLIlkwBKhoA3PTsCQ7YbIlJDhBuplf3HQ9Msj3xzHCv7Y&usqp=CAU" alt="" />
-                                                        </Link>
-                                                    </figure>
-                                                    <div className="lower-content">
-                                                        <ul className="post-info mb_15 clearfix">
-                                                            <li>Land Id : {landRecord.land_id} | 
-                                                            {new Date(landRecord.year).toLocaleDateString()}
-                                                            </li>
-                                                        </ul>
-                                                        <h3>
-                                                            <Link href="#">Land Details</Link>
-                                                        </h3>
-                                                        <p>
-                                                            In <strong>{new Date(landRecord.year).getFullYear()}</strong>, a land area of 
-                                                            <strong> {landRecord.area} acres</strong> produced 
-                                                            <strong> {landRecord.production} tons</strong> of <strong>{landRecord.crop}</strong>.
-                                                        </p>
-
-                                                        <p>
-                                                            Tincidunt Maur nemi sit Interdum praesento eget morbi lacinia volutpat pellentesque Tincidunt aurna suspit.
-                                                        </p>
+                                        <div className="col-lg-8 col-md-12 col-sm-12 content-side">
+                                            <div className="service-details-content">
+                                                <div className="content-one mb_60">
+                                                    <div className="text-box">
+                                                        <h2 >Public Info</h2>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    ))}
+                                    </div>
+                                </div>
+                            <div className="content-two">
+                                <div className="image-inner">
+                                    <div className="row clearfix">
+                                        {landRecords.map((landRecord,index) => (
+                                            <div key={index }className="col-lg-4 col-md-6 col-sm-12 news-block">
+                                                <div className="news-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                                                    <div className="inner-box">
+                                                        <figure className="image-box">
+                                                            <Link href="blog-details">
+                                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8LzmesVmNsCPwrABVIvdeXmvLIlkwBKhoA3PTsCQ7YbIlJDhBuplf3HQ9Msj3xzHCv7Y&usqp=CAU" alt="" />
+                                                            </Link>
+                                                        </figure>
+                                                        <div className="lower-content">
+                                                            <ul className="post-info mb_15 clearfix">
+                                                                <li>Land Id : {landRecord.land_id} | 
+                                                                {new Date(landRecord.year).toLocaleDateString()}
+                                                                </li>
+                                                            </ul>
+                                                            <h3>
+                                                                <Link href="#">Land Details</Link>
+                                                            </h3>
+                                                            <p>
+                                                                In <strong>{new Date(landRecord.year).getFullYear()}</strong>, a land area of 
+                                                                <strong> {landRecord.area} acres</strong> produced 
+                                                                <strong> {landRecord.production} tons</strong> of <strong>{landRecord.crop}</strong>.
+                                                            </p>
+
+                                                            <p>
+                                                                Tincidunt Maur nemi sit Interdum praesento eget morbi lacinia volutpat pellentesque Tincidunt aurna suspit.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
                                         <div className="col-lg-6 col-md-6 col-sm-12 image-column">
                                             <figure className="image-box mb_30"><img src="assets/images/service/service-8.jpg" alt="" /></figure>
                                         </div>
@@ -294,51 +297,7 @@ export default function service() {
                                     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor mque lauda totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vite sunt explicabo. Nemo ipsam voluptatem quia voluptas sit aspernatur.</p>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam nmco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehender it in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                                 </div>
-                            </div> */}
-                            <h1> Schemes provided by Government</h1>
-                            <section className="team-section sec-pad-2 centred">
-                                <div className="auto-container">
-                                    <div className="row clearfix">
-                                        {allSchemes.map((scheme, index) => (
-                                            <div
-                                                key={index}
-                                                className="col-lg-3 col-md-6 col-sm-12 team-block"
-                                            >
-                                                <div
-                                                    className="team-block-one wow fadeInUp animated"
-                                                    data-wow-delay={`${index * 200}ms`}
-                                                    data-wow-duration="1500ms"
-                                                >
-                                                    <div className="inner-box">
-                                                        <div className="image-box">
-                                                            <figure className="image">
-                                                                
-                                                            </figure>
-                                                        
-                                                        </div>
-                                                        <div className="lower-content">
-                                                            <h3>
-                                                                <Link href={`scheme-data?scheme_id=${scheme.scheme_id}`} onClick={() => {
-                                                                    setCitizen(scheme);
-                                                                }}>
-                                                                    
-                                                                    {scheme.scheme_name}
-                                                                </Link>
-                                                            </h3>
-                                                            <span className="designation">
-
-                                                                Criteria: {scheme.criteria}
-                                                                SchemeId: {scheme.scheme_id}
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </section>
-                                </div>
+                            </div> 
                             </div>
                         </div>
                     </div>
@@ -385,8 +344,7 @@ export default function service() {
                             
                         </div>
                 </section>
-
-
+                </section>
             </div>
 
             

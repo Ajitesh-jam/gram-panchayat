@@ -358,3 +358,21 @@ export const getVillage = async (village_id)=>{
   //console.log("res ", res.rows);
   return res.rows;
 };
+
+
+
+export const getNumber=async ()=>{
+  const query = `
+  SELECT 'citizen' AS table_name, COUNT(*) AS total_rows FROM citizen
+  UNION ALL
+  SELECT 'assets', COUNT(*) FROM assets
+  UNION ALL
+  SELECT 'scheme', COUNT(*) FROM scheme
+  UNION ALL
+  SELECT 'panchayat_employee', COUNT(*) FROM panchayat_employee;
+  `;
+  const res = await pool.query(query, [village_id]);
+  //console.log("res ", res.rows);
+  return res.rows;
+
+}

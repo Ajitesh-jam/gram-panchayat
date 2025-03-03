@@ -1,196 +1,233 @@
-"use client"
-import Layout from "../../components/layout/Layout"
-import Link from "next/link"
-
-import axios from "axios";
-import { useState,useEffect } from "react";
-
-//import router
+'use client';
+import Layout from "../../components/layout/Layout";
+import { useState } from 'react';
+import useCitizens from "../../components/hooks/citizen.zustand.js";
 import { useRouter } from "next/navigation";
-
-import useEmployees from "../../components/hooks/employee.zustand";
+import axios from "axios";
+import bcrypt from "bcryptjs";
+import tryimg from "../../../public/assets/images/NewLogo.png";
 
 export default function Home() {
 
-    //const Citizens = useEmployees((state) => state.setNewCitizen);
-    const Employees = useEmployees((state) => state.setNewEmployee);
-    const fetchedEmployee = useEmployees((state) => state.selectedEmployee);
+    const [isActive, setIsActive] = useState({ status: false, key: 1 });
+    const [formData, setFormData] = useState({
+        name: "",
+        phone: "",
+        email: "",
+        DOB: "",
+        aadhar: "",
+        gender: "",
+        password_hash: "",
+        confirmPassword_hash: "",
+        image: "",
+    });
 
-    //const navigate = useNavigate(); // Use navigate instead of router
-    const [id,setId] = useState(); 
-    const [password,setPassword] = useState(); 
+    const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
 
-    //router to navigate
+    const Citizens = useCitizens((state) => state.setNewCitizen);
     const router = useRouter();
 
-    async function login() {
-        console.log("Login called");
-        try {
-            
-            //const response = await axios.get(`http://localhost:8000/getRecord/${id}/${password}`);
-            //if (response.status === 200) {
-                //Citizens(response.data); // Update Citizen data in Zustand
-                console.log("Successfully logged in as Administrator: ");
+    const handleToggle = (key) => {
+        setIsActive((prev) => ({
+            status: prev.key !== key,
+            key,
+        }));
+    };
 
-                //naviagte to /Administrator
-                router.push("/panchayat-employee");
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
 
-            //}
-        } catch (error) {
-            //Handle specific error cases
-            if (error.response) {
-                if (error.response.status === 401) {
-                    alert("Your password is incorrect");
-                } else if (error.response.status === 404) {
-                    alert("Citizen record not found");
-                } else {
-                    alert("An error occurred while logging in");
-                }
-            } else {
-                alert("Network error. Please try again later.");
-                console.log("error: ",error);
-            }
+    const submit = async (e) => {
+        e.preventDefault();
+
+        // Reset messages
+        setErrorMessage("");
+        setSuccessMessage("");
+
+        // Validate password_hashs
+        if (formData.password_hash !== formData.confirmPassword_hash) {
+            setErrorMessage("Password_hashs do not match");
+            return;
         }
-    }
 
-
-
-    useEffect(() => {
-        const fetchEmployee = async () => {
-            try {
-                console.log("Fetching employee : ",fetchedEmployee );
-                // if(fetchedEmployee.employee_id!==-1){
-                //     router.push("/panchayat-employee");
-                // }
-
-            } catch (error) {
-               
-            }
-        };
-
-        fetchEmployee();
-
-    }, []);
-
-    async function loginEmployee() {
-        console.log("Login called");
         try {
+            const hashedPassword_hash = await bcrypt.hash(formData.password_hash, 10);
+            formData.password_hash = hashedPassword_hash;
+            console.log("Submitting form with data:", formData);
+            Citizens(formData);
 
-            const response = await axios.get(`/api/employee/get?employee_id=${id}&password=${password}`);
-            
-            console.log("Successfully logged in as : ",response.data);
-            if (response.status === 200) {
-                Employees(response.data); // Update Citizen data in Zustand
-
-                router.push("/panchayat-employee");
-                //naviagte to /Employee
+            // API call
+            const response = await axios.post("/api/citizen/create", formData);
+            if (response.status === 201) {
+                setSuccessMessage("Citizen created successfully");
+                setFormData((prev)=>({
+                    ...prev,
+                    password_hash: "",
+                    confirmPassword_hash: ""
+                })
+                );
+                router.push("/citizen");
+            } else {
+                setErrorMessage("Failed to create citizen");
             }
         } catch (error) {
-            //Handle specific error cases
+            console.error("Error creating citizen:", error);
+            // Show different messages based on the error type
             if (error.response) {
-                if (error.response.status === 401) {
-                    alert("Your password is incorrect");
-                } else if (error.response.status === 404) {
-                    alert("Citizen record not found");
-                } else {
-                    alert("An error occurred while logging in");
-                }
+                setErrorMessage(error.response.data.message || "Server error. Try again later.");
+            } else if (error.request) {
+                setErrorMessage("No response from server. Please check your connection.");
             } else {
-                alert("Network error. Please try again later.");
-                console.log("error: ",error);
+                setErrorMessage("An unexpected error occurred. Please try again.");
             }
         }
-    }
+    };
 
     return (
         <>
-            <Layout headerStyle={1} footerStyle={1} >
-                <div>
-                    {/* Contact Form Section End */}
+            <Layout headerStyle={2} footerStyle={1} breadcrumbTitle="Citizen Signup">
+                {/* Appointments-section */}
+                <section className="appointment-section">
+                    <div className="outer-container p_relative">
+                        <div
+                            className="bg-layer"
+                            style={{
+                                backgroundImage: "url(assets/images/NewLogo.png)",//"url(https://ennoblecare.com/wp-content/uploads/2023/09/iStock-1152844782.jpg)",
+                                // width: "1608px",
+                                // height: "937px",
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                            }}
+                            
+                        >
 
-                    {/* Contact Form Section2 */}
-                    <section className="contact-style-three pt_90 pb_120">
+                        </div>
+                       
                         <div className="auto-container">
                             <div className="row clearfix">
-                                <div className="col-lg-8 col-md-12 col-sm-12 form-column">
-                                    <div className="form-inner mr_40">
-                                        <div className="sec-title mb_50">
-                                            <h2>Login as a Administrator</h2>
-                                        </div>
-
-
-
-                                        <h1>yaha sign up bana dena Pallav</h1>
-
-
-
-
-
-                                            <>
-                                                <div className="row clearfix">
-                                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="fname" placeholder="Adhar" onChange={(e) => setId(e.target.value)} required />
-                                                    </div>
-                                                    
-                                                    <div className="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                        <input type="text" name="summary" placeholder="Password"  onChange={(e) => setPassword(e.target.value)} required />
-                                                    </div>
-                                                    
+                                <div className="col-lg-7 col-md-12 col-sm-12 form-column">
+                                    <div className="form-inner-inner">
+                                        <form className="default-form" onSubmit={submit}>
+                                            <div className="row clearfix">
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                    <input
+                                                        type="text"
+                                                        name="name"
+                                                        placeholder="Name"
+                                                        value={formData.name}
+                                                        onChange={handleInputChange}
+                                                        required
+                                                    />
                                                 </div>
-                                                <button type="submit" className="theme-btn btn-one" onClick={login}><span>Login </span></button>
+                                                <div className="col-lg-6 col-md-6 col-sm-12 form-group">
+                                                    <input
+                                                        type="text"
+                                                        name="phone"
+                                                        placeholder="Contact"
+                                                        value={formData.phone}
+                                                        onChange={handleInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                <div className="col-lg-6 col-md-6 col-sm-12 form-group">
+                                                    <input
+                                                        type="text"
+                                                        name="email"
+                                                        placeholder="Email"
+                                                        value={formData.email}
+                                                        onChange={handleInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                <div className="col-lg-6 col-md-6 col-sm-12 form-group">
+                                                    <input
+                                                        type="date"
+                                                        name="DOB"
+                                                        placeholder="DOB (DD-MM-YYYY)"
+                                                        value={formData.DOB}
+                                                        onChange={handleInputChange}
+                                                    />
+                                                </div>
+                                                <div className="col-lg-6 col-md-6 col-sm-12 form-group">
+                                                    <input
+                                                        type="text"
+                                                        name="aadhar"
+                                                        placeholder="Aadhar"
+                                                        value={formData.aadhar}
+                                                        onChange={handleInputChange}
+                                                    />
+                                                </div>
+                                                <div className="col-lg-6 col-md-9 col-sm-12 form-group">
+                                                    <input
+                                                        type="text"
+                                                        name="image"
+                                                        placeholder="Provide valid image url for upload"
+                                                        onChange={handleInputChange}
 
-                                            </>
+                                                    />
+                                                </div>
+                                                <div className="col-lg-6 col-md-3 col-sm-12 form-group">
+                                                    
+                                                    <input
+                                                        type="radio"
+                                                        name="gender"
+                                                        
+                                                        value="male"
+                                                        checked={formData.gender === "male"}
+                                                        onChange={handleInputChange}
+                                                    /> Male
+                                                    <input
+                                                        type="radio"
+                                                        name="gender"
+                                                        
+                                                        value="female"
+                                                        checked={formData.gender === "female"}
+                                                        onChange={handleInputChange}
+                                                    /> Female
 
-                                            
-
-
+                                                </div>
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                    <input
+                                                        type="password"
+                                                        name="password_hash"
+                                                        placeholder="Password"
+                                                        value={formData.password_hash}
+                                                        onChange={handleInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                    <input
+                                                        type="password"
+                                                        name="confirmPassword_hash"
+                                                        placeholder="Confirm Password"
+                                                        value={formData.confirmPassword_hash}
+                                                        onChange={handleInputChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                {errorMessage && <p style={{color:"red"}}>{errorMessage}</p>}
+                                                {successMessage && <p style={{color:"green"}}>{successMessage}</p>}
+                                                <div className="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
+                                                    <button type="submit" className="theme-btn btn-one">
+                                                        <span>Sign UP</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-
-                                <div className="col-lg-4 col-md-12 col-sm-12 image-column">
-                                    <figure className="image-box"><img src="assets/images/resource/contact-1.jpg" alt="" /></figure>
-                                </div>
-                                
                             </div>
-                        </div>
-                    </section>
-
-                    
-
-                     {/* subscibe */}
-                <section className="subscribe-section">
-                <div className="auto-container">
-                    <div className="inner-container">
-                    <div className="row align-items-center">
-                        <div className="col-lg-6 col-md-12 col-sm-12 text-column">
-                        <div className="text-box">
-                            <h2><span>Subscribe</span> for the exclusive updates!</h2>
-                        </div>
-                        </div>
-                        <div className="col-lg-6 col-md-12 col-sm-12 form-column">
-                        <div className="form-inner">
-                            <form method="post" action="contact">
-                            <div className="form-group">
-                                <input type="email" name="email" placeholder="Enter Your Email Address" required />
-                                <button type="submit" className="theme-btn btn-one"><span>Subscribe Now</span></button>
-                            </div>
-                            <div className="form-group">
-                                <div className="check-box">
-                                <input className="check" type="checkbox" id="checkbox1" />
-                                <label htmlFor="checkbox1">I agree to the <Link href="/">Privacy Policy.</Link></label>
-                                </div>
-                            </div>
-                            </form>
-                        </div>
                         </div>
                     </div>
-                    </div>
-                </div>
                 </section>
-                  {/* subscibe end */}
-                </div>
-
             </Layout>
         </>
-    )
+    );
 }

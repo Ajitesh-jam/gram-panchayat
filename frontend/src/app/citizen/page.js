@@ -92,8 +92,12 @@ export default function service() {
                         label: `${month} (${record.crop})`
                     };
                 });
-
+                if(landResponse.data.length)
                 setMonthlyData(formattedData);
+
+                else{
+
+                }
             } catch (error) {
                 console.error("Error fetching schemes:", error);
             }
@@ -144,72 +148,49 @@ export default function service() {
                                     </div>
                                 </div>
                             
-                            <div className="sidebar-widget category-widget">
-                                <div className="widget-title">
-                                    <h3>Medical Records:</h3>
-                                </div>
-                                <div className="widget-content">
-                                    <ul className="category-list clearfix">
-
-
-                                    </ul>
-                                </div>
-
-                            </div>
                             
                             </div>
                         </div>
 
                     <div className="col-lg-8 col-md-12 col-sm-12 content-side">
                         <div className="service-details-content">
-
-                            <div className="content-one mb_60">
-                                <div className="text-box">
-                                    <h2>Medical Record Image</h2>
-                                    
-                                </div>
-                            </div>
                             <div className="content-two">
                                 <div className="image-inner">
                                     <div className="row clearfix">
-                                    {landRecords.map((landRecord,index) => (
-                                        <div key={index }className="col-lg-4 col-md-6 col-sm-12 news-block">
-                                            <div className="news-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
-                                                <div className="inner-box">
-                                                    <figure className="image-box">
-                                                        <Link href="blog-details">
-                                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8LzmesVmNsCPwrABVIvdeXmvLIlkwBKhoA3PTsCQ7YbIlJDhBuplf3HQ9Msj3xzHCv7Y&usqp=CAU" alt="" />
-                                                        </Link>
-                                                    </figure>
-                                                    <div className="lower-content">
-                                                        <ul className="post-info mb_15 clearfix">
-                                                            <li>Land Id : {landRecord.land_id} | 
-                                                            {new Date(landRecord.year).toLocaleDateString()}
-                                                            </li>
-                                                        </ul>
-                                                        <h3>
-                                                            <Link href="#">Land Details</Link>
-                                                        </h3>
-                                                        <p>
-                                                            In <strong>{new Date(landRecord.year).getFullYear()}</strong>, a land area of 
-                                                            <strong> {landRecord.area} acres</strong> produced 
-                                                            <strong> {landRecord.production} tons</strong> of <strong>{landRecord.crop}</strong>.
-                                                        </p>
 
-                                                        <p>
-                                                            Tincidunt Maur nemi sit Interdum praesento eget morbi lacinia volutpat pellentesque Tincidunt aurna suspit.
-                                                        </p>
+                                        {landRecords.map((landRecord,index) => (
+                                            <div key={index }className="col-lg-4 col-md-6 col-sm-12 news-block">
+                                                <div className="news-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                                                    <div className="inner-box">
+                                                        <figure className="image-box">
+                                                            <Link href="blog-details">
+                                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8LzmesVmNsCPwrABVIvdeXmvLIlkwBKhoA3PTsCQ7YbIlJDhBuplf3HQ9Msj3xzHCv7Y&usqp=CAU" alt="" />
+                                                            </Link>
+                                                        </figure>
+                                                        <div className="lower-content">
+                                                            <ul className="post-info mb_15 clearfix">
+                                                                <li>Land Id : {landRecord.land_id} | 
+                                                                {new Date(landRecord.year).toLocaleDateString()}
+                                                                </li>
+                                                            </ul>
+                                                            <h3>
+                                                                <Link href="#">Land Details</Link>
+                                                            </h3>
+                                                            <p>
+                                                                In <strong>{new Date(landRecord.year).getFullYear()}</strong>, a land area of 
+                                                                <strong> {landRecord.area} acres</strong> produced 
+                                                                <strong> {landRecord.production} tons</strong> of <strong>{landRecord.crop}</strong>.
+                                                            </p>
+
+                                                            <p>
+                                                                Tincidunt Maur nemi sit Interdum praesento eget morbi lacinia volutpat pellentesque Tincidunt aurna suspit.
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                        <div className="col-lg-6 col-md-6 col-sm-12 image-column">
-                                            <figure className="image-box mb_30"><img src="assets/images/service/service-8.jpg" alt="" /></figure>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-sm-12 image-column">
-                                            <figure className="image-box mb_30"><img src="assets/images/service/service-9.jpg" alt="" /></figure>
-                                        </div>
+                                        ))}
+                                        
                                     </div>
                                 </div>
                                 <div className="text-box">

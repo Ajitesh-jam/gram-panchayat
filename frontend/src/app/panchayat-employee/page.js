@@ -132,6 +132,12 @@ export default function Service() {
         // Sample data for pie chart
     const [pieData,setPieData] = useState([
     ]);
+    const [village,setVillage] = useState(
+        [
+            
+        ]
+    )
+
 
     useEffect(() => {
         const fetchCitizens = async () => {
@@ -139,6 +145,9 @@ export default function Service() {
                 const response = await axios.get(`api/citizen/get_village_citizens?village_id=${Employee.village_id}`);
                 console.log("Fetched citizens:", response.data);
                 setAllCitizen(response.data);
+                const Villageresponse = await axios.get(`api/village/get?village_id=${Employee.village_id}`);
+                console.log("village:",Villageresponse.data[0]);
+                setVillage(Villageresponse.data[0]);
 
             const households = {};
 
@@ -240,6 +249,31 @@ export default function Service() {
                         </div>
                     </div>
                 </section>
+
+                <section className="team-details sec-pad-2">
+                    <div className="auto-container">
+                        <div className="team-details-content mb_50">
+                            <div className="row clearfix">
+                                
+                                <div className="col-lg-7 col-md-12 col-sm-12 content-column">
+                                    <div className="content-box">
+                                        <h2>Village : {village.name}</h2>
+                                        <span className="designation">PIN CODE: {village.pin_code} </span>
+                                        
+                                        <ul className="info-list mb_30 clearfix">
+                                            <li><strong>Literacy rate : </strong>{village.literacy_rate}</li>
+                                            <li><strong>Sex ratio: </strong>{village.sex_ratio}</li>
+                                            <li><strong>State: </strong>{village.state}</li>
+                                            <li><strong>Death rate: </strong>{village.death_rate}</li>
+                                            <li><strong>Birth Rate id: </strong>{village.birth_rate}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <h1>Your Gram Citizens</h1> 
 
                 <section className="team-section sec-pad-2 centred">
